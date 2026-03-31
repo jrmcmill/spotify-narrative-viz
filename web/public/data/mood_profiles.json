@@ -1,0 +1,863 @@
+{
+  "sad": {
+    "playlists": 28,
+    "topTracks": [
+      {
+        "name": "Come and See Me (feat. Drake)",
+        "count": 7
+      },
+      {
+        "name": "Losin Control",
+        "count": 6
+      },
+      {
+        "name": "I Fall Apart",
+        "count": 6
+      },
+      {
+        "name": "Jungle",
+        "count": 6
+      },
+      {
+        "name": "Jocelyn Flores",
+        "count": 5
+      },
+      {
+        "name": "Thinkin Bout You",
+        "count": 5
+      },
+      {
+        "name": "Marvins Room",
+        "count": 5
+      },
+      {
+        "name": "i hate u, i love u (feat. olivia o'brien)",
+        "count": 5
+      },
+      {
+        "name": "Coaster",
+        "count": 5
+      },
+      {
+        "name": "Fuck Love (feat. Trippie Redd)",
+        "count": 5
+      },
+      {
+        "name": "Shot For Me",
+        "count": 5
+      },
+      {
+        "name": "Don't",
+        "count": 5
+      }
+    ],
+    "topArtists": [
+      {
+        "name": "Drake",
+        "count": 69
+      },
+      {
+        "name": "One Direction",
+        "count": 48
+      },
+      {
+        "name": "Ed Sheeran",
+        "count": 39
+      },
+      {
+        "name": "Adele",
+        "count": 23
+      },
+      {
+        "name": "XXXTENTACION",
+        "count": 22
+      },
+      {
+        "name": "The Weeknd",
+        "count": 21
+      },
+      {
+        "name": "Russ",
+        "count": 20
+      },
+      {
+        "name": "Bryson Tiller",
+        "count": 20
+      },
+      {
+        "name": "Chris Brown",
+        "count": 19
+      },
+      {
+        "name": "Khalid",
+        "count": 19
+      },
+      {
+        "name": "Post Malone",
+        "count": 17
+      },
+      {
+        "name": "Frank Ocean",
+        "count": 16
+      }
+    ],
+    "avgFeatures": {
+      "danceability": 0.5738394160583942,
+      "energy": 0.4882116788321169,
+      "valence": 0.3617080291970802,
+      "tempo": 122.30926277372265,
+      "acousticness": 0.4224079890510949,
+      "instrumentalness": 0.022173299124087605
+    },
+    "examples": [
+      "Sad Songs",
+      "feels",
+      "sad",
+      "tears.",
+      "in my feels",
+      "Feels",
+      "Sad songs",
+      "Feels",
+      "feels",
+      "sad"
+    ]
+  },
+  "hype": {
+    "playlists": 95,
+    "topTracks": [
+      {
+        "name": "Closer",
+        "count": 17
+      },
+      {
+        "name": "Broccoli (feat. Lil Yachty)",
+        "count": 14
+      },
+      {
+        "name": "HUMBLE.",
+        "count": 14
+      },
+      {
+        "name": "Mask Off",
+        "count": 14
+      },
+      {
+        "name": "Bad and Boujee (feat. Lil Uzi Vert)",
+        "count": 13
+      },
+      {
+        "name": "Trap Queen",
+        "count": 13
+      },
+      {
+        "name": "Caroline",
+        "count": 13
+      },
+      {
+        "name": "I'm the One",
+        "count": 13
+      },
+      {
+        "name": "Starboy",
+        "count": 12
+      },
+      {
+        "name": "Roses",
+        "count": 12
+      },
+      {
+        "name": "Black Beatles",
+        "count": 12
+      },
+      {
+        "name": "F**kin' Problems",
+        "count": 12
+      }
+    ],
+    "topArtists": [
+      {
+        "name": "Drake",
+        "count": 165
+      },
+      {
+        "name": "Future",
+        "count": 87
+      },
+      {
+        "name": "Kendrick Lamar",
+        "count": 84
+      },
+      {
+        "name": "Kanye West",
+        "count": 79
+      },
+      {
+        "name": "Chris Brown",
+        "count": 65
+      },
+      {
+        "name": "Rihanna",
+        "count": 61
+      },
+      {
+        "name": "Lil Uzi Vert",
+        "count": 60
+      },
+      {
+        "name": "The Weeknd",
+        "count": 58
+      },
+      {
+        "name": "Rae Sremmurd",
+        "count": 58
+      },
+      {
+        "name": "Big Sean",
+        "count": 57
+      },
+      {
+        "name": "Fetty Wap",
+        "count": 56
+      },
+      {
+        "name": "Calvin Harris",
+        "count": 54
+      }
+    ],
+    "avgFeatures": {
+      "danceability": 0.6470219072164951,
+      "energy": 0.6942953608247422,
+      "valence": 0.5452432989690723,
+      "tempo": 120.88871005154633,
+      "acousticness": 0.16465900773195874,
+      "instrumentalness": 0.02371021006443299
+    },
+    "examples": [
+      "Garage Rock",
+      "hype",
+      "Party Rock!!",
+      "party people",
+      "dance it out",
+      "party music",
+      "its lit",
+      "Solitude",
+      "LIT!!!!!!!",
+      "Dance"
+    ]
+  },
+  "study": {
+    "playlists": 11,
+    "topTracks": [
+      {
+        "name": "Still, Still, Still",
+        "count": 3
+      },
+      {
+        "name": "FourFiveSeconds",
+        "count": 3
+      },
+      {
+        "name": "Hallelujah",
+        "count": 2
+      },
+      {
+        "name": "Let It Go",
+        "count": 2
+      },
+      {
+        "name": "Stay With Me",
+        "count": 2
+      },
+      {
+        "name": "Bad Intentions",
+        "count": 2
+      },
+      {
+        "name": "Surrender",
+        "count": 2
+      },
+      {
+        "name": "Planez",
+        "count": 2
+      },
+      {
+        "name": "OctaHate",
+        "count": 2
+      },
+      {
+        "name": "Slow Motion",
+        "count": 2
+      },
+      {
+        "name": "Work Out",
+        "count": 2
+      },
+      {
+        "name": "Let's Get Lost",
+        "count": 2
+      }
+    ],
+    "topArtists": [
+      {
+        "name": "Michael Silverman",
+        "count": 18
+      },
+      {
+        "name": "Rockabye Baby!",
+        "count": 16
+      },
+      {
+        "name": "Sara Bareilles",
+        "count": 12
+      },
+      {
+        "name": "Arms and Sleepers",
+        "count": 12
+      },
+      {
+        "name": "the bird and the bee",
+        "count": 11
+      },
+      {
+        "name": "Maroon 5",
+        "count": 10
+      },
+      {
+        "name": "Kelly Clarkson",
+        "count": 10
+      },
+      {
+        "name": "Sam Smith",
+        "count": 9
+      },
+      {
+        "name": "J. Cole",
+        "count": 9
+      },
+      {
+        "name": "Justin Timberlake",
+        "count": 9
+      },
+      {
+        "name": "Train",
+        "count": 9
+      },
+      {
+        "name": "American Authors",
+        "count": 9
+      }
+    ],
+    "avgFeatures": {
+      "danceability": 0.5288666666666669,
+      "energy": 0.5760824444444446,
+      "valence": 0.43343666666666686,
+      "tempo": 123.45952222222222,
+      "acousticness": 0.33310512555555555,
+      "instrumentalness": 0.18565976522222222
+    },
+    "examples": [
+      "studying music",
+      "Studying",
+      "Homework",
+      "Instrumental",
+      "study",
+      "study",
+      "Classical Study Music \u2013 Classical Study Music",
+      "Study",
+      "study!",
+      "study"
+    ]
+  },
+  "workout": {
+    "playlists": 56,
+    "topTracks": [
+      {
+        "name": "POWER",
+        "count": 8
+      },
+      {
+        "name": "Radioactive",
+        "count": 7
+      },
+      {
+        "name": "Black Skinhead",
+        "count": 7
+      },
+      {
+        "name": "Sorry",
+        "count": 6
+      },
+      {
+        "name": "Problem",
+        "count": 6
+      },
+      {
+        "name": "Bonfire",
+        "count": 6
+      },
+      {
+        "name": "Closer",
+        "count": 6
+      },
+      {
+        "name": "I Love It (feat. Charli XCX) - feat. Charli XCX [Original Version]",
+        "count": 6
+      },
+      {
+        "name": "Shut Up and Dance",
+        "count": 6
+      },
+      {
+        "name": "Bang Bang",
+        "count": 6
+      },
+      {
+        "name": "Roar",
+        "count": 6
+      },
+      {
+        "name": "This Girl (Kungs Vs. Cookin' On 3 Burners) - Kungs Vs. Cookin' On 3 Burners",
+        "count": 5
+      }
+    ],
+    "topArtists": [
+      {
+        "name": "Drake",
+        "count": 54
+      },
+      {
+        "name": "Bruno Mars",
+        "count": 50
+      },
+      {
+        "name": "Running Cadence",
+        "count": 50
+      },
+      {
+        "name": "Kanye West",
+        "count": 46
+      },
+      {
+        "name": "Rihanna",
+        "count": 38
+      },
+      {
+        "name": "Future",
+        "count": 32
+      },
+      {
+        "name": "Eminem",
+        "count": 31
+      },
+      {
+        "name": "Paramore",
+        "count": 28
+      },
+      {
+        "name": "Calvin Harris",
+        "count": 26
+      },
+      {
+        "name": "JAY Z",
+        "count": 26
+      },
+      {
+        "name": "Lady Gaga",
+        "count": 23
+      },
+      {
+        "name": "Beyonc\u00e9",
+        "count": 23
+      }
+    ],
+    "avgFeatures": {
+      "danceability": 0.5811973684210529,
+      "energy": 0.785786842105263,
+      "valence": 0.5187602631578953,
+      "tempo": 127.04782368421064,
+      "acousticness": 0.0888880802631579,
+      "instrumentalness": 0.023893536657894714
+    },
+    "examples": [
+      "run it",
+      "Running 2.0",
+      "Running 2",
+      "Run!!",
+      "Workout",
+      "Workout2",
+      "Gym",
+      "#boostyourrun",
+      "#Workout",
+      "running"
+    ]
+  },
+  "sleep": {
+    "playlists": 27,
+    "topTracks": [
+      {
+        "name": "Let Her Go",
+        "count": 5
+      },
+      {
+        "name": "Hallelujah",
+        "count": 5
+      },
+      {
+        "name": "The Scientist",
+        "count": 4
+      },
+      {
+        "name": "I See Fire",
+        "count": 4
+      },
+      {
+        "name": "Drops of Jupiter",
+        "count": 4
+      },
+      {
+        "name": "To Build A Home",
+        "count": 4
+      },
+      {
+        "name": "Skinny Love",
+        "count": 4
+      },
+      {
+        "name": "Holocene",
+        "count": 4
+      },
+      {
+        "name": "A Thousand Years",
+        "count": 3
+      },
+      {
+        "name": "Slow It Down",
+        "count": 3
+      },
+      {
+        "name": "Georgia",
+        "count": 3
+      },
+      {
+        "name": "All I Want",
+        "count": 3
+      }
+    ],
+    "topArtists": [
+      {
+        "name": "Bon Iver",
+        "count": 24
+      },
+      {
+        "name": "Panic! At The Disco",
+        "count": 22
+      },
+      {
+        "name": "Ed Sheeran",
+        "count": 19
+      },
+      {
+        "name": "5 Seconds of Summer",
+        "count": 19
+      },
+      {
+        "name": "Jack Johnson",
+        "count": 18
+      },
+      {
+        "name": "Karunesh",
+        "count": 17
+      },
+      {
+        "name": "Coldplay",
+        "count": 16
+      },
+      {
+        "name": "Oh Wonder",
+        "count": 13
+      },
+      {
+        "name": "The Lumineers",
+        "count": 13
+      },
+      {
+        "name": "Bruno Mars",
+        "count": 12
+      },
+      {
+        "name": "The Paper Kites",
+        "count": 12
+      },
+      {
+        "name": "Sufjan Stevens",
+        "count": 12
+      }
+    ],
+    "avgFeatures": {
+      "danceability": 0.509776978417266,
+      "energy": 0.493006474820144,
+      "valence": 0.3616575539568345,
+      "tempo": 121.46066906474815,
+      "acousticness": 0.41458517985611526,
+      "instrumentalness": 0.0661326366906475
+    },
+    "examples": [
+      "relax",
+      "sleep",
+      "relax",
+      "relax",
+      "Relaxing",
+      "sleep",
+      "Relax",
+      "#Relaxed",
+      "Sleep",
+      "Sleep~"
+    ]
+  },
+  "road_trip": {
+    "playlists": 40,
+    "topTracks": [
+      {
+        "name": "Home",
+        "count": 8
+      },
+      {
+        "name": "Don't Let Me Down",
+        "count": 6
+      },
+      {
+        "name": "Trap Queen",
+        "count": 5
+      },
+      {
+        "name": "Waves",
+        "count": 5
+      },
+      {
+        "name": "Broccoli (feat. Lil Yachty)",
+        "count": 5
+      },
+      {
+        "name": "My Girl",
+        "count": 5
+      },
+      {
+        "name": "Panda",
+        "count": 5
+      },
+      {
+        "name": "Famous",
+        "count": 4
+      },
+      {
+        "name": "Father Stretch My Hands Pt. 1",
+        "count": 4
+      },
+      {
+        "name": "Caroline",
+        "count": 4
+      },
+      {
+        "name": "HUMBLE.",
+        "count": 4
+      },
+      {
+        "name": "She Knows",
+        "count": 4
+      }
+    ],
+    "topArtists": [
+      {
+        "name": "Running Cadence",
+        "count": 50
+      },
+      {
+        "name": "Avenged Sevenfold",
+        "count": 30
+      },
+      {
+        "name": "Kanye West",
+        "count": 27
+      },
+      {
+        "name": "Drake",
+        "count": 23
+      },
+      {
+        "name": "DJ Khaled",
+        "count": 22
+      },
+      {
+        "name": "Bon Iver",
+        "count": 21
+      },
+      {
+        "name": "Five Finger Death Punch",
+        "count": 20
+      },
+      {
+        "name": "The U.S. Navy",
+        "count": 19
+      },
+      {
+        "name": "Imagine Dragons",
+        "count": 18
+      },
+      {
+        "name": "Wiz Khalifa",
+        "count": 16
+      },
+      {
+        "name": "Chris Brown",
+        "count": 16
+      },
+      {
+        "name": "Kendrick Lamar",
+        "count": 15
+      }
+    ],
+    "avgFeatures": {
+      "danceability": 0.5783263888888883,
+      "energy": 0.6696798611111112,
+      "valence": 0.5000815972222225,
+      "tempo": 119.17642013888891,
+      "acousticness": 0.21285778298611116,
+      "instrumentalness": 0.03491501826388888
+    },
+    "examples": [
+      "Road Trippin'",
+      "roadtrippin",
+      "eurotrip",
+      "Trip",
+      "Road Trip Mix",
+      "car tunes",
+      "car playlist",
+      "TRIPPIn",
+      "Traveling",
+      "Roadtrip"
+    ]
+  },
+  "romance": {
+    "playlists": 27,
+    "topTracks": [
+      {
+        "name": "Marry Me",
+        "count": 8
+      },
+      {
+        "name": "Thinking Out Loud",
+        "count": 7
+      },
+      {
+        "name": "My Girl",
+        "count": 5
+      },
+      {
+        "name": "Marry You",
+        "count": 4
+      },
+      {
+        "name": "Can't Help Falling in Love",
+        "count": 4
+      },
+      {
+        "name": "Uptown Funk",
+        "count": 4
+      },
+      {
+        "name": "Shut Up and Dance",
+        "count": 4
+      },
+      {
+        "name": "All of Me",
+        "count": 4
+      },
+      {
+        "name": "I Won't Give Up",
+        "count": 4
+      },
+      {
+        "name": "Party In The U.S.A.",
+        "count": 3
+      },
+      {
+        "name": "Sweet Caroline",
+        "count": 3
+      },
+      {
+        "name": "Cupid Shuffle",
+        "count": 3
+      }
+    ],
+    "topArtists": [
+      {
+        "name": "Michael Bubl\u00e9",
+        "count": 37
+      },
+      {
+        "name": "Drake",
+        "count": 19
+      },
+      {
+        "name": "The Beatles",
+        "count": 19
+      },
+      {
+        "name": "The Beach Boys",
+        "count": 15
+      },
+      {
+        "name": "R. Kelly",
+        "count": 14
+      },
+      {
+        "name": "The Weeknd",
+        "count": 14
+      },
+      {
+        "name": "Chris Brown",
+        "count": 13
+      },
+      {
+        "name": "Trey Songz",
+        "count": 11
+      },
+      {
+        "name": "Frank Sinatra",
+        "count": 11
+      },
+      {
+        "name": "Ed Sheeran",
+        "count": 10
+      },
+      {
+        "name": "Rascal Flatts",
+        "count": 10
+      },
+      {
+        "name": "Halsey",
+        "count": 10
+      }
+    ],
+    "avgFeatures": {
+      "danceability": 0.6012567567567567,
+      "energy": 0.6097689189189188,
+      "valence": 0.5741668918918919,
+      "tempo": 121.98794594594592,
+      "acousticness": 0.2874267162162163,
+      "instrumentalness": 0.016961931554054052
+    },
+    "examples": [
+      "Wedding",
+      "Love Music",
+      "Love",
+      "Love",
+      "Wedding",
+      "Summer of love",
+      "love",
+      "Wedding Dance Party",
+      "Wedding Cocktail Hour",
+      "Wedding"
+    ]
+  }
+}

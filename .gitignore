@@ -1,0 +1,27 @@
+# macOS
+.DS_Store
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# Node
+node_modules/
+web/node_modules/
+web/dist/
+
+# Generated data artifacts
+# Ignore all generated files in web/public/data by default,
+# then explicitly allow only runtime assets used by the site.
+web/public/data/*
+!web/public/data/.gitkeep
+!web/public/data/summary.json
+!web/public/data/title_clusters.json
+!web/public/data/mood_profiles.json
+!web/public/data/consensus.json
+!web/public/data/flow.json
+
+# Raw source datasets (large)
+data/track_features.csv
+data/spotify_million_playlist_dataset/data/*.json

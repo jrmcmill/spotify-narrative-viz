@@ -1,0 +1,51 @@
+[
+  {
+    "category": "sad",
+    "playlists": 28,
+    "simpson": 2.772959183673532,
+    "top50AvgShare": 0.12571428571428556,
+    "uniqueTracks": 1187
+  },
+  {
+    "category": "study",
+    "playlists": 11,
+    "simpson": 8.528925619834618,
+    "top50AvgShare": 0.12363636363636359,
+    "uniqueTracks": 978
+  },
+  {
+    "category": "hype",
+    "playlists": 95,
+    "simpson": 2.167645429362679,
+    "top50AvgShare": 0.10399999999999998,
+    "uniqueTracks": 5023
+  },
+  {
+    "category": "romance",
+    "playlists": 27,
+    "simpson": 2.417009602194747,
+    "top50AvgShare": 0.09629629629629634,
+    "uniqueTracks": 1290
+  },
+  {
+    "category": "sleep",
+    "playlists": 27,
+    "simpson": 2.331961591220808,
+    "top50AvgShare": 0.0925925925925926,
+    "uniqueTracks": 1274
+  },
+  {
+    "category": "road_trip",
+    "playlists": 40,
+    "simpson": 2.0875000000000816,
+    "top50AvgShare": 0.08000000000000006,
+    "uniqueTracks": 2356
+  },
+  {
+    "category": "workout",
+    "playlists": 56,
+    "simpson": 1.7330994897958332,
+    "top50AvgShare": 0.07642857142857144,
+    "uniqueTracks": 2948
+  }
+]

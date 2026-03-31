@@ -1,0 +1,262 @@
+{
+  "totalPlaylists": 2000,
+  "totalTracksSeen": 18834,
+  "categories": {
+    "sad": 28,
+    "hype": 95,
+    "study": 11,
+    "workout": 56,
+    "sleep": 27,
+    "road_trip": 40,
+    "romance": 27
+  },
+  "topWords": [
+    {
+      "word": "country",
+      "count": 73
+    },
+    {
+      "word": "chill",
+      "count": 53
+    },
+    {
+      "word": "summer",
+      "count": 46
+    },
+    {
+      "word": "rock",
+      "count": 42
+    },
+    {
+      "word": "party",
+      "count": 37
+    },
+    {
+      "word": "good",
+      "count": 33
+    },
+    {
+      "word": "rap",
+      "count": 29
+    },
+    {
+      "word": "christmas",
+      "count": 27
+    },
+    {
+      "word": "workout",
+      "count": 24
+    },
+    {
+      "word": "old",
+      "count": 22
+    },
+    {
+      "word": "jams",
+      "count": 22
+    },
+    {
+      "word": "oldies",
+      "count": 20
+    },
+    {
+      "word": "dance",
+      "count": 19
+    },
+    {
+      "word": "car",
+      "count": 16
+    },
+    {
+      "word": "stuff",
+      "count": 16
+    },
+    {
+      "word": "wedding",
+      "count": 15
+    },
+    {
+      "word": "you",
+      "count": 15
+    },
+    {
+      "word": "fall",
+      "count": 15
+    },
+    {
+      "word": "hits",
+      "count": 15
+    },
+    {
+      "word": "worship",
+      "count": 15
+    },
+    {
+      "word": "disney",
+      "count": 14
+    },
+    {
+      "word": "love",
+      "count": 13
+    },
+    {
+      "word": "feels",
+      "count": 13
+    },
+    {
+      "word": "out",
+      "count": 12
+    },
+    {
+      "word": "lit",
+      "count": 12
+    },
+    {
+      "word": "pop",
+      "count": 12
+    },
+    {
+      "word": "spanish",
+      "count": 11
+    },
+    {
+      "word": "time",
+      "count": 11
+    },
+    {
+      "word": "happy",
+      "count": 11
+    },
+    {
+      "word": "work",
+      "count": 11
+    },
+    {
+      "word": "sad",
+      "count": 10
+    },
+    {
+      "word": "run",
+      "count": 10
+    },
+    {
+      "word": "classic",
+      "count": 10
+    },
+    {
+      "word": "slow",
+      "count": 9
+    },
+    {
+      "word": "running",
+      "count": 9
+    },
+    {
+      "word": "vibes",
+      "count": 9
+    },
+    {
+      "word": "spring",
+      "count": 9
+    },
+    {
+      "word": "random",
+      "count": 9
+    },
+    {
+      "word": "classics",
+      "count": 9
+    },
+    {
+      "word": "christian",
+      "count": 9
+    },
+    {
+      "word": "throwback",
+      "count": 9
+    },
+    {
+      "word": "90s",
+      "count": 8
+    },
+    {
+      "word": "sleep",
+      "count": 8
+    },
+    {
+      "word": "'17",
+      "count": 8
+    },
+    {
+      "word": "indie",
+      "count": 8
+    },
+    {
+      "word": "road",
+      "count": 8
+    },
+    {
+      "word": "favorite",
+      "count": 8
+    },
+    {
+      "word": "alternative",
+      "count": 8
+    },
+    {
+      "word": "shower",
+      "count": 8
+    },
+    {
+      "word": "school",
+      "count": 8
+    },
+    {
+      "word": "favorites",
+      "count": 8
+    },
+    {
+      "word": "study",
+      "count": 8
+    },
+    {
+      "word": "relax",
+      "count": 7
+    },
+    {
+      "word": "90's",
+      "count": 7
+    },
+    {
+      "word": "gospel",
+      "count": 7
+    },
+    {
+      "word": "tunes",
+      "count": 7
+    },
+    {
+      "word": "alt",
+      "count": 7
+    },
+    {
+      "word": "top",
+      "count": 7
+    },
+    {
+      "word": "trip",
+      "count": 7
+    },
+    {
+      "word": "pregame",
+      "count": 7
+    }
+  ],
+  "generatedFromSlices": 2,
+  "embedding": {
+    "playlistCount": 2000,
+    "vectorSize": 128,
+    "epochs": 2,
+    "vizSampleSize": 800
+  }
+}
