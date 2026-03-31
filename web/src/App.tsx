@@ -235,6 +235,48 @@ function App() {
     return consensus.filter((row) => row.category === selectedMood)
   }, [consensus, selectedMood])
 
+  const consensusFocus = useMemo(() => {
+    if (!consensus || selectedMood === ALL_MOOD_OPTION) {
+      return null
+    }
+
+    const enriched = consensus.map((row) => ({
+      ...row,
+      uniquePerPlaylist: row.playlists > 0 ? row.uniqueTracks / row.playlists : 0,
+    }))
+
+    const selected = enriched.find((row) => row.category === selectedMood)
+    if (!selected) {
+      return null
+    }
+
+    const topShareSorted = [...enriched].sort((a, b) => b.top50AvgShare - a.top50AvgShare)
+    const chaosSorted = [...enriched].sort((a, b) => b.uniquePerPlaylist - a.uniquePerPlaylist)
+    const shareRank = topShareSorted.findIndex((row) => row.category === selectedMood) + 1
+    const chaosRank = chaosSorted.findIndex((row) => row.category === selectedMood) + 1
+
+    const xs = enriched.map((row) => row.top50AvgShare)
+    const ys = enriched.map((row) => row.uniquePerPlaylist)
+    const medianX = topShareSorted[Math.floor(topShareSorted.length / 2)]?.top50AvgShare ?? selected.top50AvgShare
+    const medianY = chaosSorted[Math.floor(chaosSorted.length / 2)]?.uniquePerPlaylist ?? selected.uniquePerPlaylist
+
+    return {
+      rows: enriched,
+      selected,
+      shareRank,
+      chaosRank,
+      total: enriched.length,
+      bounds: {
+        minX: Math.min(...xs),
+        maxX: Math.max(...xs),
+        minY: Math.min(...ys),
+        maxY: Math.max(...ys),
+        medianX,
+        medianY,
+      },
+    }
+  }, [consensus, selectedMood])
+
   if (!summary || !titleClusters || !moodProfiles || !consensus || !flow) {
     return <main className="loading">Preparing the story view...</main>
   }
@@ -499,6 +541,95 @@ function App() {
               )
             })}
           </ul>
+
+          {consensusFocus ? (
+            <div className="consensus-focus-panel">
+              <div className="consensus-focus-header">
+                <h3>Mood Position Map</h3>
+                <p>
+                  <strong>{consensusFocus.selected.category.replace('_', ' ')}</strong> ranks #{consensusFocus.shareRank}/
+                  {consensusFocus.total} on consensus strength and #{consensusFocus.chaosRank}/{consensusFocus.total} on
+                  diversity pressure.
+                </p>
+              </div>
+              <svg viewBox="0 0 900 310" className="consensus-scatter" role="img" aria-label="Consensus versus diversity position map">
+                <rect x="0" y="0" width="900" height="310" className="flow-bg" />
+                <line x1="80" y1="240" x2="860" y2="240" stroke="#cbd5e0" strokeWidth="1.5" />
+                <line x1="80" y1="40" x2="80" y2="240" stroke="#cbd5e0" strokeWidth="1.5" />
+
+                <line
+                  x1={80 + ((consensusFocus.bounds.medianX - consensusFocus.bounds.minX) / Math.max(0.0001, consensusFocus.bounds.maxX - consensusFocus.bounds.minX)) * 780}
+                  y1="40"
+                  x2={80 + ((consensusFocus.bounds.medianX - consensusFocus.bounds.minX) / Math.max(0.0001, consensusFocus.bounds.maxX - consensusFocus.bounds.minX)) * 780}
+                  y2="240"
+                  stroke="#9fb3c8"
+                  strokeDasharray="6 5"
+                  opacity="0.8"
+                />
+                <line
+                  x1="80"
+                  y1={240 - ((consensusFocus.bounds.medianY - consensusFocus.bounds.minY) / Math.max(0.0001, consensusFocus.bounds.maxY - consensusFocus.bounds.minY)) * 200}
+                  x2="860"
+                  y2={240 - ((consensusFocus.bounds.medianY - consensusFocus.bounds.minY) / Math.max(0.0001, consensusFocus.bounds.maxY - consensusFocus.bounds.minY)) * 200}
+                  stroke="#9fb3c8"
+                  strokeDasharray="6 5"
+                  opacity="0.8"
+                />
+
+                <text x="96" y="56" className="consensus-quadrant-label">Shared but Diverse</text>
+                <text x="648" y="56" className="consensus-quadrant-label">Strong Consensus</text>
+                <text x="96" y="228" className="consensus-quadrant-label">Niche and Fragmented</text>
+                <text x="648" y="228" className="consensus-quadrant-label">Cohesive Mainstream</text>
+
+                {consensusFocus.rows.map((row) => {
+                  const x =
+                    80 +
+                    ((row.top50AvgShare - consensusFocus.bounds.minX) /
+                      Math.max(0.0001, consensusFocus.bounds.maxX - consensusFocus.bounds.minX)) *
+                      780
+                  const y =
+                    240 -
+                    ((row.uniquePerPlaylist - consensusFocus.bounds.minY) /
+                      Math.max(0.0001, consensusFocus.bounds.maxY - consensusFocus.bounds.minY)) *
+                      200
+                  const selected = row.category === selectedMood
+                  return (
+                    <g key={row.category}>
+                      <circle
+                        cx={x}
+                        cy={y}
+                        r={selected ? 8 : 5}
+                        fill={selected ? '#f28c28' : '#6b7c93'}
+                        stroke={selected ? '#8a3b12' : 'none'}
+                        strokeWidth={selected ? 2 : 0}
+                        opacity={selected ? 1 : 0.65}
+                        onMouseEnter={onTooltipEnter(
+                          `${row.category}: consensus ${(row.top50AvgShare * 100).toFixed(2)}%, diversity pressure ${row.uniquePerPlaylist.toFixed(2)} unique tracks/playlist`,
+                        )}
+                        onMouseMove={onTooltipMove}
+                        onMouseLeave={onTooltipLeave}
+                      />
+                      {selected ? (
+                        <text x={x + 10} y={y - 8} className="consensus-selected-label">
+                          {row.category.replace('_', ' ')}
+                        </text>
+                      ) : null}
+                    </g>
+                  )
+                })}
+
+                <text x="470" y="275" className="axis-title" textAnchor="middle">
+                  Consensus Strength (Top-50 Avg Share)
+                </text>
+                <text x="26" y="145" className="axis-title" textAnchor="middle" transform="rotate(-90 26 145)">
+                  Diversity Pressure (Unique Tracks / Playlist)
+                </text>
+                <text x="862" y="252" className="consensus-guide-label" textAnchor="end">
+                  Median splits shown as dashed guides
+                </text>
+              </svg>
+            </div>
+          ) : null}
         </div>
       </section>
 
