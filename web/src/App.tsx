@@ -1,4 +1,4 @@
-import { CSSProperties, useEffect, useMemo, useState } from 'react'
+import { CSSProperties, MouseEvent, useEffect, useMemo, useState } from 'react'
 import './App.css'
 import { useInView } from './hooks/useInView'
 import { useCountUp } from './hooks/useCountUp'
@@ -48,7 +48,24 @@ type FlowPoint = {
 
 type FlowData = Record<string, FlowPoint[]>
 
+type TooltipState = {
+  visible: boolean
+  text: string
+  x: number
+  y: number
+}
+
 const CLUSTER_COLORS = ['#0f4c81', '#f28c28', '#1f7a3f', '#8a3b12', '#7d2e68', '#177e89', '#b33939', '#4b5563']
+const ALL_MOOD_OPTION = 'all'
+const MOOD_HINT_KEYWORDS: Record<string, string[]> = {
+  sad: ['sad', 'cry', 'heartbreak', 'breakup', 'depressed', 'lonely', 'pain', 'tears', 'feels'],
+  hype: ['hype', 'lit', 'party', 'banger', 'rage', 'club', 'dance'],
+  study: ['study', 'focus', 'deep', 'homework', 'coding', 'productivity', 'lofi', 'instrumental'],
+  workout: ['gym', 'workout', 'running', 'run', 'lifting', 'cardio', 'training', 'exercise'],
+  sleep: ['sleep', 'bedtime', 'night', 'calm', 'meditation', 'ambient', 'rain', 'rest', 'relax'],
+  road_trip: ['road', 'trip', 'driving', 'car', 'highway', 'travel', 'adventure'],
+  romance: ['love', 'romance', 'wedding', 'date', 'valentine', 'crush', 'kiss'],
+}
 
 function App() {
   const [summary, setSummary] = useState<Summary | null>(null)
@@ -56,7 +73,8 @@ function App() {
   const [moodProfiles, setMoodProfiles] = useState<MoodProfiles | null>(null)
   const [consensus, setConsensus] = useState<ConsensusRow[] | null>(null)
   const [flow, setFlow] = useState<FlowData | null>(null)
-  const [selectedMood, setSelectedMood] = useState<string>('study')
+  const [selectedMood, setSelectedMood] = useState<string>(ALL_MOOD_OPTION)
+  const [tooltip, setTooltip] = useState<TooltipState>({ visible: false, text: '', x: 0, y: 0 })
 
   // Call all hooks at the top level before any conditional returns
   const heroRef = useInView()
@@ -89,7 +107,7 @@ function App() {
 
       const moodNames = Object.keys(moods)
       if (moodNames.length > 0) {
-        setSelectedMood((current) => (moodNames.includes(current) ? current : moodNames[0]))
+        setSelectedMood((current) => (current === ALL_MOOD_OPTION || moodNames.includes(current) ? current : moodNames[0]))
       }
     }
 
@@ -113,13 +131,144 @@ function App() {
     }
   }, [titleClusters])
 
+  const moodNames = useMemo(() => (moodProfiles ? Object.keys(moodProfiles) : []), [moodProfiles])
+  const moodOptions = useMemo(() => [ALL_MOOD_OPTION, ...moodNames], [moodNames])
+  const selectedMoodKeywords = useMemo(
+    () => new Set(MOOD_HINT_KEYWORDS[selectedMood] ?? []),
+    [selectedMood],
+  )
+
+  const allMoodAggregate = useMemo(() => {
+    if (!moodProfiles) {
+      return null
+    }
+
+    const artistCounts = new Map<string, number>()
+    const featureWeightedSums = new Map<string, number>()
+    let totalPlaylists = 0
+
+    Object.values(moodProfiles).forEach((profile) => {
+      const weight = profile.playlists
+      totalPlaylists += weight
+
+      profile.topArtists.forEach((artist) => {
+        artistCounts.set(artist.name, (artistCounts.get(artist.name) ?? 0) + artist.count)
+      })
+
+      Object.entries(profile.avgFeatures).forEach(([key, value]) => {
+        featureWeightedSums.set(key, (featureWeightedSums.get(key) ?? 0) + value * weight)
+      })
+    })
+
+    const topArtists = [...artistCounts.entries()]
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count)
+      .slice(0, 12)
+
+    const avgFeatures: Record<string, number> = {}
+    featureWeightedSums.forEach((sum, key) => {
+      avgFeatures[key] = totalPlaylists > 0 ? sum / totalPlaylists : 0
+    })
+
+    return {
+      playlists: totalPlaylists,
+      topTracks: [],
+      topArtists,
+      avgFeatures,
+      examples: [],
+    }
+  }, [moodProfiles])
+
+  const activeMood = useMemo(() => {
+    if (!moodProfiles || moodNames.length === 0) {
+      return null
+    }
+    if (selectedMood === ALL_MOOD_OPTION) {
+      return allMoodAggregate
+    }
+    return moodProfiles[selectedMood] ?? moodProfiles[moodNames[0]]
+  }, [allMoodAggregate, moodNames, moodProfiles, selectedMood])
+
+  const activeFlow = useMemo(() => {
+    if (!flow || moodNames.length === 0 || !moodProfiles) {
+      return [] as FlowPoint[]
+    }
+
+    if (selectedMood !== ALL_MOOD_OPTION) {
+      return flow[selectedMood] ?? flow[moodNames[0]] ?? []
+    }
+
+    const maxBins = Math.max(...moodNames.map((m) => (flow[m] ?? []).length), 0)
+    const features: Array<keyof FlowPoint> = ['energy', 'valence', 'tempo']
+
+    return Array.from({ length: maxBins }, (_, bin) => {
+      const row: FlowPoint = { bin, energy: null, valence: null, tempo: null }
+      features.forEach((feature) => {
+        if (feature === 'bin') {
+          return
+        }
+        let weightedSum = 0
+        let totalWeight = 0
+        moodNames.forEach((mood) => {
+          const point = flow[mood]?.[bin]
+          const value = point?.[feature]
+          if (value === null || value === undefined) {
+            return
+          }
+          const weight = moodProfiles[mood]?.playlists ?? 0
+          weightedSum += value * weight
+          totalWeight += weight
+        })
+        row[feature] = totalWeight > 0 ? weightedSum / totalWeight : null
+      })
+      return row
+    })
+  }, [flow, moodNames, moodProfiles, selectedMood])
+
+  const consensusRows = useMemo(() => {
+    if (!consensus) {
+      return []
+    }
+    if (selectedMood === ALL_MOOD_OPTION) {
+      return consensus
+    }
+    return consensus.filter((row) => row.category === selectedMood)
+  }, [consensus, selectedMood])
+
   if (!summary || !titleClusters || !moodProfiles || !consensus || !flow) {
     return <main className="loading">Preparing the story view...</main>
   }
 
-  const moodNames = Object.keys(moodProfiles)
-  const activeMood = moodProfiles[selectedMood] ?? moodProfiles[moodNames[0]]
-  const activeFlow = flow[selectedMood] ?? flow[moodNames[0]] ?? []
+  const moodLabel = selectedMood === ALL_MOOD_OPTION ? 'all moods' : selectedMood.replace('_', ' ')
+  const isPointMoodMatch = (title: string) => {
+    if (selectedMood === ALL_MOOD_OPTION) {
+      return true
+    }
+    const value = title.toLowerCase()
+    return [...selectedMoodKeywords].some((keyword) => value.includes(keyword))
+  }
+
+  const onTooltipEnter =
+    (text: string) =>
+    (event: MouseEvent<HTMLElement | SVGElement>): void => {
+      setTooltip({ visible: true, text, x: event.clientX + 14, y: event.clientY + 14 })
+    }
+
+  const onTooltipMove = (event: MouseEvent<HTMLElement | SVGElement>): void => {
+    setTooltip((current) =>
+      current.visible
+        ? {
+            ...current,
+            x: event.clientX + 14,
+            y: event.clientY + 14,
+          }
+        : current,
+    )
+  }
+
+  const onTooltipLeave = (): void => {
+    setTooltip((current) => ({ ...current, visible: false }))
+  }
 
   return (
     <main className="page-with-sidebar">
@@ -127,14 +276,14 @@ function App() {
         <div className="mood-sidebar-content">
           <h3 className="mood-sidebar-title">Explore Mood</h3>
           <div className="sidebar-mood-buttons">
-            {moodNames.map((mood) => (
+            {moodOptions.map((mood) => (
               <button
                 key={mood}
                 className={mood === selectedMood ? 'mood-btn mood-btn-active' : 'mood-btn'}
                 onClick={() => setSelectedMood(mood)}
                 title={`Switch to ${mood} mood`}
               >
-                {mood.replace('_', ' ')}
+                {mood === ALL_MOOD_OPTION ? 'all' : mood.replace('_', ' ')}
               </button>
             ))}
           </div>
@@ -169,15 +318,23 @@ function App() {
         <h2 className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>1. The Language of Playlists</h2>
         <p className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>
           A few words dominate playlist names. They reveal the intents behind listening: emotions, routines, and
-          identities.
+          identities. Mood focus: <strong>{moodLabel}</strong>.
         </p>
         <div className={`card ${wordBarsRef.isInView ? 'visible' : ''}`}>
           <ul className="word-bars">
             {summary.topWords.slice(0, 24).map((item, idx) => {
               const width = (item.count / summary.topWords[0].count) * 100
               const delayMs = wordBarsRef.isInView ? idx * 30 : 0
+              const moodHit = selectedMood === ALL_MOOD_OPTION || selectedMoodKeywords.has(item.word)
               return (
-                <li key={item.word} className="word-bar-item" style={{ animationDelay: `${delayMs}ms` }}>
+                <li
+                  key={item.word}
+                  className={`word-bar-item ${moodHit ? 'mood-highlight' : 'mood-dim'}`}
+                  style={{ animationDelay: `${delayMs}ms` }}
+                  onMouseEnter={onTooltipEnter(`${item.word}: ${item.count.toLocaleString()} playlists`)}
+                  onMouseMove={onTooltipMove}
+                  onMouseLeave={onTooltipLeave}
+                >
                   <span className="word-label">{item.word}</span>
                   <div className="word-track">
                     <div className={`word-fill ${wordBarsRef.isInView ? 'animated' : ''}`} style={{ '--target-width': `${width}%` } as CSSWithCustomProperties} />
@@ -193,8 +350,8 @@ function App() {
       <section className="story-block" ref={clustersRef.ref}>
         <h2 className={`fade-in-text ${clustersRef.isInView ? 'visible' : ''}`}>2. Theme Clusters in Titles</h2>
         <p className={`fade-in-text ${clustersRef.isInView ? 'visible' : ''}`}>
-          We embedded playlist names with TF-IDF and grouped them into clusters. Dense regions represent shared naming
-          cultures.
+          We learned playlist embeddings from playlist language (title + track/artist tokens) and grouped them into
+          clusters. Showing emphasis for <strong>{moodLabel}</strong>.
         </p>
         <div className={`card ${clustersRef.isInView ? 'visible' : ''}`}>
           {clusterBounds ? (
@@ -209,6 +366,7 @@ function App() {
                   ((point.y - clusterBounds.minY) / Math.max(0.0001, clusterBounds.maxY - clusterBounds.minY)) * 380
                 const radius = Math.min(7, 2 + Math.log10(point.count + 1))
                 const delayMs = clustersRef.isInView ? (idx % 40) * 12 : 0
+                const moodHit = isPointMoodMatch(point.title)
                 return (
                   <circle
                     key={`${point.title}-${point.cluster}`}
@@ -216,21 +374,30 @@ function App() {
                     cy={y}
                     r={radius}
                     fill={CLUSTER_COLORS[point.cluster % CLUSTER_COLORS.length]}
-                    fillOpacity={0.58}
+                    fillOpacity={moodHit ? 0.75 : 0.16}
+                    stroke={moodHit ? '#102a43' : 'none'}
+                    strokeWidth={moodHit ? 0.5 : 0}
                     className={clustersRef.isInView ? 'cluster-point-animate' : ''}
                     style={{ animationDelay: `${delayMs}ms` }}
-                  >
-                    <title>
-                      {point.title} ({point.count.toLocaleString()})
-                    </title>
-                  </circle>
+                    onMouseEnter={onTooltipEnter(
+                      `${point.title} (${point.count.toLocaleString()}) - ${moodHit ? 'matches selected mood' : 'outside selected mood emphasis'}`,
+                    )}
+                    onMouseMove={onTooltipMove}
+                    onMouseLeave={onTooltipLeave}
+                  />
                 )
               })}
             </svg>
           ) : null}
           <div className="cluster-legend">
             {titleClusters.clusters.map((cluster) => (
-              <div key={cluster.id} className="legend-item">
+              <div
+                key={cluster.id}
+                className="legend-item"
+                onMouseEnter={onTooltipEnter(`${cluster.topTerms.join(', ')} | ${cluster.weight.toLocaleString()} playlists`)}
+                onMouseMove={onTooltipMove}
+                onMouseLeave={onTooltipLeave}
+              >
                 <span
                   className="legend-color"
                   style={{ backgroundColor: CLUSTER_COLORS[cluster.id % CLUSTER_COLORS.length] }}
@@ -247,14 +414,21 @@ function App() {
 
       <section className="story-block" ref={moodRef.ref}>
         <h2 className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>3. What Defines a Mood?</h2>
-        <p className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>Select a mood category to compare common artists and average audio properties.</p>
+        <p className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>Current focus: <strong>{moodLabel}</strong>. Compare common artists and average audio properties.</p>
         <div className={`card ${moodRef.isInView ? 'visible' : ''}`}>
           <div className="mood-grid">
             <div>
               <h3>Top Artists</h3>
               <ul className="rank-list">
-                {activeMood.topArtists.slice(0, 10).map((artist, idx) => (
-                  <li key={artist.name} className="rank-item" style={{ animationDelay: `${moodRef.isInView ? idx * 40 : 0}ms` }}>
+                {activeMood?.topArtists.slice(0, 10).map((artist, idx) => (
+                  <li
+                    key={artist.name}
+                    className="rank-item"
+                    style={{ animationDelay: `${moodRef.isInView ? idx * 40 : 0}ms` }}
+                    onMouseEnter={onTooltipEnter(`${artist.name}: ${artist.count.toLocaleString()} playlist appearances`)}
+                    onMouseMove={onTooltipMove}
+                    onMouseLeave={onTooltipLeave}
+                  >
                     <span>{artist.name}</span>
                     <strong>{artist.count.toLocaleString()}</strong>
                   </li>
@@ -264,10 +438,17 @@ function App() {
             <div>
               <h3>Average Audio Features</h3>
               <ul className="feature-list">
-                {Object.entries(activeMood.avgFeatures).map(([key, value], idx) => {
+                {Object.entries(activeMood?.avgFeatures ?? {}).map(([key, value], idx) => {
                   const normalized = key === 'tempo' ? Math.min(1, value / 200) : Math.max(0, Math.min(1, value))
                   return (
-                    <li key={key} className="feature-item" style={{ animationDelay: `${moodRef.isInView ? idx * 40 : 0}ms` }}>
+                    <li
+                      key={key}
+                      className="feature-item"
+                      style={{ animationDelay: `${moodRef.isInView ? idx * 40 : 0}ms` }}
+                      onMouseEnter={onTooltipEnter(`${key}: ${value.toFixed(2)}`)}
+                      onMouseMove={onTooltipMove}
+                      onMouseLeave={onTooltipLeave}
+                    >
                       <div className="feature-header">
                         <span>{key}</span>
                         <span>{value.toFixed(2)}</span>
@@ -287,15 +468,23 @@ function App() {
       <section className="story-block" ref={consensusRef.ref}>
         <h2 className={`fade-in-text ${consensusRef.isInView ? 'visible' : ''}`}>4. Consensus vs Chaos</h2>
         <p className={`fade-in-text ${consensusRef.isInView ? 'visible' : ''}`}>
-          Categories with higher top-track concentration show stronger shared definitions. Lower concentration implies
-          looser, more diverse interpretation.
+          Categories with higher top-track concentration show stronger shared definitions. Now filtered for <strong>{moodLabel}</strong>.
         </p>
         <div className={`card ${consensusRef.isInView ? 'visible' : ''}`}>
           <ul className="consensus-list">
-            {consensus.map((row, idx) => {
+            {consensusRows.map((row, idx) => {
               const width = Math.max(2, row.top50AvgShare * 1000)
               return (
-                <li key={row.category} className="consensus-item" style={{ animationDelay: `${consensusRef.isInView ? idx * 50 : 0}ms` }}>
+                <li
+                  key={row.category}
+                  className={`consensus-item ${row.category === selectedMood ? 'consensus-item-selected' : ''}`}
+                  style={{ animationDelay: `${consensusRef.isInView ? idx * 50 : 0}ms` }}
+                  onMouseEnter={onTooltipEnter(
+                    `${row.category}: ${(row.top50AvgShare * 100).toFixed(2)}% avg top-50 share, ${row.uniqueTracks.toLocaleString()} unique tracks`,
+                  )}
+                  onMouseMove={onTooltipMove}
+                  onMouseLeave={onTooltipLeave}
+                >
                   <div className="consensus-meta">
                     <span>{row.category.replace('_', ' ')}</span>
                     <small>
@@ -317,7 +506,7 @@ function App() {
         <h2 className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>5. The Journey Inside Playlists</h2>
         <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
           Track order can tell a story. The curve below shows average feature trajectories from start to end for the
-          selected category.
+          selected scope: <strong>{moodLabel}</strong>.
         </p>
         <div className={`card ${flowRef.isInView ? 'visible' : ''}`}>
           <svg viewBox="0 0 900 350" className={`flow-svg ${flowRef.isInView ? 'visible' : ''}`} role="img" aria-label="Playlist flow chart">
@@ -395,14 +584,38 @@ function App() {
                   strokeWidth="3"
                   className={flowRef.isInView ? 'flow-line-animate' : ''}
                   opacity="0.85"
+                  onMouseEnter={onTooltipEnter(`${feature} trajectory for ${moodLabel}`)}
+                  onMouseMove={onTooltipMove}
+                  onMouseLeave={onTooltipLeave}
                 />
               )
             })}
           </svg>
           <div className="flow-legend">
-            <span className="flow-chip energy">Energy</span>
-            <span className="flow-chip valence">Valence (happiness)</span>
-            <span className="flow-chip tempo">Tempo (speed)</span>
+            <span
+              className="flow-chip energy"
+              onMouseEnter={onTooltipEnter('Higher means more intensity')}
+              onMouseMove={onTooltipMove}
+              onMouseLeave={onTooltipLeave}
+            >
+              Energy
+            </span>
+            <span
+              className="flow-chip valence"
+              onMouseEnter={onTooltipEnter('Higher means more positive mood')}
+              onMouseMove={onTooltipMove}
+              onMouseLeave={onTooltipLeave}
+            >
+              Valence (happiness)
+            </span>
+            <span
+              className="flow-chip tempo"
+              onMouseEnter={onTooltipEnter('Normalized BPM trend')}
+              onMouseMove={onTooltipMove}
+              onMouseLeave={onTooltipLeave}
+            >
+              Tempo (speed)
+            </span>
           </div>
         </div>
       </section>
@@ -415,6 +628,11 @@ function App() {
         </p>
       </section>
       </div>
+      {tooltip.visible ? (
+        <div className="viz-tooltip" style={{ left: tooltip.x, top: tooltip.y }}>
+          {tooltip.text}
+        </div>
+      ) : null}
     </main>
   )
 }

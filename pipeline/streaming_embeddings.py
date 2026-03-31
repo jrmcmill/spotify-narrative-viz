@@ -3,10 +3,11 @@ from __future__ import annotations
 import json
 import os
 import importlib
+import time
 from collections import Counter, defaultdict
 from dataclasses import dataclass
 from pathlib import Path
-from typing import Dict, Iterable, List, Sequence
+from typing import Dict, Iterable, Sequence
 
 import numpy as np
 from sklearn.cluster import MiniBatchKMeans
@@ -23,6 +24,45 @@ class EmbeddingConfig:
     workers: int = max(1, (os.cpu_count() or 2) - 1)
     max_viz_points: int = 14000
     random_seed: int = 42
+
+
+def _format_seconds(seconds: float) -> str:
+    seconds = max(0, int(seconds))
+    mins, secs = divmod(seconds, 60)
+    hours, mins = divmod(mins, 60)
+    if hours > 0:
+        return f"{hours:02d}:{mins:02d}:{secs:02d}"
+    return f"{mins:02d}:{secs:02d}"
+
+
+def _create_epoch_progress_callback(total_epochs: int):
+    callbacks_module = importlib.import_module("gensim.models.callbacks")
+    CallbackAny2Vec = getattr(callbacks_module, "CallbackAny2Vec")
+
+    class EpochProgressCallback(CallbackAny2Vec):
+        def __init__(self, epochs: int):
+            self.epochs = max(1, epochs)
+            self.epoch = 0
+            self.global_start = time.time()
+            self.epoch_start = 0.0
+
+        def on_epoch_begin(self, model):
+            self.epoch_start = time.time()
+            print(f"[embeddings] epoch {self.epoch + 1}/{self.epochs} started")
+
+        def on_epoch_end(self, model):
+            self.epoch += 1
+            elapsed = time.time() - self.epoch_start
+            total_elapsed = time.time() - self.global_start
+            avg = total_elapsed / self.epoch
+            remaining = avg * (self.epochs - self.epoch)
+            print(
+                "[embeddings] "
+                f"epoch {self.epoch}/{self.epochs} done in {_format_seconds(elapsed)} | "
+                f"elapsed {_format_seconds(total_elapsed)} | eta {_format_seconds(remaining)}"
+            )
+
+    return EpochProgressCallback(total_epochs)
 
 
 def _parse_meta_line(line: str) -> Dict[str, object]:
@@ -59,13 +99,23 @@ def train_doc2vec_model(corpus_path: Path, config: EmbeddingConfig):
         seed=config.random_seed,
     )
 
+    print("[embeddings] building vocabulary from streamed corpus...")
     model.build_vocab(corpus_file=str(corpus_path))
+    print(
+        "[embeddings] vocab ready: "
+        f"docs={model.corpus_count:,}, words={model.corpus_total_words:,}, vocab={len(model.wv):,}"
+    )
+
+    print(f"[embeddings] training for {config.epochs} epochs...")
+    callback = _create_epoch_progress_callback(total_epochs=config.epochs)
     model.train(
         corpus_file=str(corpus_path),
         total_examples=model.corpus_count,
         total_words=model.corpus_total_words,
         epochs=model.epochs,
+        callbacks=[callback],
     )
+    print("[embeddings] training complete")
     return model
 
 
@@ -73,9 +123,14 @@ def write_embedding_matrix(model, output_path: Path) -> int:
     """Write all playlist embeddings to disk as a float32 .npy matrix without holding all vectors in memory."""
     count = len(model.dv)
     vec_dim = model.vector_size
+    print(f"[embeddings] writing dense matrix -> {output_path.name} ({count:,} x {vec_dim})")
     mmap = np.lib.format.open_memmap(output_path, mode="w+", dtype=np.float32, shape=(count, vec_dim))
+    report_every = max(1, count // 10)
     for i in range(count):
         mmap[i] = model.dv[i]
+        if (i + 1) % report_every == 0 or i + 1 == count:
+            pct = ((i + 1) / count) * 100
+            print(f"[embeddings] matrix write {i + 1:,}/{count:,} ({pct:.1f}%)")
     del mmap
     return count
 
@@ -93,6 +148,7 @@ def build_embedding_clusters(
         return {"points": [], "clusters": []}
 
     sample_size = min(max_points, total)
+    print(f"[embeddings] building 2D cluster projection from sample {sample_size:,}/{total:,}")
     rng = np.random.default_rng(random_seed)
     sample_indices = np.sort(rng.choice(total, size=sample_size, replace=False))
     sample_idx_set = set(int(i) for i in sample_indices)
@@ -168,6 +224,7 @@ def build_embedding_clusters(
 def build_category_similarity(model, meta_path: Path, categories: Sequence[str]) -> Dict[str, object]:
     """Compute centroid-based cosine similarity matrix between mood categories."""
     vec_dim = model.vector_size
+    print("[embeddings] computing category centroid cosine similarities...")
     sums = {c: np.zeros(vec_dim, dtype=np.float64) for c in categories}
     counts = {c: 0 for c in categories}
 
@@ -214,6 +271,7 @@ def write_embedding_artifacts(
     stop_words: Sequence[str],
     config: EmbeddingConfig,
 ) -> Dict[str, object]:
+    print("[embeddings] writing embedding artifacts...")
     embeddings_path = output_dir / "playlist_embeddings.npy"
     vector_count = write_embedding_matrix(model, embeddings_path)
 
@@ -247,5 +305,6 @@ def write_embedding_artifacts(
         "vizSampleSize": len(clusters.get("points", [])),
     }
     (output_dir / "embedding_config.json").write_text(json.dumps(config_payload, indent=2), encoding="utf-8")
+    print("[embeddings] artifacts complete")
 
     return config_payload
