@@ -1,113 +1,113 @@
 {
   "sad": {
-    "playlists": 28,
+    "playlists": 12623,
     "topTracks": [
       {
-        "name": "Come and See Me (feat. Drake)",
-        "count": 7
-      },
-      {
-        "name": "Losin Control",
-        "count": 6
-      },
-      {
-        "name": "I Fall Apart",
-        "count": 6
-      },
-      {
-        "name": "Jungle",
-        "count": 6
-      },
-      {
-        "name": "Jocelyn Flores",
-        "count": 5
-      },
-      {
-        "name": "Thinkin Bout You",
-        "count": 5
-      },
-      {
-        "name": "Marvins Room",
-        "count": 5
+        "name": "Skinny Love",
+        "count": 2754
       },
       {
         "name": "i hate u, i love u (feat. olivia o'brien)",
-        "count": 5
+        "count": 2263
       },
       {
-        "name": "Coaster",
-        "count": 5
+        "name": "Say Something",
+        "count": 2078
       },
       {
-        "name": "Fuck Love (feat. Trippie Redd)",
-        "count": 5
+        "name": "Chasing Cars",
+        "count": 1973
       },
       {
-        "name": "Shot For Me",
-        "count": 5
+        "name": "All I Want",
+        "count": 1966
       },
       {
-        "name": "Don't",
-        "count": 5
+        "name": "Let It Go",
+        "count": 1965
+      },
+      {
+        "name": "Say You Won't Let Go",
+        "count": 1844
+      },
+      {
+        "name": "How to Save a Life",
+        "count": 1736
+      },
+      {
+        "name": "Stay With Me",
+        "count": 1638
+      },
+      {
+        "name": "Let Her Go",
+        "count": 1628
+      },
+      {
+        "name": "Photograph",
+        "count": 1563
+      },
+      {
+        "name": "Breathe Me",
+        "count": 1544
       }
     ],
     "topArtists": [
       {
-        "name": "Drake",
-        "count": 69
-      },
-      {
-        "name": "One Direction",
-        "count": 48
-      },
-      {
         "name": "Ed Sheeran",
-        "count": 39
+        "count": 13801
+      },
+      {
+        "name": "Drake",
+        "count": 11212
+      },
+      {
+        "name": "Sam Smith",
+        "count": 8894
       },
       {
         "name": "Adele",
-        "count": 23
+        "count": 7293
       },
       {
-        "name": "XXXTENTACION",
-        "count": 22
+        "name": "Rihanna",
+        "count": 6868
+      },
+      {
+        "name": "Coldplay",
+        "count": 5923
+      },
+      {
+        "name": "Justin Bieber",
+        "count": 5646
       },
       {
         "name": "The Weeknd",
-        "count": 21
+        "count": 5491
       },
       {
-        "name": "Russ",
-        "count": 20
-      },
-      {
-        "name": "Bryson Tiller",
-        "count": 20
-      },
-      {
-        "name": "Chris Brown",
-        "count": 19
+        "name": "Shawn Mendes",
+        "count": 5441
       },
       {
         "name": "Khalid",
-        "count": 19
+        "count": 4877
       },
       {
-        "name": "Post Malone",
-        "count": 17
+        "name": "Bruno Mars",
+        "count": 4875
       },
       {
-        "name": "Frank Ocean",
-        "count": 16
+        "name": "The Fray",
+        "count": 4550
       }
     ],
     "avgFeatures": {
-      "danceability": 0.5738394160583942,
-      "energy": 0.4882116788321169,
-      "valence": 0.3617080291970802,
-      "tempo": 122.30926277372265,
-      "acousticness": 0.4224079890510949,
-      "instrumentalness": 0.022173299124087605
+      "danceability": 0.5368948491746817,
+      "energy": 0.5400562666142765,
+      "valence": 0.3745560614684009,
+      "tempo": 121.28853429759383,
+      "acousticness": 0.3764563634702205,
+      "instrumentalness": 0.019362894182893907
     },
     "examples": [
       "Sad Songs",
@@ -123,114 +123,114 @@
     ]
   },
   "hype": {
-    "playlists": 95,
+    "playlists": 43527,
     "topTracks": [
       {
-        "name": "Closer",
-        "count": 17
-      },
-      {
         "name": "Broccoli (feat. Lil Yachty)",
-        "count": 14
+        "count": 6613
       },
       {
         "name": "HUMBLE.",
-        "count": 14
-      },
-      {
-        "name": "Mask Off",
-        "count": 14
+        "count": 6336
       },
       {
         "name": "Bad and Boujee (feat. Lil Uzi Vert)",
-        "count": 13
+        "count": 6007
       },
       {
-        "name": "Trap Queen",
-        "count": 13
+        "name": "Bounce Back",
+        "count": 5571
       },
       {
         "name": "Caroline",
-        "count": 13
+        "count": 5496
       },
       {
-        "name": "I'm the One",
-        "count": 13
+        "name": "One Dance",
+        "count": 5324
       },
       {
-        "name": "Starboy",
-        "count": 12
+        "name": "XO TOUR Llif3",
+        "count": 5319
       },
       {
-        "name": "Roses",
-        "count": 12
+        "name": "Congratulations",
+        "count": 5314
       },
       {
-        "name": "Black Beatles",
-        "count": 12
+        "name": "Mask Off",
+        "count": 5039
       },
       {
-        "name": "F**kin' Problems",
-        "count": 12
+        "name": "iSpy (feat. Lil Yachty)",
+        "count": 4922
+      },
+      {
+        "name": "goosebumps",
+        "count": 4816
+      },
+      {
+        "name": "Jumpman",
+        "count": 4763
       }
     ],
     "topArtists": [
       {
         "name": "Drake",
-        "count": 165
-      },
-      {
-        "name": "Future",
-        "count": 87
-      },
-      {
-        "name": "Kendrick Lamar",
-        "count": 84
+        "count": 85677
       },
       {
         "name": "Kanye West",
-        "count": 79
+        "count": 38280
       },
       {
-        "name": "Chris Brown",
-        "count": 65
+        "name": "Kendrick Lamar",
+        "count": 34842
       },
       {
-        "name": "Rihanna",
-        "count": 61
+        "name": "Future",
+        "count": 34160
       },
       {
         "name": "Lil Uzi Vert",
-        "count": 60
+        "count": 32094
       },
       {
-        "name": "The Weeknd",
-        "count": 58
+        "name": "Migos",
+        "count": 31187
       },
       {
         "name": "Rae Sremmurd",
-        "count": 58
+        "count": 27921
+      },
+      {
+        "name": "Rihanna",
+        "count": 27146
       },
       {
         "name": "Big Sean",
-        "count": 57
+        "count": 26427
       },
       {
-        "name": "Fetty Wap",
-        "count": 56
+        "name": "Travis Scott",
+        "count": 20522
       },
       {
         "name": "Calvin Harris",
-        "count": 54
+        "count": 20430
+      },
+      {
+        "name": "The Weeknd",
+        "count": 20216
       }
     ],
     "avgFeatures": {
-      "danceability": 0.6470219072164951,
-      "energy": 0.6942953608247422,
-      "valence": 0.5452432989690723,
-      "tempo": 120.88871005154633,
-      "acousticness": 0.16465900773195874,
-      "instrumentalness": 0.02371021006443299
+      "danceability": 0.664924801322411,
+      "energy": 0.7080657212142814,
+      "valence": 0.5592319065732954,
+      "tempo": 121.69859511288303,
+      "acousticness": 0.1406589033559706,
+      "instrumentalness": 0.021397520320707006
     },
     "examples": [
       "Garage Rock",
@@ -246,114 +246,114 @@
     ]
   },
   "study": {
-    "playlists": 11,
+    "playlists": 7033,
     "topTracks": [
       {
-        "name": "Still, Still, Still",
-        "count": 3
+        "name": "Home",
+        "count": 688
       },
       {
-        "name": "FourFiveSeconds",
-        "count": 3
+        "name": "Time",
+        "count": 575
       },
       {
-        "name": "Hallelujah",
-        "count": 2
+        "name": "Intro",
+        "count": 572
+      },
+      {
+        "name": "River Flows In You",
+        "count": 512
+      },
+      {
+        "name": "Skinny Love",
+        "count": 506
       },
       {
         "name": "Let It Go",
-        "count": 2
+        "count": 468
       },
       {
-        "name": "Stay With Me",
-        "count": 2
+        "name": "A Thousand Years",
+        "count": 459
       },
       {
-        "name": "Bad Intentions",
-        "count": 2
+        "name": "Nuvole Bianche",
+        "count": 423
       },
       {
-        "name": "Surrender",
-        "count": 2
+        "name": "Your Hand In Mine",
+        "count": 402
       },
       {
-        "name": "Planez",
-        "count": 2
+        "name": "Comptine d'un autre \u00e9t\u00e9, l'apr\u00e8s-midi",
+        "count": 380
       },
       {
-        "name": "OctaHate",
-        "count": 2
+        "name": "Closer",
+        "count": 320
       },
       {
-        "name": "Slow Motion",
-        "count": 2
-      },
-      {
-        "name": "Work Out",
-        "count": 2
-      },
-      {
-        "name": "Let's Get Lost",
-        "count": 2
+        "name": "Hallelujah",
+        "count": 300
       }
     ],
     "topArtists": [
       {
-        "name": "Michael Silverman",
-        "count": 18
+        "name": "Hans Zimmer",
+        "count": 7244
       },
       {
-        "name": "Rockabye Baby!",
-        "count": 16
+        "name": "Vitamin String Quartet",
+        "count": 6931
       },
       {
-        "name": "Sara Bareilles",
-        "count": 12
+        "name": "The Piano Guys",
+        "count": 5612
       },
       {
-        "name": "Arms and Sleepers",
-        "count": 12
+        "name": "John Williams",
+        "count": 3595
       },
       {
-        "name": "the bird and the bee",
-        "count": 11
+        "name": "Ed Sheeran",
+        "count": 3045
       },
       {
-        "name": "Maroon 5",
-        "count": 10
+        "name": "Explosions In The Sky",
+        "count": 2995
       },
       {
-        "name": "Kelly Clarkson",
-        "count": 10
+        "name": "John Mayer",
+        "count": 2965
       },
       {
-        "name": "Sam Smith",
-        "count": 9
+        "name": "Piano Tribute Players",
+        "count": 2735
       },
       {
-        "name": "J. Cole",
-        "count": 9
+        "name": "Howard Shore",
+        "count": 2622
       },
       {
-        "name": "Justin Timberlake",
-        "count": 9
+        "name": "Ludovico Einaudi",
+        "count": 2593
       },
       {
-        "name": "Train",
-        "count": 9
+        "name": "Dario Marianelli",
+        "count": 2465
       },
       {
-        "name": "American Authors",
-        "count": 9
+        "name": "Wolfgang Amadeus Mozart",
+        "count": 2327
       }
     ],
     "avgFeatures": {
-      "danceability": 0.5288666666666669,
-      "energy": 0.5760824444444446,
-      "valence": 0.43343666666666686,
-      "tempo": 123.45952222222222,
-      "acousticness": 0.33310512555555555,
-      "instrumentalness": 0.18565976522222222
+      "danceability": 0.5056965152739792,
+      "energy": 0.5096847325747523,
+      "valence": 0.3715792345240161,
+      "tempo": 118.10993828996436,
+      "acousticness": 0.3934838184628967,
+      "instrumentalness": 0.2564455011983194
     },
     "examples": [
       "studying music",
@@ -369,114 +369,114 @@
     ]
   },
   "workout": {
-    "playlists": 56,
+    "playlists": 28203,
     "topTracks": [
       {
+        "name": "'Till I Collapse",
+        "count": 3783
+      },
+      {
+        "name": "Lose Yourself - Soundtrack Version",
+        "count": 3124
+      },
+      {
+        "name": "Stronger",
+        "count": 3046
+      },
+      {
         "name": "POWER",
-        "count": 8
+        "count": 2865
       },
       {
-        "name": "Radioactive",
-        "count": 7
-      },
-      {
-        "name": "Black Skinhead",
-        "count": 7
-      },
-      {
-        "name": "Sorry",
-        "count": 6
-      },
-      {
-        "name": "Problem",
-        "count": 6
-      },
-      {
-        "name": "Bonfire",
-        "count": 6
+        "name": "Ni**as In Paris",
+        "count": 2479
       },
       {
         "name": "Closer",
-        "count": 6
+        "count": 2437
       },
       {
-        "name": "I Love It (feat. Charli XCX) - feat. Charli XCX [Original Version]",
-        "count": 6
+        "name": "HUMBLE.",
+        "count": 2435
       },
       {
-        "name": "Shut Up and Dance",
-        "count": 6
+        "name": "Remember The Name (feat. Styles Of Beyond)",
+        "count": 2194
       },
       {
-        "name": "Bang Bang",
-        "count": 6
+        "name": "Forever",
+        "count": 2160
       },
       {
-        "name": "Roar",
-        "count": 6
+        "name": "Panda",
+        "count": 2039
       },
       {
-        "name": "This Girl (Kungs Vs. Cookin' On 3 Burners) - Kungs Vs. Cookin' On 3 Burners",
-        "count": 5
+        "name": "Work",
+        "count": 2022
+      },
+      {
+        "name": "Black Skinhead",
+        "count": 1979
       }
     ],
     "topArtists": [
       {
         "name": "Drake",
-        "count": 54
-      },
-      {
-        "name": "Bruno Mars",
-        "count": 50
-      },
-      {
-        "name": "Running Cadence",
-        "count": 50
+        "count": 32177
       },
       {
         "name": "Kanye West",
-        "count": 46
-      },
-      {
-        "name": "Rihanna",
-        "count": 38
-      },
-      {
-        "name": "Future",
-        "count": 32
+        "count": 24970
       },
       {
         "name": "Eminem",
-        "count": 31
-      },
-      {
-        "name": "Paramore",
-        "count": 28
-      },
-      {
-        "name": "Calvin Harris",
-        "count": 26
+        "count": 21753
       },
       {
         "name": "JAY Z",
-        "count": 26
+        "count": 17541
       },
       {
-        "name": "Lady Gaga",
-        "count": 23
+        "name": "Rihanna",
+        "count": 14273
+      },
+      {
+        "name": "Calvin Harris",
+        "count": 12368
+      },
+      {
+        "name": "Kendrick Lamar",
+        "count": 12346
+      },
+      {
+        "name": "Lil Wayne",
+        "count": 11597
       },
       {
         "name": "Beyonc\u00e9",
-        "count": 23
+        "count": 11487
+      },
+      {
+        "name": "The Chainsmokers",
+        "count": 10740
+      },
+      {
+        "name": "Future",
+        "count": 10187
+      },
+      {
+        "name": "David Guetta",
+        "count": 9369
       }
     ],
     "avgFeatures": {
-      "danceability": 0.5811973684210529,
-      "energy": 0.785786842105263,
-      "valence": 0.5187602631578953,
-      "tempo": 127.04782368421064,
-      "acousticness": 0.0888880802631579,
-      "instrumentalness": 0.023893536657894714
+      "danceability": 0.5928141002830583,
+      "energy": 0.7775482541475117,
+      "valence": 0.5176273461019968,
+      "tempo": 124.18013026592541,
+      "acousticness": 0.09067617630662224,
+      "instrumentalness": 0.029685431004121524
     },
     "examples": [
       "run it",
@@ -492,114 +492,114 @@
     ]
   },
   "sleep": {
-    "playlists": 27,
+    "playlists": 14591,
     "topTracks": [
       {
-        "name": "Let Her Go",
-        "count": 5
-      },
-      {
-        "name": "Hallelujah",
-        "count": 5
-      },
-      {
-        "name": "The Scientist",
-        "count": 4
-      },
-      {
-        "name": "I See Fire",
-        "count": 4
-      },
-      {
-        "name": "Drops of Jupiter",
-        "count": 4
-      },
-      {
-        "name": "To Build A Home",
-        "count": 4
-      },
-      {
         "name": "Skinny Love",
-        "count": 4
+        "count": 2202
       },
       {
-        "name": "Holocene",
-        "count": 4
-      },
-      {
-        "name": "A Thousand Years",
-        "count": 3
-      },
-      {
-        "name": "Slow It Down",
-        "count": 3
-      },
-      {
-        "name": "Georgia",
-        "count": 3
+        "name": "Home",
+        "count": 1361
       },
       {
         "name": "All I Want",
-        "count": 3
+        "count": 1275
+      },
+      {
+        "name": "Let It Go",
+        "count": 1268
+      },
+      {
+        "name": "Let Her Go",
+        "count": 1176
+      },
+      {
+        "name": "Gravity",
+        "count": 1097
+      },
+      {
+        "name": "The Scientist",
+        "count": 1073
+      },
+      {
+        "name": "Photograph",
+        "count": 1061
+      },
+      {
+        "name": "Hallelujah",
+        "count": 1032
+      },
+      {
+        "name": "Chasing Cars",
+        "count": 1020
+      },
+      {
+        "name": "Thinking Out Loud",
+        "count": 1013
+      },
+      {
+        "name": "Holocene",
+        "count": 995
       }
     ],
     "topArtists": [
       {
-        "name": "Bon Iver",
-        "count": 24
-      },
-      {
-        "name": "Panic! At The Disco",
-        "count": 22
-      },
-      {
         "name": "Ed Sheeran",
-        "count": 19
+        "count": 12118
       },
       {
-        "name": "5 Seconds of Summer",
-        "count": 19
-      },
-      {
-        "name": "Jack Johnson",
-        "count": 18
-      },
-      {
-        "name": "Karunesh",
-        "count": 17
+        "name": "John Mayer",
+        "count": 9093
       },
       {
         "name": "Coldplay",
-        "count": 16
+        "count": 7719
       },
       {
-        "name": "Oh Wonder",
-        "count": 13
+        "name": "Bon Iver",
+        "count": 6274
+      },
+      {
+        "name": "Jack Johnson",
+        "count": 5525
+      },
+      {
+        "name": "Drake",
+        "count": 4822
       },
       {
         "name": "The Lumineers",
-        "count": 13
+        "count": 4593
       },
       {
-        "name": "Bruno Mars",
-        "count": 12
+        "name": "Sam Smith",
+        "count": 4560
       },
       {
-        "name": "The Paper Kites",
-        "count": 12
+        "name": "Adele",
+        "count": 4189
       },
       {
-        "name": "Sufjan Stevens",
-        "count": 12
+        "name": "Lana Del Rey",
+        "count": 3836
+      },
+      {
+        "name": "Hozier",
+        "count": 3680
+      },
+      {
+        "name": "Mumford & Sons",
+        "count": 3560
       }
     ],
     "avgFeatures": {
-      "danceability": 0.509776978417266,
-      "energy": 0.493006474820144,
-      "valence": 0.3616575539568345,
-      "tempo": 121.46066906474815,
-      "acousticness": 0.41458517985611526,
-      "instrumentalness": 0.0661326366906475
+      "danceability": 0.5297128620654905,
+      "energy": 0.5346153849817672,
+      "valence": 0.3989311921943608,
+      "tempo": 120.72630829254811,
+      "acousticness": 0.3770803811859673,
+      "instrumentalness": 0.06698896969461672
     },
     "examples": [
       "relax",
@@ -615,114 +615,114 @@
     ]
   },
   "road_trip": {
-    "playlists": 40,
+    "playlists": 20953,
     "topTracks": [
       {
+        "name": "Closer",
+        "count": 2535
+      },
+      {
         "name": "Home",
-        "count": 8
+        "count": 1981
       },
       {
-        "name": "Don't Let Me Down",
-        "count": 6
+        "name": "Ride",
+        "count": 1715
       },
       {
-        "name": "Trap Queen",
-        "count": 5
+        "name": "Roses",
+        "count": 1649
       },
       {
-        "name": "Waves",
-        "count": 5
+        "name": "Mr. Brightside",
+        "count": 1533
       },
       {
-        "name": "Broccoli (feat. Lil Yachty)",
-        "count": 5
-      },
-      {
-        "name": "My Girl",
-        "count": 5
-      },
-      {
-        "name": "Panda",
-        "count": 5
-      },
-      {
-        "name": "Famous",
-        "count": 4
-      },
-      {
-        "name": "Father Stretch My Hands Pt. 1",
-        "count": 4
+        "name": "One Dance",
+        "count": 1511
       },
       {
         "name": "Caroline",
-        "count": 4
+        "count": 1435
+      },
+      {
+        "name": "Bohemian Rhapsody - Remastered 2011",
+        "count": 1434
       },
       {
         "name": "HUMBLE.",
-        "count": 4
+        "count": 1430
       },
       {
-        "name": "She Knows",
-        "count": 4
+        "name": "Shape of You",
+        "count": 1416
+      },
+      {
+        "name": "Riptide",
+        "count": 1414
+      },
+      {
+        "name": "Congratulations",
+        "count": 1385
       }
     ],
     "topArtists": [
       {
-        "name": "Running Cadence",
-        "count": 50
-      },
-      {
-        "name": "Avenged Sevenfold",
-        "count": 30
+        "name": "Drake",
+        "count": 21681
       },
       {
         "name": "Kanye West",
-        "count": 27
+        "count": 11446
       },
       {
-        "name": "Drake",
-        "count": 23
+        "name": "Rihanna",
+        "count": 10990
       },
       {
-        "name": "DJ Khaled",
-        "count": 22
+        "name": "Twenty One Pilots",
+        "count": 10024
       },
       {
-        "name": "Bon Iver",
-        "count": 21
+        "name": "Ed Sheeran",
+        "count": 9889
       },
       {
-        "name": "Five Finger Death Punch",
-        "count": 20
-      },
-      {
-        "name": "The U.S. Navy",
-        "count": 19
-      },
-      {
-        "name": "Imagine Dragons",
-        "count": 18
-      },
-      {
-        "name": "Wiz Khalifa",
-        "count": 16
-      },
-      {
-        "name": "Chris Brown",
-        "count": 16
+        "name": "The Weeknd",
+        "count": 9301
       },
       {
         "name": "Kendrick Lamar",
-        "count": 15
+        "count": 9147
+      },
+      {
+        "name": "The Chainsmokers",
+        "count": 8855
+      },
+      {
+        "name": "Justin Bieber",
+        "count": 8420
+      },
+      {
+        "name": "Beyonc\u00e9",
+        "count": 8231
+      },
+      {
+        "name": "Maroon 5",
+        "count": 7627
+      },
+      {
+        "name": "Imagine Dragons",
+        "count": 7080
       }
     ],
     "avgFeatures": {
-      "danceability": 0.5783263888888883,
-      "energy": 0.6696798611111112,
-      "valence": 0.5000815972222225,
-      "tempo": 119.17642013888891,
-      "acousticness": 0.21285778298611116,
-      "instrumentalness": 0.03491501826388888
+      "danceability": 0.5928910377521155,
+      "energy": 0.6850152685818742,
+      "valence": 0.5394419138858723,
+      "tempo": 120.78912105047273,
+      "acousticness": 0.18406292219377535,
+      "instrumentalness": 0.022696792296010942
     },
     "examples": [
       "Road Trippin'",
@@ -738,114 +738,114 @@
     ]
   },
   "romance": {
-    "playlists": 27,
+    "playlists": 16124,
     "topTracks": [
       {
-        "name": "Marry Me",
-        "count": 8
-      },
-      {
         "name": "Thinking Out Loud",
-        "count": 7
-      },
-      {
-        "name": "My Girl",
-        "count": 5
-      },
-      {
-        "name": "Marry You",
-        "count": 4
-      },
-      {
-        "name": "Can't Help Falling in Love",
-        "count": 4
-      },
-      {
-        "name": "Uptown Funk",
-        "count": 4
-      },
-      {
-        "name": "Shut Up and Dance",
-        "count": 4
+        "count": 2394
       },
       {
         "name": "All of Me",
-        "count": 4
+        "count": 2285
       },
       {
-        "name": "I Won't Give Up",
-        "count": 4
+        "name": "Marry Me",
+        "count": 1934
       },
       {
-        "name": "Party In The U.S.A.",
-        "count": 3
+        "name": "Can't Help Falling in Love",
+        "count": 1839
       },
       {
-        "name": "Sweet Caroline",
-        "count": 3
+        "name": "Home",
+        "count": 1701
       },
       {
-        "name": "Cupid Shuffle",
-        "count": 3
+        "name": "My Girl",
+        "count": 1632
+      },
+      {
+        "name": "I'm Yours",
+        "count": 1625
+      },
+      {
+        "name": "A Thousand Years",
+        "count": 1621
+      },
+      {
+        "name": "The Way You Look Tonight",
+        "count": 1585
+      },
+      {
+        "name": "Marry You",
+        "count": 1579
+      },
+      {
+        "name": "Just the Way You Are",
+        "count": 1532
+      },
+      {
+        "name": "Kiss Me",
+        "count": 1364
       }
     ],
     "topArtists": [
       {
+        "name": "Ed Sheeran",
+        "count": 9465
+      },
+      {
+        "name": "Bruno Mars",
+        "count": 6333
+      },
+      {
+        "name": "Beyonc\u00e9",
+        "count": 6170
+      },
+      {
+        "name": "Rihanna",
+        "count": 5360
+      },
+      {
+        "name": "Jason Mraz",
+        "count": 4736
+      },
+      {
         "name": "Michael Bubl\u00e9",
-        "count": 37
+        "count": 4702
+      },
+      {
+        "name": "Michael Jackson",
+        "count": 4548
+      },
+      {
+        "name": "John Legend",
+        "count": 4188
       },
       {
         "name": "Drake",
-        "count": 19
-      },
-      {
-        "name": "The Beatles",
-        "count": 19
-      },
-      {
-        "name": "The Beach Boys",
-        "count": 15
-      },
-      {
-        "name": "R. Kelly",
-        "count": 14
-      },
-      {
-        "name": "The Weeknd",
-        "count": 14
-      },
-      {
-        "name": "Chris Brown",
-        "count": 13
-      },
-      {
-        "name": "Trey Songz",
-        "count": 11
+        "count": 4184
       },
       {
         "name": "Frank Sinatra",
-        "count": 11
+        "count": 4169
       },
       {
-        "name": "Ed Sheeran",
-        "count": 10
+        "name": "Maroon 5",
+        "count": 4108
       },
       {
-        "name": "Rascal Flatts",
-        "count": 10
-      },
-      {
-        "name": "Halsey",
-        "count": 10
+        "name": "Justin Timberlake",
+        "count": 4002
       }
     ],
     "avgFeatures": {
-      "danceability": 0.6012567567567567,
-      "energy": 0.6097689189189188,
-      "valence": 0.5741668918918919,
-      "tempo": 121.98794594594592,
-      "acousticness": 0.2874267162162163,
-      "instrumentalness": 0.016961931554054052
+      "danceability": 0.5771507248913306,
+      "energy": 0.606175572544429,
+      "valence": 0.5308757902881723,
+      "tempo": 121.39415455751156,
+      "acousticness": 0.2929552184229209,
+      "instrumentalness": 0.0168829318627963
     },
     "examples": [
       "Wedding",

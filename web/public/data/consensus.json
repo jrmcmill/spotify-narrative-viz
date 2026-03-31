@@ -1,51 +1,51 @@
 [
   {
     "category": "sad",
-    "playlists": 28,
-    "simpson": 2.772959183673532,
-    "top50AvgShare": 0.12571428571428556,
-    "uniqueTracks": 1187
-  },
-  {
-    "category": "study",
-    "playlists": 11,
-    "simpson": 8.528925619834618,
-    "top50AvgShare": 0.12363636363636359,
-    "uniqueTracks": 978
+    "playlists": 12623,
+    "simpson": 1.0272456789573512,
+    "top50AvgShare": 0.1003976867622594,
+    "uniqueTracks": 101298
   },
   {
     "category": "hype",
-    "playlists": 95,
-    "simpson": 2.167645429362679,
-    "top50AvgShare": 0.10399999999999998,
-    "uniqueTracks": 5023
+    "playlists": 43527,
+    "simpson": 1.362546483825438,
+    "top50AvgShare": 0.0942045167367381,
+    "uniqueTracks": 256101
   },
   {
     "category": "romance",
-    "playlists": 27,
-    "simpson": 2.417009602194747,
-    "top50AvgShare": 0.09629629629629634,
-    "uniqueTracks": 1290
-  },
-  {
-    "category": "sleep",
-    "playlists": 27,
-    "simpson": 2.331961591220808,
-    "top50AvgShare": 0.0925925925925926,
-    "uniqueTracks": 1274
-  },
-  {
-    "category": "road_trip",
-    "playlists": 40,
-    "simpson": 2.0875000000000816,
-    "top50AvgShare": 0.08000000000000006,
-    "uniqueTracks": 2356
+    "playlists": 16124,
+    "simpson": 0.5353898435396711,
+    "top50AvgShare": 0.06310344827586208,
+    "uniqueTracks": 153575
   },
   {
     "category": "workout",
-    "playlists": 56,
-    "simpson": 1.7330994897958332,
-    "top50AvgShare": 0.07642857142857144,
-    "uniqueTracks": 2948
+    "playlists": 28203,
+    "simpson": 0.6395299416280819,
+    "top50AvgShare": 0.058620714108428194,
+    "uniqueTracks": 192587
+  },
+  {
+    "category": "road_trip",
+    "playlists": 20953,
+    "simpson": 0.7532135708405355,
+    "top50AvgShare": 0.05380041044241875,
+    "uniqueTracks": 204764
+  },
+  {
+    "category": "sleep",
+    "playlists": 14591,
+    "simpson": 0.34674534429774306,
+    "top50AvgShare": 0.049660749777259955,
+    "uniqueTracks": 187081
+  },
+  {
+    "category": "study",
+    "playlists": 7033,
+    "simpson": 0.2354696852830285,
+    "top50AvgShare": 0.032330442201052176,
+    "uniqueTracks": 152205
   }
 ]
