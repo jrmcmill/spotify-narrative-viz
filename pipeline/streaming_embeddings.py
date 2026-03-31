@@ -11,7 +11,6 @@ from typing import Dict, Iterable, Sequence
 
 import numpy as np
 from sklearn.cluster import MiniBatchKMeans
-from sklearn.decomposition import TruncatedSVD
 
 
 @dataclass
@@ -171,8 +170,32 @@ def build_embedding_clusters(
     )
     labels = kmeans.fit_predict(vectors)
 
-    svd = TruncatedSVD(n_components=2, random_state=random_seed)
-    coords = svd.fit_transform(vectors)
+    try:
+        import umap
+    except ImportError as exc:
+        raise RuntimeError(
+            "umap-learn is required for 2D projection. Install via: pip install umap-learn"
+        ) from exc
+
+    # Active projection: UMAP usually preserves local neighborhoods better than linear SVD.
+    reducer = umap.UMAP(
+        n_components=2,
+        n_neighbors=25,
+        min_dist=0.08,
+        metric="cosine",
+        random_state=random_seed,
+    )
+    coords = reducer.fit_transform(vectors)
+
+    # Alternative projection (linear baseline):
+    # from sklearn.decomposition import TruncatedSVD
+    # svd = TruncatedSVD(n_components=2, random_state=random_seed)
+    # coords = svd.fit_transform(vectors)
+
+    # Alternative projection (slower but sometimes cleaner separation):
+    # from sklearn.manifold import TSNE
+    # tsne = TSNE(n_components=2, init="pca", learning_rate="auto", random_state=random_seed)
+    # coords = tsne.fit_transform(vectors)
 
     sw = set(stop_words)
     label_words = defaultdict(Counter)

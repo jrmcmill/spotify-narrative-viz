@@ -2,3 +2,4 @@ numpy==1.26.4
 pandas==2.2.3
 scikit-learn==1.6.1
 gensim==4.3.3
+umap-learn==0.5.7
