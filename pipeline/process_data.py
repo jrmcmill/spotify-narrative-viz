@@ -54,6 +54,13 @@ def extract_track_id(track_uri: str) -> str:
     return parts[-1] if parts else ""
 
 
+def extract_artist_id(artist_uri: str) -> str:
+    if not artist_uri:
+        return ""
+    parts = artist_uri.split(":")
+    return parts[-1] if parts else ""
+
+
 def init_category_accumulator() -> CategoryAccumulator:
     flow_sums = [{key: 0.0 for key in FLOW_FEATURE_KEYS} for _ in range(FLOW_BINS)]
     flow_counts = [0 for _ in range(FLOW_BINS)]
@@ -205,6 +212,7 @@ def process_dataset(
 
     total_playlists = 0
     total_tracks = 0
+    artists_seen: Set[str] = set()
     playlist_title_words = Counter()
     title_counter = Counter()
     embedded_docs = 0
@@ -229,6 +237,14 @@ def process_dataset(
                         playlist_title_words[token] += 1
 
                 matched = match_categories(normalized_name) if normalized_name else set()
+
+                for track in tracks:
+                    artist_id = extract_artist_id(track.get("artist_uri", ""))
+                    artist_name_for_count = (track.get("artist_name") or "").strip()
+                    if artist_id:
+                        artists_seen.add(artist_id)
+                    elif artist_name_for_count:
+                        artists_seen.add(artist_name_for_count.lower())
 
                 doc_tokens = build_playlist_document_tokens(name=name, tracks=tracks, categories=matched)
                 if doc_tokens:
@@ -338,6 +354,7 @@ def process_dataset(
     summary = {
         "totalPlaylists": total_playlists,
         "totalTracksSeen": total_tracks,
+        "totalArtistsSeen": len(artists_seen),
         "categories": {category: category_output[category]["playlists"] for category in category_output},
         "topWords": [{"word": word, "count": count} for word, count in playlist_title_words.most_common(60)],
         "generatedFromSlices": len(slice_paths),

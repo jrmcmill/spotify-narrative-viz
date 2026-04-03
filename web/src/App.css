@@ -380,6 +380,13 @@
   animation: fadeIn 0.8s ease-out 0.2s forwards;
 }
 
+.mood-artists-svg,
+.mood-features-svg,
+.consensus-scatter {
+  width: 100%;
+  border-radius: 10px;
+}
+
 .axis-label {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   font-size: 12px;

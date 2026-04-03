@@ -1,30 +1,54 @@
-# React + TypeScript + Vite
+# Web App
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This folder contains the React + TypeScript + Vite app for the Spotify narrative visualization.
 
-Currently, two official plugins are available:
+The visuals are composed in React, while D3 is used inside the individual visualization components for scales, drawing, and transitions.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## Run Locally
 
-## Expanding the ESLint configuration
+1. From the repository root, make sure the generated data files exist in `web/public/data/`.
+2. Install dependencies:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+cd /Users/jonathan/git_repos/spotify-narrative-viz/web
+npm install
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+3. Start the dev server:
+
+```bash
+npm run dev
+```
+
+4. Open the local URL printed by Vite, usually `http://localhost:5173`.
+
+## Build
+
+```bash
+npm run build
+```
+
+The production bundle is written to `web/dist/`.
+
+## Visual Structure
+
+Each major visualization lives in its own file under `web/src/visuals/`:
+
+- `WordBarsViz.tsx`
+- `TitleClustersViz.tsx`
+- `MoodProfileViz.tsx`
+- `ConsensusViz.tsx`
+- `FlowViz.tsx`
+
+Shared state such as the selected mood, tooltip behavior, and scroll-triggered visibility remains in `web/src/App.tsx`.
+
+## Data Dependencies
+
+The app expects the following generated files in `web/public/data/`:
+
+- `summary.json`
+- `title_clusters.json`
+- `mood_profiles.json`
+- `consensus.json`
+- `flow.json`
+- `artist_count.json` if you want the standalone artist count artifact

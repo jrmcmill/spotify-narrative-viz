@@ -4,47 +4,57 @@ SI649 Narrative Visualization Project (Winter 2026)
 
 This repository contains:
 
-- `pipeline/`: efficient preprocessing scripts for the Million Playlist Dataset (MPD)
-- `web/`: a one-page scrollytelling narrative with interactive visualizations
+- `pipeline/`: streaming preprocessing scripts for the Million Playlist Dataset (MPD)
+- `web/`: a React + D3 scrollytelling narrative with interactive visualizations
 - `data/`: source datasets (`track_features.csv` and MPD slices)
 
 ## Quick Start
 
-1. Install Python dependencies:
+1. Create or activate the Python environment, then install dependencies:
 
 ```bash
-/Users/jonathan/opt/anaconda3/bin/python -m pip install -r pipeline/requirements.txt
+cd /Users/jonathan/git_repos/spotify-narrative-viz
+source .venv/bin/activate
+pip install -r pipeline/requirements.txt
 ```
 
-2. Generate data assets (fast dev sample):
+2. Generate data assets. This streams through the MPD slices and writes the JSON files used by the web app:
 
 ```bash
-/Users/jonathan/opt/anaconda3/bin/python pipeline/process_data.py --max-slices 100
+python pipeline/process_data.py --max-slices 100
 ```
 
-3. Generate full assets (all 1,000 slices):
+3. Generate the full assets from all 1,000 slices:
 
 ```bash
-/Users/jonathan/opt/anaconda3/bin/python pipeline/process_data.py
+python pipeline/process_data.py
 ```
 
-Embedding-focused runs (for stronger Section 2 clusters):
+4. Optional: run the standalone artist counter if you only want the Artists Touched KPI artifact:
 
 ```bash
-# Fast iteration with smaller corpus
-/Users/jonathan/opt/anaconda3/bin/python pipeline/process_data.py --max-slices 100 --embedding-epochs 6
+python pipeline/count_unique_artists.py --output-file web/public/data/artist_count.json
+```
+
+Embedding-focused runs for stronger Section 2 clusters:
+
+```bash
+# Fast iteration with a smaller corpus
+python pipeline/process_data.py --max-slices 100 --embedding-epochs 6
 
 # Full run with default streaming embedding settings
-/Users/jonathan/opt/anaconda3/bin/python pipeline/process_data.py --embedding-dim 128 --embedding-epochs 12 --embedding-viz-sample 14000
+python pipeline/process_data.py --embedding-dim 128 --embedding-epochs 12 --embedding-viz-sample 14000
 ```
 
-4. Run the web app:
+5. Run the web app:
 
 ```bash
 cd web
 npm install
 npm run dev
 ```
+
+Open the local URL printed by Vite, usually `http://localhost:5173`.
 
 ## Build For GitHub Pages
 
@@ -60,10 +70,36 @@ A GitHub Actions workflow is included at `.github/workflows/deploy.yml` to publi
 ## Narrative Sections
 
 1. Hook: language of playlists (top words)
-2. Playlist title clusters (NLP-based themes)
+2. Playlist title clusters (embedding-based themes)
 3. Sound of a mood (artists + audio features)
 4. Consensus vs chaos (category agreement)
 5. Playlist journey (feature flow over track position)
+
+## Web Architecture
+
+The page composition stays in React, while the chart rendering and transitions live inside the visual components in `web/src/visuals/`.
+
+Each major visual has its own file so team members can work independently with fewer merge conflicts:
+
+- `WordBarsViz.tsx`
+- `TitleClustersViz.tsx`
+- `MoodProfileViz.tsx`
+- `ConsensusViz.tsx`
+- `FlowViz.tsx`
+
+Shared interaction state, including tooltip behavior, selected mood, and in-view triggers, stays in the parent app.
+
+## Generated Data
+
+The web app reads precomputed JSON from `web/public/data/`.
+
+Key files include:
+
+- `summary.json`: top-level KPIs, including `totalArtistsSeen` for Artists Touched
+- `title_clusters.json`: embedding-based cluster points and labels
+- `mood_profiles.json`: category-specific artist and feature summaries
+- `consensus.json`: consensus and diversity metrics by category
+- `flow.json`: track-position feature trajectories by category
 
 ## Streaming Embedding Method
 
@@ -75,6 +111,7 @@ Method summary:
 - Document per playlist: title tokens + track-title tokens + artist tokens + optional category context tokens
 - Streaming: training uses `corpus_file` so playlists are read from disk in passes, not loaded into memory all at once
 - Output vectors: one learned embedding per playlist, written to `playlist_embeddings.npy` (`float32`, shape = `[num_playlists, embedding_dim]`)
+- Visualization rendering: D3 handles scales, paths, and transitions inside the visualization components, while React owns layout and state
 
 Generated embedding artifacts in `web/public/data/`:
 
