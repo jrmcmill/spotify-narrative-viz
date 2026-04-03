@@ -89,6 +89,102 @@ Each major visual has its own file so team members can work independently with f
 
 Shared interaction state, including tooltip behavior, selected mood, and in-view triggers, stays in the parent app.
 
+## Team Workflow By Visual
+
+This project is structured so each teammate can own one visual with minimal overlap.
+
+### Core files every visual owner should know
+
+- `web/src/App.tsx`
+	- Parent composition, section order, shared tooltip handlers, selected mood state, in-view hooks.
+	- You usually only touch this file if you need to add/remove props for your visual.
+- `web/src/visuals/types.ts`
+	- Shared TypeScript contracts for data and shared interactions.
+	- Update this if your visual needs a new typed prop or shape.
+- `web/src/visuals/constants.ts`
+	- Cross-visual constants such as mood keywords and shared color lists.
+- `web/src/App.css`
+	- Shared styling and animation classes used across sections.
+	- Keep section-specific class names scoped to avoid side effects.
+
+### Visual ownership map
+
+1. Section 1, The Language of Playlists
+- Primary file: `web/src/visuals/WordBarsViz.tsx`
+- Data inputs: `summary.topWords`, `selectedMood`, `selectedMoodKeywords`
+- Shared dependencies to watch: tooltip handlers from `App.tsx`, bar classes in `App.css`
+
+2. Section 2, Theme Clusters in Titles
+- Primary file: `web/src/visuals/TitleClustersViz.tsx`
+- Data inputs: `titleClusters`, `selectedMood` highlighting via `isPointMoodMatch`
+- Shared dependencies to watch: `CLUSTER_COLORS` in `constants.ts`, one-time in-view animation behavior
+
+3. Section 3, What Defines a Mood?
+- Primary file: `web/src/visuals/MoodProfileViz.tsx`
+- Data inputs: `activeMood.topArtists`, `activeMood.avgFeatures`
+- Shared dependencies to watch: mood selection logic in `App.tsx`, axis label styling in `App.css`
+
+4. Section 4, Consensus vs Chaos
+- Primary file: `web/src/visuals/ConsensusViz.tsx`
+- Data inputs: `consensus`, `selectedMood`
+- Shared dependencies to watch: shared tooltip contracts, consensus list and scatter classes in `App.css`
+
+5. Section 5, The Journey Inside Playlists
+- Primary file: `web/src/visuals/FlowViz.tsx`
+- Data inputs: `activeFlow`, `moodLabel`
+- Shared dependencies to watch: axis styles, flow legend styles, line animation behavior
+
+### Data files per visual
+
+- Section 1 reads from `web/public/data/summary.json`
+- Section 2 reads from `web/public/data/title_clusters.json`
+- Section 3 reads from `web/public/data/mood_profiles.json`
+- Section 4 reads from `web/public/data/consensus.json`
+- Section 5 reads from `web/public/data/flow.json`
+- KPI cards at top read from `web/public/data/summary.json` (including `totalArtistsSeen`)
+
+### Pipeline files to change when data requirements change
+
+- `pipeline/process_data.py`
+	- Main streaming generator for all web JSON assets.
+	- Update here if a visual needs a new field in `summary.json`, `mood_profiles.json`, `consensus.json`, `flow.json`, or cluster metadata.
+- `pipeline/count_unique_artists.py`
+	- Standalone utility for computing `totalArtistsSeen`.
+
+### Recommended per-visual development flow
+
+1. Regenerate a small local dataset for fast iteration:
+
+```bash
+python pipeline/process_data.py --max-slices 100
+```
+
+2. Run web dev server from `web/`:
+
+```bash
+npm install
+npm run dev
+```
+
+3. Work only in your visual file first, then touch shared files only if necessary.
+
+4. Validate before pushing:
+
+```bash
+cd web
+npm run build
+```
+
+5. If your change modifies generated data shape, include pipeline updates and regenerated JSON artifacts in the same PR.
+
+### Merge-conflict guardrails
+
+- Prefer local visual logic inside `web/src/visuals/<YourVisual>.tsx`.
+- Avoid editing `App.tsx` unless changing the visual interface.
+- Avoid broad CSS edits; add section-specific class names.
+- Keep `types.ts` changes additive and backwards compatible when possible.
+- If changing shared constants, check other visuals for accidental behavior changes.
+
 ## Generated Data
 
 The web app reads precomputed JSON from `web/public/data/`.
