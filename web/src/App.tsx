@@ -297,13 +297,29 @@ function App() {
 
         <section className="story-block" ref={consensusRef.ref}>
           <h2 className={`fade-in-text ${consensusRef.isInView ? 'visible' : ''}`}>4. Consensus vs Chaos</h2>
-          <p className={`fade-in-text ${consensusRef.isInView ? 'visible' : ''}`}>
-            Categories with higher top-track concentration show stronger shared definitions. Now filtered for{' '}
-            <strong>{moodLabel}</strong>.
-          </p>
+          <div className={`fade-in-text ${consensusRef.isInView ? 'visible' : ''}`}>
+            <p>
+              This visualization explores how consistently different Spotify moods are defined by comparing how much
+              playlists rely on a shared set of songs versus a more diverse, individualized selection. Categories with
+              higher top-track concentration show stronger shared definitions. As you explore this view, each bar
+              represents how strongly a mood is built around a shared set of songs. Longer bars indicate higher
+              consensus, meaning many playlists return to the same core tracks, while shorter bars suggest more
+              variation across users.
+            </p>
+            <p>
+              At the top, <strong>sad</strong> and <strong>hype</strong> stand out, with around 10% and 9%
+              top-track concentration, showing that these moods tend to have a recognizable, widely shared sound. Even
+              across thousands of playlists, people gravitate toward similar songs when defining these emotional
+              spaces. As you move down, moods like <strong>romance</strong>, <strong>workout</strong>, and{' '}
+              <strong>road trip</strong> begin to loosen, blending common patterns with more flexibility in song
+              choice. By the time you reach <strong>sleep</strong> and <strong>study</strong>, the bars are noticeably
+              shorter, revealing how much more personal and varied these categories are.
+            </p>
+          </div>
           <div className={`card ${consensusRef.isInView ? 'visible' : ''}`}>
             <ConsensusViz
               consensus={consensus}
+              moodProfiles={moodProfiles}
               selectedMood={selectedMood}
               isInView={consensusRef.isInView}
               onTooltipEnter={onTooltipEnter}

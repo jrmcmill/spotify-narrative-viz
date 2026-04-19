@@ -16,7 +16,7 @@ export type TitleClusters = {
 
 export type MoodProfile = {
   playlists: number
-  topTracks: Array<{ name: string; count: number }>
+  topTracks: Array<{ name: string; artist?: string; count: number }>
   topArtists: Array<{ name: string; count: number }>
   avgFeatures: Record<string, number>
   examples: string[]
