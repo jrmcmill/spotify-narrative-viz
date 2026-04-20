@@ -272,6 +272,17 @@
   transform: translateY(0);
 }
 
+.language-layout {
+  display: grid;
+  grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+  gap: 1rem;
+  align-items: start;
+}
+
+.language-panel {
+  min-width: 0;
+}
+
 .word-bars,
 .rank-list,
 .feature-list,
@@ -591,6 +602,12 @@
   line-height: 1.25;
   box-shadow: 0 8px 18px rgba(0, 0, 0, 0.22);
   pointer-events: none;
+}
+
+@media (max-width: 960px) {
+  .language-layout {
+    grid-template-columns: 1fr;
+  }
 }
 
 @media (max-width: 760px) {
