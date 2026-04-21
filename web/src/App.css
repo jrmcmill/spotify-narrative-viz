@@ -514,21 +514,77 @@
   color: #627d98;
 }
 
+.consensus-intro {
+  margin-bottom: 0.8rem;
+}
+
+.consensus-intro p {
+  margin: 0;
+  color: #486581;
+  font-size: 0.9rem;
+}
+
 .consensus-focus-panel {
   margin-top: 1rem;
   border-top: 1px solid #e3ebf3;
-  padding-top: 0.8rem;
+  padding-top: 0.95rem;
+}
+
+.consensus-focus-header {
+  display: grid;
+  grid-template-columns: minmax(0, 1.4fr) minmax(220px, 1fr);
+  gap: 0.9rem;
+  align-items: start;
 }
 
 .consensus-focus-header h3 {
   margin: 0;
-  font-size: 1rem;
+  font-size: 1.12rem;
 }
 
 .consensus-focus-header p {
   margin: 0.25rem 0 0.65rem;
-  font-size: 0.86rem;
+  font-size: 0.92rem;
   color: #486581;
+}
+
+.consensus-focus-summary {
+  margin: 0;
+  padding: 0.75rem 0.9rem;
+  background: linear-gradient(135deg, rgba(242, 140, 40, 0.12), rgba(23, 126, 137, 0.08));
+  border: 1px solid #e3ebf3;
+  border-radius: 14px;
+  line-height: 1.45;
+}
+
+.consensus-focus-metrics {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.7rem;
+  margin: 0.2rem 0 0.85rem;
+}
+
+.consensus-focus-metrics article,
+.consensus-detail-card {
+  background: #f7fafc;
+  border: 1px solid #e3ebf3;
+  border-radius: 14px;
+  padding: 0.9rem;
+}
+
+.consensus-focus-metrics span {
+  display: block;
+  color: #627d98;
+  font-size: 0.77rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.consensus-focus-metrics strong {
+  display: block;
+  margin-top: 0.35rem;
+  color: #102a43;
+  font-size: 1.1rem;
 }
 
 .consensus-scatter {
@@ -553,6 +609,101 @@
 .consensus-guide-label {
   fill: #829ab1;
   font-size: 10px;
+}
+
+.consensus-story-grid {
+  margin-top: 0.9rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+}
+
+.consensus-reading-panel {
+  margin-top: 0.95rem;
+  display: grid;
+  gap: 0.8rem;
+}
+
+.consensus-reading-lede,
+.consensus-reading-detail {
+  margin: 0;
+  background: linear-gradient(135deg, rgba(15, 76, 129, 0.06), rgba(23, 126, 137, 0.04));
+  border: 1px solid #e3ebf3;
+  border-radius: 14px;
+  padding: 0.9rem 1rem;
+  color: #486581;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+.consensus-reading-detail p {
+  margin: 0.45rem 0 0;
+}
+
+.consensus-reading-chip {
+  display: inline-block;
+  border-radius: 999px;
+  background: #f28c28;
+  color: #fff;
+  font-size: 0.73rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 0.22rem 0.6rem;
+}
+
+.consensus-detail-card h4 {
+  margin: 0;
+  font-size: 0.98rem;
+}
+
+.consensus-detail-card p {
+  margin: 0.3rem 0 0.85rem;
+  color: #486581;
+  font-size: 0.85rem;
+  line-height: 1.45;
+}
+
+.consensus-detail-list,
+.consensus-example-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.consensus-detail-list li,
+.consensus-example-list li {
+  border-top: 1px solid #e3ebf3;
+  padding: 0.55rem 0 0;
+  margin-top: 0.55rem;
+}
+
+.consensus-detail-list li {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.8rem;
+  align-items: baseline;
+}
+
+.consensus-track-text {
+  display: flex;
+  flex-direction: column;
+  gap: 0.12rem;
+}
+
+.consensus-track-text small {
+  color: #627d98;
+  font-size: 0.77rem;
+}
+
+.consensus-detail-list strong {
+  color: #7d2e68;
+  white-space: nowrap;
+}
+
+.consensus-example-list li {
+  color: #102a43;
+  font-style: italic;
 }
 
 .flow-legend {
@@ -621,6 +772,12 @@
     grid-template-columns: 1fr;
     gap: 0.3rem;
     margin-bottom: 0.7rem;
+  }
+
+  .consensus-focus-header,
+  .consensus-focus-metrics,
+  .consensus-story-grid {
+    grid-template-columns: 1fr;
   }
 
   .page-with-sidebar {
