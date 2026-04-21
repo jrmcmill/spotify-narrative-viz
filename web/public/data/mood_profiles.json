@@ -4,15 +4,18 @@
     "topTracks": [
       {
         "name": "Skinny Love",
-        "count": 2754
+        "count": 2754,
+        "artist": "Bon Iver"
       },
       {
         "name": "i hate u, i love u (feat. olivia o'brien)",
-        "count": 2263
+        "count": 2263,
+        "artist": "gnash"
       },
       {
         "name": "Say Something",
-        "count": 2078
+        "count": 2078,
+        "artist": "A Great Big World & Christina Aguilera"
       },
       {
         "name": "Chasing Cars",
@@ -127,15 +130,18 @@
     "topTracks": [
       {
         "name": "Broccoli (feat. Lil Yachty)",
-        "count": 6613
+        "count": 6613,
+        "artist": "DRAM & Lil Yachty"
       },
       {
         "name": "HUMBLE.",
-        "count": 6336
+        "count": 6336,
+        "artist": "Kendrick Lamar"
       },
       {
         "name": "Bad and Boujee (feat. Lil Uzi Vert)",
-        "count": 6007
+        "count": 6007,
+        "artist": "Migos & Lil Uzi Vert"
       },
       {
         "name": "Bounce Back",
@@ -250,15 +256,18 @@
     "topTracks": [
       {
         "name": "Home",
-        "count": 688
+        "count": 688,
+        "artist": "Phillip Phillips"
       },
       {
         "name": "Time",
-        "count": 575
+        "count": 575,
+        "artist": "Hans Zimmer"
       },
       {
         "name": "Intro",
-        "count": 572
+        "count": 572,
+        "artist": "The xx"
       },
       {
         "name": "River Flows In You",
@@ -285,7 +294,7 @@
         "count": 402
       },
       {
-        "name": "Comptine d'un autre \u00e9t\u00e9, l'apr\u00e8s-midi",
+        "name": "Comptine d'un autre été, l'après-midi",
         "count": 380
       },
       {
@@ -362,7 +371,7 @@
       "Instrumental",
       "study",
       "study",
-      "Classical Study Music \u2013 Classical Study Music",
+      "Classical Study Music – Classical Study Music",
       "Study",
       "study!",
       "study"
@@ -373,15 +382,18 @@
     "topTracks": [
       {
         "name": "'Till I Collapse",
-        "count": 3783
+        "count": 3783,
+        "artist": "Eminem"
       },
       {
         "name": "Lose Yourself - Soundtrack Version",
-        "count": 3124
+        "count": 3124,
+        "artist": "Eminem"
       },
       {
         "name": "Stronger",
-        "count": 3046
+        "count": 3046,
+        "artist": "Kanye West"
       },
       {
         "name": "POWER",
@@ -454,7 +466,7 @@
         "count": 11597
       },
       {
-        "name": "Beyonc\u00e9",
+        "name": "Beyoncé",
         "count": 11487
       },
       {
@@ -496,15 +508,18 @@
     "topTracks": [
       {
         "name": "Skinny Love",
-        "count": 2202
+        "count": 2202,
+        "artist": "Bon Iver"
       },
       {
         "name": "Home",
-        "count": 1361
+        "count": 1361,
+        "artist": "Edward Sharpe & The Magnetic Zeros"
       },
       {
         "name": "All I Want",
-        "count": 1275
+        "count": 1275,
+        "artist": "Kodaline"
       },
       {
         "name": "Let It Go",
@@ -619,15 +634,18 @@
     "topTracks": [
       {
         "name": "Closer",
-        "count": 2535
+        "count": 2535,
+        "artist": "The Chainsmokers feat. Halsey"
       },
       {
         "name": "Home",
-        "count": 1981
+        "count": 1981,
+        "artist": "Edward Sharpe & The Magnetic Zeros"
       },
       {
         "name": "Ride",
-        "count": 1715
+        "count": 1715,
+        "artist": "Twenty One Pilots"
       },
       {
         "name": "Roses",
@@ -704,7 +722,7 @@
         "count": 8420
       },
       {
-        "name": "Beyonc\u00e9",
+        "name": "Beyoncé",
         "count": 8231
       },
       {
@@ -742,15 +760,18 @@
     "topTracks": [
       {
         "name": "Thinking Out Loud",
-        "count": 2394
+        "count": 2394,
+        "artist": "Ed Sheeran"
       },
       {
         "name": "All of Me",
-        "count": 2285
+        "count": 2285,
+        "artist": "John Legend"
       },
       {
         "name": "Marry Me",
-        "count": 1934
+        "count": 1934,
+        "artist": "Train"
       },
       {
         "name": "Can't Help Falling in Love",
@@ -799,7 +820,7 @@
         "count": 6333
       },
       {
-        "name": "Beyonc\u00e9",
+        "name": "Beyoncé",
         "count": 6170
       },
       {
@@ -811,7 +832,7 @@
         "count": 4736
       },
       {
-        "name": "Michael Bubl\u00e9",
+        "name": "Michael Bublé",
         "count": 4702
       },
       {
