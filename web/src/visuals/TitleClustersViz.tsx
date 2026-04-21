@@ -71,7 +71,7 @@ export function TitleClustersViz({
       .interrupt()
       .attr('r', 0)
       .transition()
-      .duration(600)
+      .duration(1200)
       .delay((_, idx) => (idx % 40) * 12)
       .ease(d3.easeCubicOut)
       .attr('r', function () {

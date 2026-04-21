@@ -81,7 +81,7 @@ export function FlowViz({ activeFlow, moodLabel, isInView, onTooltipEnter, onToo
       .interrupt()
       .style('opacity', 0)
       .transition()
-      .duration(1000)
+      .duration(2000)
       .ease(d3.easeCubicOut)
       .style('opacity', 0.85)
   }, [isInView, paths])
@@ -89,15 +89,7 @@ export function FlowViz({ activeFlow, moodLabel, isInView, onTooltipEnter, onToo
   return (
     <>
       <svg ref={svgRef} viewBox="0 0 900 350" className={`flow-svg ${isInView ? 'visible' : ''}`} role="img" aria-label="Playlist flow chart">
-        <defs>
-          <linearGradient id="grid-fade" x1="0%" y1="0%" x2="0%" y2="100%">
-            <stop offset="0%" stopColor="#212121" stopOpacity="0.08" />
-            <stop offset="100%" stopColor="#212121" stopOpacity="0" />
-          </linearGradient>
-        </defs>
-
         <rect x="0" y="0" width="900" height="350" className="flow-bg" />
-        <rect x="70" y="20" width="800" height="260" fill="url(#grid-fade)" />
 
         <line x1="70" y1="20" x2="70" y2="280" stroke="#535353" strokeWidth="2" />
         <line x1="70" y1="280" x2="870" y2="280" stroke="#535353" strokeWidth="2" />

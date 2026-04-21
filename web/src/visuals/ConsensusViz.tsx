@@ -138,7 +138,7 @@ export function ConsensusViz({
       .interrupt()
       .style('width', '0%')
       .transition()
-      .duration(900)
+      .duration(1800)
       .delay((_, idx) => idx * 45)
       .ease(d3.easeCubicOut)
       .style('width', function () {

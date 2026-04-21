@@ -1,5 +1,6 @@
 export { WordBarsViz } from './WordBarsViz'
 export { TitleClustersViz } from './TitleClustersViz'
+export { SummaryStatsViz } from './SummaryStatsViz'
 export { MoodProfileViz } from './MoodProfileViz'
 export { ConsensusViz } from './ConsensusViz'
 export { FlowViz } from './FlowViz'

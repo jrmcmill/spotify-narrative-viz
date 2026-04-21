@@ -56,7 +56,7 @@ export function WordBarsViz({
       .interrupt()
       .style('width', '0%')
       .transition()
-      .duration(850)
+      .duration(1700)
       .delay((_, idx) => idx * 30)
       .ease(d3.easeCubicOut)
       .style('width', function () {

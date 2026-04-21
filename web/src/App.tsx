@@ -3,7 +3,7 @@ import './App.css'
 import { useInView } from './hooks/useInView'
 import { useCountUp } from './hooks/useCountUp'
 import { ALL_MOOD_OPTION, MOOD_HINT_KEYWORDS } from './visuals/constants'
-import { ConsensusViz, FlowViz, MoodProfileViz, TitleClustersViz, WordBarsViz } from './visuals'
+import { ConsensusViz, FlowViz, MoodProfileViz, SummaryStatsViz, TitleClustersViz, WordBarsViz } from './visuals'
 import type { ConsensusRow, FlowData, FlowPoint, MoodProfiles, Summary, TitleClusters, TooltipState } from './visuals/types'
 
 function App() {
@@ -16,6 +16,7 @@ function App() {
   const [tooltip, setTooltip] = useState<TooltipState>({ visible: false, text: '', x: 0, y: 0 })
 
   const heroRef = useInView()
+  const summaryRef = useInView()
   const wordBarsRef = useInView()
   const moodRef = useInView()
   const consensusRef = useInView()
@@ -241,8 +242,18 @@ function App() {
           </div>
         </section>
 
+        <section className="story-block" ref={summaryRef.ref}>
+          <h2 className={`fade-in-text ${summaryRef.isInView ? 'visible' : ''}`}>1. Playlist Summaries</h2>
+          <p className={`fade-in-text ${summaryRef.isInView ? 'visible' : ''}`}>
+            A quick snapshot of title-language frequency before diving into cluster structure and mood-level behavior.
+          </p>
+          <div className={`card ${summaryRef.isInView ? 'visible' : ''}`}>
+            <SummaryStatsViz moodProfiles={moodProfiles} isInView={summaryRef.isInView} />
+          </div>
+        </section>
+
         <section className="story-block" ref={wordBarsRef.ref}>
-          <h2 className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>The Language of Playlists</h2>
+          <h2 className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>2. The Language of Playlists</h2>
           <p className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>
             Playlist titles reveal intent in two ways: the words themselves cluster into recurring themes, and the
             most common words show which ideas dominate playlist naming. Mood focus: <strong>{moodLabel}</strong>.
@@ -273,7 +284,7 @@ function App() {
         </section>
 
         <section className="story-block" ref={moodRef.ref}>
-          <h2 className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>2. What Defines a Mood?</h2>
+          <h2 className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>3. What Defines a Mood?</h2>
           <p className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>
             Current mood: <strong>{moodLabel}</strong>. What makes it sonically distinct?
           </p>
@@ -291,7 +302,7 @@ function App() {
         </section>
 
         <section className="story-block" ref={consensusRef.ref}>
-          <h2 className={`fade-in-text ${consensusRef.isInView ? 'visible' : ''}`}>3. Consensus vs Chaos</h2>
+          <h2 className={`fade-in-text ${consensusRef.isInView ? 'visible' : ''}`}>4. Consensus vs Chaos</h2>
           <div className={`fade-in-text ${consensusRef.isInView ? 'visible' : ''}`}>
             <p>
               This visualization explores how consistently different Spotify moods are defined by comparing how much
@@ -321,7 +332,7 @@ function App() {
         </section>
 
         <section className="story-block" ref={flowRef.ref}>
-          <h2 className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>4. The Journey Inside Playlists</h2>
+          <h2 className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>5. The Journey Inside Playlists</h2>
           <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
             Track order can tell a story. The curve below shows average feature trajectories from start to end for the
             selected scope: <strong>{moodLabel}</strong>.
