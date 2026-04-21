@@ -822,3 +822,38 @@
     padding: 1.5rem 1rem 2rem;
   }
 }
+
+/* ===== JILLIAN: WordBarsViz Improvements ===== */
+
+.subtitle {
+  font-size: 14px;
+  color: #666;
+  margin-bottom: 8px;
+}
+
+.insight {
+  font-size: 14px;
+  color: #444;
+  margin-bottom: 12px;
+}
+
+.word-bars {
+  background: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* Top 3 words stand out */
+.top-word .word-fill {
+  background-color: gold;
+}
+
+/* Dim less important words */
+.mood-dim {
+  opacity: 0.5;
+}
+
+/* Keep labels readable */
+.word-label {
+  font-weight: 500;
+}
