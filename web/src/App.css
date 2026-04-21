@@ -1053,8 +1053,9 @@
   border: 1.5px solid;
   background: transparent;
   font-style: italic;
-/* ===== JILLIAN: WordBarsViz Improvements ===== */
+}
 
+/* ===== JILLIAN: WordBarsViz Improvements ===== */
 .subtitle {
   font-size: 14px;
   color: #666;
