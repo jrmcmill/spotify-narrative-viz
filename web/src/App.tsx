@@ -14,6 +14,7 @@ function App() {
   const [flow, setFlow] = useState<FlowData | null>(null)
   const [selectedMood, setSelectedMood] = useState<string>(ALL_MOOD_OPTION)
   const [tooltip, setTooltip] = useState<TooltipState>({ visible: false, text: '', x: 0, y: 0 })
+  const [hasSummaryAnimated, setHasSummaryAnimated] = useState(false)
 
   const heroRef = useInView()
   const summaryRef = useInView()
@@ -21,6 +22,12 @@ function App() {
   const moodRef = useInView()
   const consensusRef = useInView()
   const flowRef = useInView()
+
+  useEffect(() => {
+    if (summaryRef.isInView && !hasSummaryAnimated) {
+      setHasSummaryAnimated(true)
+    }
+  }, [hasSummaryAnimated, summaryRef.isInView])
 
   useEffect(() => {
     const load = async () => {
@@ -167,6 +174,7 @@ function App() {
   }
 
   const moodLabel = selectedMood === ALL_MOOD_OPTION ? 'all moods' : selectedMood.replace('_', ' ')
+  const summaryVisible = summaryRef.isInView || hasSummaryAnimated
 
   const isPointMoodMatch = (title: string) => {
     if (selectedMood === ALL_MOOD_OPTION) {
@@ -243,12 +251,12 @@ function App() {
         </section>
 
         <section className="story-block" ref={summaryRef.ref}>
-          <h2 className={`fade-in-text ${summaryRef.isInView ? 'visible' : ''}`}>1. Playlist Summaries</h2>
-          <p className={`fade-in-text ${summaryRef.isInView ? 'visible' : ''}`}>
+          <h2 className={`fade-in-text ${summaryVisible ? 'visible' : ''}`}>1. Playlist Summaries</h2>
+          <p className={`fade-in-text ${summaryVisible ? 'visible' : ''}`}>
             A quick snapshot of title-language frequency before diving into cluster structure and mood-level behavior.
           </p>
-          <div className={`card ${summaryRef.isInView ? 'visible' : ''}`}>
-            <SummaryStatsViz moodProfiles={moodProfiles} isInView={summaryRef.isInView} />
+          <div className={`card ${summaryVisible ? 'visible' : ''}`}>
+            <SummaryStatsViz moodProfiles={moodProfiles} isInView={summaryRef.isInView} hasAnimated={hasSummaryAnimated} />
           </div>
         </section>
 

@@ -5,10 +5,12 @@ import type { MoodProfiles } from './types'
 type Props = {
   moodProfiles: MoodProfiles
   isInView: boolean
+  hasAnimated: boolean
 }
 
-export function SummaryStatsViz({ moodProfiles, isInView }: Props) {
+export function SummaryStatsViz({ moodProfiles, isInView, hasAnimated }: Props) {
   const rootRef = useRef<HTMLDivElement>(null)
+  const hasBarsAnimatedRef = useRef(false)
 
   const artistCounts = new Map<string, number>()
   const trackCounts = new Map<string, number>()
@@ -42,12 +44,11 @@ export function SummaryStatsViz({ moodProfiles, isInView }: Props) {
       return
     }
 
-    const bars = d3.select(rootRef.current).selectAll<HTMLElement, unknown>('.summary-bar-fill')
-
-    if (!isInView) {
-      bars.interrupt().style('width', '0%')
+    if (!isInView || hasBarsAnimatedRef.current) {
       return
     }
+
+    const bars = d3.select(rootRef.current).selectAll<HTMLElement, unknown>('.summary-bar-fill')
 
     bars
       .interrupt()
@@ -59,29 +60,30 @@ export function SummaryStatsViz({ moodProfiles, isInView }: Props) {
       .style('width', function () {
         return (this as HTMLElement).dataset.targetWidth ?? '0%'
       })
+    hasBarsAnimatedRef.current = true
   }, [isInView, topArtists, topTracks])
 
   return (
     <div className="summary-viz-root" ref={rootRef}>
       <div className="summary-kpi-grid">
-        <article className={`summary-kpi-card ${isInView ? 'visible' : ''}`} style={{ transitionDelay: isInView ? '80ms' : '0ms' }}>
+        <article className={`summary-kpi-card ${hasAnimated ? 'visible' : ''}`} style={{ transitionDelay: hasAnimated ? '80ms' : '0ms' }}>
           <h4>Unique Artists (in top sets)</h4>
           <p>{artistCounts.size.toLocaleString()}</p>
         </article>
 
-        <article className={`summary-kpi-card ${isInView ? 'visible' : ''}`} style={{ transitionDelay: isInView ? '220ms' : '0ms' }}>
+        <article className={`summary-kpi-card ${hasAnimated ? 'visible' : ''}`} style={{ transitionDelay: hasAnimated ? '220ms' : '0ms' }}>
           <h4>Top Artist</h4>
           <p>{topArtists[0]?.name ?? 'n/a'}</p>
         </article>
 
-        <article className={`summary-kpi-card ${isInView ? 'visible' : ''}`} style={{ transitionDelay: isInView ? '360ms' : '0ms' }}>
+        <article className={`summary-kpi-card ${hasAnimated ? 'visible' : ''}`} style={{ transitionDelay: hasAnimated ? '360ms' : '0ms' }}>
           <h4>Top Song</h4>
           <p>{topTracks[0]?.name ?? 'n/a'}</p>
         </article>
       </div>
 
       <div className="summary-bars-grid">
-        <section className={`summary-bars-panel ${isInView ? 'visible' : ''}`} style={{ transitionDelay: isInView ? '500ms' : '0ms' }}>
+        <section className={`summary-bars-panel ${hasAnimated ? 'visible' : ''}`} style={{ transitionDelay: hasAnimated ? '500ms' : '0ms' }}>
           <h4>Top Artists in Playlists</h4>
           <ul className="summary-bars-list">
             {topArtists.map((row) => {
@@ -93,7 +95,7 @@ export function SummaryStatsViz({ moodProfiles, isInView }: Props) {
                     <span>{row.count.toLocaleString()}</span>
                   </div>
                   <div className="summary-bar-track">
-                    <div className="summary-bar-fill summary-bar-fill-count" data-target-width={`${width}%`} style={{ width: isInView ? `${width}%` : '0%' }} />
+                    <div className="summary-bar-fill summary-bar-fill-count" data-target-width={`${width}%`} style={{ width: hasAnimated ? `${width}%` : '0%' }} />
                   </div>
                 </li>
               )
@@ -101,7 +103,7 @@ export function SummaryStatsViz({ moodProfiles, isInView }: Props) {
           </ul>
         </section>
 
-        <section className={`summary-bars-panel ${isInView ? 'visible' : ''}`} style={{ transitionDelay: isInView ? '620ms' : '0ms' }}>
+        <section className={`summary-bars-panel ${hasAnimated ? 'visible' : ''}`} style={{ transitionDelay: hasAnimated ? '620ms' : '0ms' }}>
           <h4>Top Songs in Playlists</h4>
           <ul className="summary-bars-list">
             {topTracks.map((row) => {
@@ -113,7 +115,7 @@ export function SummaryStatsViz({ moodProfiles, isInView }: Props) {
                     <span>{row.count.toLocaleString()}</span>
                   </div>
                   <div className="summary-bar-track">
-                    <div className="summary-bar-fill summary-bar-fill-share" data-target-width={`${width}%`} style={{ width: isInView ? `${width}%` : '0%' }} />
+                    <div className="summary-bar-fill summary-bar-fill-share" data-target-width={`${width}%`} style={{ width: hasAnimated ? `${width}%` : '0%' }} />
                   </div>
                 </li>
               )
