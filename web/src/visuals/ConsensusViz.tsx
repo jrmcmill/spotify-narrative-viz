@@ -247,7 +247,10 @@ export function ConsensusViz({
             <div className="consensus-story-grid">
               <article className="consensus-detail-card">
                 <h4>Representative Songs</h4>
-                <p>These are the most repeated tracks inside playlists labeled {formatCategoryLabel(focus.selected.category)}.</p>
+                <p>
+                  These are the most repeated tracks inside playlists labeled{' '}
+                  {formatCategoryLabel(focus?.selected.category ?? selectedMood)}.
+                </p>
                 <ul className="consensus-detail-list">
                   {topTracks.length > 0 ? (
                     topTracks.map((track) => (
