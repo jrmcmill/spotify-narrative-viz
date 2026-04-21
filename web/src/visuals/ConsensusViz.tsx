@@ -300,16 +300,16 @@ function ConsensusScatter({ focus, selectedMood, onTooltipEnter, onTooltipMove, 
 
   return (
     <svg viewBox="0 0 900 310" className="consensus-scatter" role="img" aria-label="Consensus versus diversity position map">
-      <rect x="0" y="0" width="900" height="310" className="flow-bg" />
-      <line x1="96" y1="240" x2="860" y2="240" stroke="#cbd5e0" strokeWidth="1.5" />
-      <line x1="96" y1="40" x2="96" y2="240" stroke="#cbd5e0" strokeWidth="1.5" />
+      <rect x="0" y="0" width="900" height="310" className="consensus-bg" />
+      <line x1="96" y1="240" x2="860" y2="240" stroke="#535353" strokeWidth="1.5" />
+      <line x1="96" y1="40" x2="96" y2="240" stroke="#535353" strokeWidth="1.5" />
 
       <line
         x1={xScale(focus.bounds.medianX)}
         y1="40"
         x2={xScale(focus.bounds.medianX)}
         y2="240"
-        stroke="#9fb3c8"
+        stroke="#b3b3b3"
         strokeDasharray="6 5"
         opacity="0.8"
       />
@@ -318,7 +318,7 @@ function ConsensusScatter({ focus, selectedMood, onTooltipEnter, onTooltipMove, 
         y1={yScale(focus.bounds.medianY)}
         x2="860"
         y2={yScale(focus.bounds.medianY)}
-        stroke="#9fb3c8"
+        stroke="#b3b3b3"
         strokeDasharray="6 5"
         opacity="0.8"
       />
@@ -349,8 +349,8 @@ function ConsensusScatter({ focus, selectedMood, onTooltipEnter, onTooltipMove, 
               cx={x}
               cy={y}
               r={selected ? 8 : 5.5}
-              fill={selected ? '#f28c28' : '#6b7c93'}
-              stroke={selected ? '#8a3b12' : '#ffffff'}
+              fill={selected ? '#1db954' : '#b3b3b3'}
+              stroke={selected ? '#b3b3b3' : '#212121'}
               strokeWidth={selected ? 2 : 1.2}
               opacity={selected ? 1 : 0.72}
               onMouseEnter={onTooltipEnter(

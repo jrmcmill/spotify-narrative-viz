@@ -2,8 +2,18 @@
   font-family: 'Avenir Next', 'Avenir', 'Segoe UI', sans-serif;
   line-height: 1.5;
   font-weight: 400;
-  color: #102a43;
-  background-color: #fffef8;
+  color: #b3b3b3;
+  background-color: #121212;
+  --sp-green: #1db954;
+  --sp-black: #121212;
+  --sp-charcoal: #212121;
+  --sp-gray: #535353;
+  --sp-light-gray: #b3b3b3;
+  --sp-green-muted: rgba(29, 185, 84, 0.58);
+  --sp-green-soft: rgba(29, 185, 84, 0.22);
+  --sp-border: rgba(179, 179, 179, 0.22);
+  --sp-surface: #212121;
+  --sp-surface-muted: rgba(83, 83, 83, 0.34);
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -19,7 +29,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   background:
-    radial-gradient(1400px 700px at 12% 0%, rgba(242, 140, 40, 0.08), transparent 70%),
-    radial-gradient(1200px 800px at 88% 0%, rgba(15, 76, 129, 0.09), transparent 70%),
-    #fffef8;
+    radial-gradient(1200px 680px at 10% -10%, rgba(29, 185, 84, 0.18), transparent 72%),
+    radial-gradient(1200px 760px at 95% 0%, rgba(83, 83, 83, 0.3), transparent 75%),
+    #121212;
 }

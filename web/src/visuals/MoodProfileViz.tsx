@@ -4,14 +4,14 @@ import type { MoodProfile, MoodProfiles, TooltipHandlers } from './types'
 
 // ── Mood metadata ─────────────────────────────────────────────────────────────
 const MOOD_META: Record<string, { label: string; emoji: string; color: string }> = {
-  all:       { label: 'All Moods', emoji: '🎵', color: '#0f4c81' },
-  hype:      { label: 'Hype',      emoji: '🔥', color: '#e63946' },
-  workout:   { label: 'Workout',   emoji: '💪', color: '#f4a261' },
-  road_trip: { label: 'Road Trip', emoji: '🚗', color: '#2a9d8f' },
-  romance:   { label: 'Romance',   emoji: '💕', color: '#e76f51' },
-  study:     { label: 'Study',     emoji: '📚', color: '#457b9d' },
-  sad:       { label: 'Sad',       emoji: '🌧️', color: '#6b8cae' },
-  sleep:     { label: 'Sleep',     emoji: '🌙', color: '#8ecae6' },
+  all:       { label: 'All Moods', emoji: '🎵', color: '#1db954' },
+  hype:      { label: 'Hype',      emoji: '🔥', color: '#1db954' },
+  workout:   { label: 'Workout',   emoji: '💪', color: '#1db954' },
+  road_trip: { label: 'Road Trip', emoji: '🚗', color: '#1db954' },
+  romance:   { label: 'Romance',   emoji: '💕', color: '#1db954' },
+  study:     { label: 'Study',     emoji: '📚', color: '#1db954' },
+  sad:       { label: 'Sad',       emoji: '🌧️', color: '#1db954' },
+  sleep:     { label: 'Sleep',     emoji: '🌙', color: '#1db954' },
 }
 
 // ── Feature display metadata ──────────────────────────────────────────────────
@@ -249,7 +249,7 @@ export function MoodProfileViz({
   onTooltipEnter, onTooltipMove, onTooltipLeave,
 }: MoodProfileVizProps) {
   const meta = MOOD_META[selectedMood]
-  const moodColor = meta?.color ?? '#0f4c81'
+  const moodColor = meta?.color ?? '#1db954'
   const artistsRef = useRef<SVGSVGElement>(null)
 
   const artists = useMemo(() => (activeMood?.topArtists ?? []).slice(0, 10), [activeMood])

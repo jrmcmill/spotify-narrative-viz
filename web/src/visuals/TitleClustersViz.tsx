@@ -98,7 +98,7 @@ export function TitleClustersViz({
             data-radius={point.radius}
             fill={point.fill}
             fillOpacity={point.moodHit ? 0.75 : 0.16}
-            stroke={point.moodHit ? '#102a43' : 'none'}
+            stroke={point.moodHit ? '#b3b3b3' : 'none'}
             strokeWidth={point.moodHit ? 0.5 : 0}
             onMouseEnter={onTooltipEnter(point.label)}
             onMouseMove={onTooltipMove}
