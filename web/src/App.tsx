@@ -282,11 +282,13 @@ function App() {
         <section className="story-block" ref={moodRef.ref}>
           <h2 className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>3. What Defines a Mood?</h2>
           <p className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>
-            Current focus: <strong>{moodLabel}</strong>. Compare common artists and average audio properties.
+            Current mood: <strong>{moodLabel}</strong>. What makes it sonically distinct?
           </p>
           <div className={`card ${moodRef.isInView ? 'visible' : ''}`}>
             <MoodProfileViz
               activeMood={activeMood}
+              moodProfiles={moodProfiles}
+              selectedMood={selectedMood}
               isInView={moodRef.isInView}
               onTooltipEnter={onTooltipEnter}
               onTooltipMove={onTooltipMove}
