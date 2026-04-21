@@ -17,7 +17,6 @@ function App() {
 
   const heroRef = useInView()
   const wordBarsRef = useInView()
-  const clustersRef = useInView()
   const moodRef = useInView()
   const consensusRef = useInView()
   const flowRef = useInView()
@@ -243,44 +242,38 @@ function App() {
         </section>
 
         <section className="story-block" ref={wordBarsRef.ref}>
-          <h2 className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>1. The Language of Playlists</h2>
+          <h2 className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>The Language of Playlists</h2>
           <p className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>
-            A few words dominate playlist names. They reveal the intents behind listening: emotions, routines, and
-            identities. Mood focus: <strong>{moodLabel}</strong>.
+            Playlist titles reveal intent in two ways: the words themselves cluster into recurring themes, and the
+            most common words show which ideas dominate playlist naming. Mood focus: <strong>{moodLabel}</strong>.
           </p>
-          <div className={`card ${wordBarsRef.isInView ? 'visible' : ''}`}>
-            <WordBarsViz
-              topWords={summary.topWords}
-              selectedMood={selectedMood}
-              selectedMoodKeywords={selectedMoodKeywords}
-              isInView={wordBarsRef.isInView}
-              onTooltipEnter={onTooltipEnter}
-              onTooltipMove={onTooltipMove}
-              onTooltipLeave={onTooltipLeave}
-            />
-          </div>
-        </section>
-
-        <section className="story-block" ref={clustersRef.ref}>
-          <h2 className={`fade-in-text ${clustersRef.isInView ? 'visible' : ''}`}>2. Theme Clusters in Titles</h2>
-          <p className={`fade-in-text ${clustersRef.isInView ? 'visible' : ''}`}>
-            We learned playlist embeddings from playlist language (title + track/artist tokens) and grouped them into
-            clusters. Showing emphasis for <strong>{moodLabel}</strong>.
-          </p>
-          <div className={`card ${clustersRef.isInView ? 'visible' : ''}`}>
-            <TitleClustersViz
-              titleClusters={titleClusters}
-              isInView={clustersRef.isInView}
-              isPointMoodMatch={isPointMoodMatch}
-              onTooltipEnter={onTooltipEnter}
-              onTooltipMove={onTooltipMove}
-              onTooltipLeave={onTooltipLeave}
-            />
+          <div className={`card language-layout ${wordBarsRef.isInView ? 'visible' : ''}`}>
+            <div className="language-panel language-panel-clusters">
+              <TitleClustersViz
+                titleClusters={titleClusters}
+                isInView={wordBarsRef.isInView}
+                isPointMoodMatch={isPointMoodMatch}
+                onTooltipEnter={onTooltipEnter}
+                onTooltipMove={onTooltipMove}
+                onTooltipLeave={onTooltipLeave}
+              />
+            </div>
+            <div className="language-panel language-panel-words">
+              <WordBarsViz
+                topWords={summary.topWords}
+                selectedMood={selectedMood}
+                selectedMoodKeywords={selectedMoodKeywords}
+                isInView={wordBarsRef.isInView}
+                onTooltipEnter={onTooltipEnter}
+                onTooltipMove={onTooltipMove}
+                onTooltipLeave={onTooltipLeave}
+              />
+            </div>
           </div>
         </section>
 
         <section className="story-block" ref={moodRef.ref}>
-          <h2 className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>3. What Defines a Mood?</h2>
+          <h2 className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>2. What Defines a Mood?</h2>
           <p className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>
             Current focus: <strong>{moodLabel}</strong>. Compare common artists and average audio properties.
           </p>
@@ -296,24 +289,20 @@ function App() {
         </section>
 
         <section className="story-block" ref={consensusRef.ref}>
-          <h2 className={`fade-in-text ${consensusRef.isInView ? 'visible' : ''}`}>4. Consensus vs Chaos</h2>
+          <h2 className={`fade-in-text ${consensusRef.isInView ? 'visible' : ''}`}>3. Consensus vs Chaos</h2>
           <div className={`fade-in-text ${consensusRef.isInView ? 'visible' : ''}`}>
             <p>
               This visualization explores how consistently different Spotify moods are defined by comparing how much
-              playlists rely on a shared set of songs versus a more diverse, individualized selection. Categories with
-              higher top-track concentration show stronger shared definitions. As you explore this view, each bar
-              represents how strongly a mood is built around a shared set of songs. Longer bars indicate higher
-              consensus, meaning many playlists return to the same core tracks, while shorter bars suggest more
-              variation across users.
+              playlists rely on a shared set of songs versus a more diverse, individualized selection.
+              Categories with higher top-track concentration show stronger shared definitions.
+              Current focus: <strong>{moodLabel}</strong>.
             </p>
             <p>
               At the top, <strong>sad</strong> and <strong>hype</strong> stand out, with around 10% and 9%
-              top-track concentration, showing that these moods tend to have a recognizable, widely shared sound. Even
-              across thousands of playlists, people gravitate toward similar songs when defining these emotional
-              spaces. As you move down, moods like <strong>romance</strong>, <strong>workout</strong>, and{' '}
-              <strong>road trip</strong> begin to loosen, blending common patterns with more flexibility in song
-              choice. By the time you reach <strong>sleep</strong> and <strong>study</strong>, the bars are noticeably
-              shorter, revealing how much more personal and varied these categories are.
+              top-track concentration, showing that these moods tend to have a recognizable, widely shared sound.
+              As you move down, moods like <strong>romance</strong>, <strong>workout</strong>, and{' '}
+              <strong>road trip</strong> begin to loosen. By the time you reach <strong>sleep</strong> and{' '}
+              <strong>study</strong>, the bars are noticeably shorter, revealing more personal variation.
             </p>
           </div>
           <div className={`card ${consensusRef.isInView ? 'visible' : ''}`}>
@@ -330,7 +319,7 @@ function App() {
         </section>
 
         <section className="story-block" ref={flowRef.ref}>
-          <h2 className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>5. The Journey Inside Playlists</h2>
+          <h2 className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>4. The Journey Inside Playlists</h2>
           <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
             Track order can tell a story. The curve below shows average feature trajectories from start to end for the
             selected scope: <strong>{moodLabel}</strong>.
