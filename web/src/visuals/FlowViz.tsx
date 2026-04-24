@@ -1,27 +1,98 @@
-import { useEffect, useMemo, useRef } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 import * as d3 from 'd3'
-import type { FlowPoint, TooltipHandlers } from './types'
+import type { FlowFeatureKey, FlowPoint, FlowSamplePlaylist, TooltipHandlers } from './types'
 
 type FlowVizProps = TooltipHandlers & {
-  activeFlow: FlowPoint[]
+  activeFlowSamples: FlowSamplePlaylist[]
   moodLabel: string
   isInView: boolean
 }
 
-const FEATURE_COLORS: Record<'energy' | 'valence' | 'tempo', string> = {
-  energy: '#1db954',
-  valence: '#212121',
-  tempo: '#535353',
+const FLOW_LINE_COLOR = '#212121'
+
+const FEATURE_LABELS: Record<FlowFeatureKey, string> = {
+  energy: 'Energy',
+  valence: 'Valence',
+  tempo: 'Tempo',
 }
 
-export function FlowViz({ activeFlow, moodLabel, isInView, onTooltipEnter, onTooltipMove, onTooltipLeave }: FlowVizProps) {
+function describeSongExamples(sample: FlowSamplePlaylist): string {
+  const songs = sample.exampleSongs.slice(0, 3)
+  if (songs.length === 0) {
+    return 'No song examples available.'
+  }
+  return songs.map((song) => `${song.name} - ${song.artist}`).join('\n')
+}
+
+function buildPathPoints(flow: FlowPoint[], feature: FlowFeatureKey, xScale: d3.ScaleLinear<number, number>, yScale: d3.ScaleLinear<number, number>) {
+  return flow
+    .map((point, i) => {
+      const raw = point[feature]
+      if (raw === null || raw === undefined) {
+        return null
+      }
+      return [xScale(i), yScale(raw)] as [number, number]
+    })
+    .filter((p): p is [number, number] => p !== null)
+}
+
+function alignFeatureSeries(flow: FlowPoint[], feature: FlowFeatureKey, targetBins: number): number[] | null {
+  if (targetBins < 2) {
+    return null
+  }
+
+  const values = flow
+    .map((point) => point[feature])
+    .filter((value): value is number => value !== null && value !== undefined)
+
+  if (values.length < 2) {
+    return null
+  }
+
+  if (values.length === targetBins) {
+    return values
+  }
+
+  // Resample onto a shared 0-100% progress axis so each playlist spans full start -> end.
+  return Array.from({ length: targetBins }, (_, i) => {
+    const sourcePos = (i / (targetBins - 1)) * (values.length - 1)
+    const left = Math.floor(sourcePos)
+    const right = Math.min(values.length - 1, left + 1)
+    const mix = sourcePos - left
+    return values[left] * (1 - mix) + values[right] * mix
+  })
+}
+
+export function FlowViz({ activeFlowSamples, moodLabel, isInView, onTooltipEnter, onTooltipMove, onTooltipLeave }: FlowVizProps) {
   const svgRef = useRef<SVGSVGElement>(null)
+  const [selectedFeature, setSelectedFeature] = useState<FlowFeatureKey>('energy')
+  const [hoveredPathId, setHoveredPathId] = useState<string | null>(null)
+  const features: FlowFeatureKey[] = ['energy', 'valence', 'tempo']
+  const maxBins = Math.max(...activeFlowSamples.map((sample) => sample.flow.length), 0)
+
+  const yDomain = useMemo<[number, number]>(() => {
+    if (selectedFeature !== 'tempo') {
+      return [0, 1]
+    }
+    const allValues = activeFlowSamples
+      .flatMap((sample) => sample.flow)
+      .map((point) => point.tempo)
+      .filter((value): value is number => value !== null && value !== undefined)
+    if (allValues.length === 0) {
+      return [60, 180]
+    }
+    const min = Math.min(...allValues)
+    const max = Math.max(...allValues)
+    const span = Math.max(1, max - min)
+    const pad = span * 0.1
+    return [Math.max(40, min - pad), Math.min(220, max + pad)]
+  }, [activeFlowSamples, selectedFeature])
 
   const xScale = useMemo(
-    () => d3.scaleLinear().domain([0, Math.max(1, activeFlow.length - 1)]).range([70, 870]),
-    [activeFlow.length],
+    () => d3.scaleLinear().domain([0, Math.max(1, maxBins - 1)]).range([70, 870]),
+    [maxBins],
   )
-  const yScale = useMemo(() => d3.scaleLinear().domain([0, 1]).range([280, 20]), [])
+  const yScale = useMemo(() => d3.scaleLinear().domain(yDomain).range([280, 20]), [yDomain])
 
   const line = useMemo(
     () =>
@@ -34,20 +105,15 @@ export function FlowViz({ activeFlow, moodLabel, isInView, onTooltipEnter, onToo
   )
 
   const paths = useMemo(() => {
-    const features: Array<'energy' | 'valence' | 'tempo'> = ['energy', 'valence', 'tempo']
-    return features
-      .map((feature) => {
-        const points = activeFlow
-          .map((point, i) => {
-            const raw = point[feature]
-            if (raw === null || raw === undefined) {
-              return null
-            }
-            const normalized = feature === 'tempo' ? Math.min(1, raw / 200) : Math.max(0, Math.min(1, raw))
-            return [xScale(i), yScale(normalized)] as [number, number]
-          })
-          .filter((p): p is [number, number] => p !== null)
+    return activeFlowSamples
+      .map((sample, idx) => {
+        const aligned = alignFeatureSeries(sample.flow, selectedFeature, Math.max(2, maxBins))
+        if (!aligned) {
+          return null
+        }
 
+        const alignedFlow = aligned.map((value, i) => ({ bin: i, energy: value, valence: value, tempo: value }))
+        const points = buildPathPoints(alignedFlow, 'energy', xScale, yScale)
         if (points.length < 2) {
           return null
         }
@@ -58,13 +124,21 @@ export function FlowViz({ activeFlow, moodLabel, isInView, onTooltipEnter, onToo
         }
 
         return {
-          feature,
+          id: `${sample.playlistName}-${idx}`,
+          sample,
           d,
-          color: FEATURE_COLORS[feature],
+          stroke: FLOW_LINE_COLOR,
         }
       })
-      .filter((item): item is { feature: 'energy' | 'valence' | 'tempo'; d: string; color: string } => item !== null)
-  }, [activeFlow, line, xScale, yScale])
+      .filter((item): item is { id: string; sample: FlowSamplePlaylist; d: string; stroke: string } => item !== null)
+  }, [activeFlowSamples, line, maxBins, selectedFeature, xScale, yScale])
+
+  const yTicks = useMemo(() => {
+    if (selectedFeature === 'tempo') {
+      return yScale.ticks(5)
+    }
+    return [0, 0.25, 0.5, 0.75, 1]
+  }, [selectedFeature, yScale])
 
   useEffect(() => {
     if (!svgRef.current) {
@@ -83,8 +157,21 @@ export function FlowViz({ activeFlow, moodLabel, isInView, onTooltipEnter, onToo
       .transition()
       .duration(2000)
       .ease(d3.easeCubicOut)
-      .style('opacity', 0.85)
+      .style('opacity', 0.7)
   }, [isInView, paths])
+
+  const yTitle = selectedFeature === 'tempo' ? 'Tempo (BPM)' : `${FEATURE_LABELS[selectedFeature]} (0-100)`
+
+  const lineTooltipText = (sample: FlowSamplePlaylist): string => {
+    return [
+      `${sample.playlistName}`,
+      `Feature: ${FEATURE_LABELS[selectedFeature]}`,
+      `Tracks: ${sample.trackCount} (${sample.tracksWithFeatures} with audio features)`,
+      '',
+      'Song examples from this playlist:',
+      describeSongExamples(sample),
+    ].join('\n')
+  }
 
   return (
     <>
@@ -94,13 +181,13 @@ export function FlowViz({ activeFlow, moodLabel, isInView, onTooltipEnter, onToo
         <line x1="70" y1="20" x2="70" y2="280" stroke="#535353" strokeWidth="2" />
         <line x1="70" y1="280" x2="870" y2="280" stroke="#535353" strokeWidth="2" />
 
-        {[0, 0.25, 0.5, 0.75, 1].map((val) => {
+        {yTicks.map((val) => {
           const y = yScale(val)
           return (
             <g key={`y-tick-${val}`}>
               <line x1="60" y1={y} x2="70" y2={y} stroke="#535353" strokeWidth="1.5" opacity="0.85" />
               <text x="55" y={y} textAnchor="end" dominantBaseline="middle" className="axis-label" fontSize="12" fill="#212121">
-                {val === 0 ? '0' : `${Math.round(val * 100)}`}
+                {selectedFeature === 'tempo' ? `${Math.round(val)}` : `${Math.round(val * 100)}`}
               </text>
             </g>
           )
@@ -120,41 +207,64 @@ export function FlowViz({ activeFlow, moodLabel, isInView, onTooltipEnter, onToo
         })}
 
         <text x="20" y="150" textAnchor="middle" className="axis-title" fontSize="11" fontWeight="600" fill="#212121" transform="rotate(-90 20 150)">
-          Feature Value (0-100)
+          {yTitle}
         </text>
         <text x="470" y="330" textAnchor="middle" className="axis-title" fontSize="11" fontWeight="600" fill="#212121">
-          Playlist Progress
+          Playlist Position (start to end, normalized)
         </text>
 
         {paths.map((path) => (
-          <path
-            key={path.feature}
-            className="flow-line"
-            d={path.d}
-            fill="none"
-            stroke={path.color}
-            strokeWidth="3"
-            opacity={isInView ? 0.85 : 0}
-            onMouseEnter={onTooltipEnter(`${path.feature} trajectory for ${moodLabel}`)}
-            onMouseMove={onTooltipMove}
-            onMouseLeave={onTooltipLeave}
-          />
+          <g key={path.id}>
+            <path
+              className="flow-line"
+              d={path.d}
+              fill="none"
+              stroke={hoveredPathId === path.id ? '#1db954' : path.stroke}
+              strokeWidth={hoveredPathId === path.id ? '3.8' : '2.8'}
+              opacity={isInView ? (hoveredPathId && hoveredPathId !== path.id ? 0.3 : 0.65) : 0}
+              pointerEvents="none"
+            />
+            <path
+              className="flow-hover-target"
+              d={path.d}
+              fill="none"
+              stroke="#000"
+              strokeWidth="16"
+              opacity="0"
+              pointerEvents="stroke"
+              onMouseEnter={(event) => {
+                setHoveredPathId(path.id)
+                onTooltipEnter(lineTooltipText(path.sample))(event)
+              }}
+              onMouseMove={onTooltipMove}
+              onMouseLeave={() => {
+                setHoveredPathId(null)
+                onTooltipLeave()
+              }}
+            />
+          </g>
         ))}
       </svg>
+      <div className="flow-feature-toggle" role="tablist" aria-label="Flow feature selector">
+        {features.map((feature) => (
+          <button
+            key={feature}
+            type="button"
+            className={selectedFeature === feature ? 'flow-toggle-btn active' : 'flow-toggle-btn'}
+            onClick={() => setSelectedFeature(feature)}
+          >
+            {FEATURE_LABELS[feature]}
+          </button>
+        ))}
+      </div>
       <div className="flow-legend">
-        <span className="flow-chip energy" onMouseEnter={onTooltipEnter('Higher means more intensity')} onMouseMove={onTooltipMove} onMouseLeave={onTooltipLeave}>
-          Energy
-        </span>
         <span
-          className="flow-chip valence"
-          onMouseEnter={onTooltipEnter('Higher means more positive mood')}
+          className="flow-chip neutral"
+          onMouseEnter={onTooltipEnter(`Showing up to 10 playlist trajectories for ${moodLabel}. Hover a line to inspect playlist and songs.`)}
           onMouseMove={onTooltipMove}
           onMouseLeave={onTooltipLeave}
         >
-          Valence (happiness)
-        </span>
-        <span className="flow-chip tempo" onMouseEnter={onTooltipEnter('Normalized BPM trend')} onMouseMove={onTooltipMove} onMouseLeave={onTooltipLeave}>
-          Tempo (speed)
+          10 playlist trajectories shown in #212121. Hover a line for playlist details.
         </span>
       </div>
     </>

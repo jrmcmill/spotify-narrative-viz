@@ -720,6 +720,36 @@
   flex-wrap: wrap;
 }
 
+.flow-feature-toggle {
+  margin-top: 0.65rem;
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.flow-toggle-btn {
+  border: 1px solid var(--sp-border);
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--sp-charcoal);
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  cursor: pointer;
+  transition: transform 160ms ease, box-shadow 160ms ease, background-color 160ms ease;
+}
+
+.flow-toggle-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 2px 8px rgba(18, 18, 18, 0.16);
+}
+
+.flow-toggle-btn.active {
+  background: var(--sp-green);
+  border-color: var(--sp-green);
+}
+
 .flow-chip {
   display: inline-block;
   border-radius: 999px;
@@ -740,6 +770,10 @@
   background: var(--sp-green-muted);
 }
 
+.flow-chip.neutral {
+  background: rgba(33, 33, 33, 0.08);
+}
+
 .closing {
   margin-top: 2.6rem;
   border-top: 1px solid var(--sp-border);
@@ -758,6 +792,7 @@
   padding: 0.45rem 0.6rem;
   font-size: 0.78rem;
   line-height: 1.25;
+  white-space: pre-line;
   box-shadow: 0 8px 18px rgba(18, 18, 18, 0.5);
   pointer-events: none;
 }

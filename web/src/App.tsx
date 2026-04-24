@@ -4,14 +4,14 @@ import { useInView } from './hooks/useInView'
 import { useCountUp } from './hooks/useCountUp'
 import { ALL_MOOD_OPTION, MOOD_HINT_KEYWORDS } from './visuals/constants'
 import { ConsensusViz, FlowViz, MoodProfileViz, SummaryStatsViz, TitleClustersViz, WordBarsViz } from './visuals'
-import type { ConsensusRow, FlowData, FlowPoint, MoodProfiles, Summary, TitleClusters, TooltipState } from './visuals/types'
+import type { ConsensusRow, FlowSamplePlaylist, FlowSamplesData, MoodProfiles, Summary, TitleClusters, TooltipState } from './visuals/types'
 
 function App() {
   const [summary, setSummary] = useState<Summary | null>(null)
   const [titleClusters, setTitleClusters] = useState<TitleClusters | null>(null)
   const [moodProfiles, setMoodProfiles] = useState<MoodProfiles | null>(null)
   const [consensus, setConsensus] = useState<ConsensusRow[] | null>(null)
-  const [flow, setFlow] = useState<FlowData | null>(null)
+  const [flowSamples, setFlowSamples] = useState<FlowSamplesData | null>(null)
   const [selectedMood, setSelectedMood] = useState<string>(ALL_MOOD_OPTION)
   const [tooltip, setTooltip] = useState<TooltipState>({ visible: false, text: '', x: 0, y: 0 })
   const [hasSummaryAnimated, setHasSummaryAnimated] = useState(false)
@@ -36,7 +36,7 @@ function App() {
         fetch('data/title_clusters.json'),
         fetch('data/mood_profiles.json'),
         fetch('data/consensus.json'),
-        fetch('data/flow.json'),
+        fetch('data/flow_samples.json'),
       ])
 
       const loadedSummary = (await summaryRes.json()) as Summary
@@ -46,7 +46,7 @@ function App() {
       setTitleClusters(await clustersRes.json())
       setMoodProfiles(loadedMoods)
       setConsensus(await consensusRes.json())
-      setFlow(await flowRes.json())
+      setFlowSamples(await flowRes.json())
 
       const moodNames = Object.keys(loadedMoods)
       if (moodNames.length > 0) {
@@ -129,47 +129,39 @@ function App() {
     return moodProfiles[selectedMood] ?? moodProfiles[moodNames[0]]
   }, [allMoodAggregate, moodNames, moodProfiles, selectedMood])
 
-  const activeFlow = useMemo(() => {
-    if (!flow || moodNames.length === 0 || !moodProfiles) {
-      return [] as FlowPoint[]
+  const activeFlowSamples = useMemo(() => {
+    if (!flowSamples || moodNames.length === 0) {
+      return [] as FlowSamplePlaylist[]
     }
 
     if (selectedMood !== ALL_MOOD_OPTION) {
-      return flow[selectedMood] ?? flow[moodNames[0]] ?? []
+      return (flowSamples[selectedMood] ?? flowSamples[moodNames[0]] ?? []).slice(0, 10)
     }
 
-    const maxBins = Math.max(...moodNames.map((m) => (flow[m] ?? []).length), 0)
-    const features: Array<keyof FlowPoint> = ['energy', 'valence', 'tempo']
-
-    return Array.from({ length: maxBins }, (_, bin) => {
-      const row: FlowPoint = { bin, energy: null, valence: null, tempo: null }
-      features.forEach((feature) => {
-        if (feature === 'bin') {
-          return
-        }
-        let weightedSum = 0
-        let totalWeight = 0
-        moodNames.forEach((mood) => {
-          const point = flow[mood]?.[bin]
-          const value = point?.[feature]
-          if (value === null || value === undefined) {
-            return
-          }
-          const weight = moodProfiles[mood]?.playlists ?? 0
-          weightedSum += value * weight
-          totalWeight += weight
-        })
-        row[feature] = totalWeight > 0 ? weightedSum / totalWeight : null
-      })
-      return row
+    const pooled = moodNames.flatMap((mood) =>
+      (flowSamples[mood] ?? []).map((sample) => ({
+        ...sample,
+        playlistName: `${sample.playlistName} [${mood.replace('_', ' ')}]`,
+      })),
+    )
+    const seen = new Set<string>()
+    const deduped = pooled.filter((sample) => {
+      const key = sample.playlistName.toLowerCase()
+      if (seen.has(key)) {
+        return false
+      }
+      seen.add(key)
+      return true
     })
-  }, [flow, moodNames, moodProfiles, selectedMood])
+
+    return deduped.slice(0, 10)
+  }, [flowSamples, moodNames, selectedMood])
 
   const playlistsCount = useCountUp(summary?.totalPlaylists ?? 0, !!summary, 1.2)
   const tracksCount = useCountUp(summary?.totalTracksSeen ?? 0, !!summary, 1.2)
   const artistsCount = useCountUp(summary?.totalArtistsSeen ?? derivedArtistsTouched, !!summary, 1.2)
 
-  if (!summary || !titleClusters || !moodProfiles || !consensus || !flow) {
+  if (!summary || !titleClusters || !moodProfiles || !consensus || !flowSamples) {
     return <main className="loading">Preparing the story view...</main>
   }
 
@@ -342,12 +334,12 @@ function App() {
         <section className="story-block" ref={flowRef.ref}>
           <h2 className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>5. The Journey Inside Playlists</h2>
           <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
-            Track order can tell a story. The curve below shows average feature trajectories from start to end for the
-            selected scope: <strong>{moodLabel}</strong>.
+            Track order can tell a story. Each line is one real playlist trajectory for a single feature. Explore
+            examples from <strong>{moodLabel}</strong> and hover for song snapshots.
           </p>
           <div className={`card ${flowRef.isInView ? 'visible' : ''}`}>
             <FlowViz
-              activeFlow={activeFlow}
+              activeFlowSamples={activeFlowSamples}
               moodLabel={moodLabel}
               isInView={flowRef.isInView}
               onTooltipEnter={onTooltipEnter}

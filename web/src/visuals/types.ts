@@ -39,7 +39,23 @@ export type FlowPoint = {
   tempo: number | null
 }
 
-export type FlowData = Record<string, FlowPoint[]>
+export type FlowFeatureKey = 'energy' | 'valence' | 'tempo'
+
+export type FlowSampleSong = {
+  name: string
+  artist: string
+  pos: number
+}
+
+export type FlowSamplePlaylist = {
+  playlistName: string
+  trackCount: number
+  tracksWithFeatures: number
+  exampleSongs: FlowSampleSong[]
+  flow: FlowPoint[]
+}
+
+export type FlowSamplesData = Record<string, FlowSamplePlaylist[]>
 
 export type TooltipState = {
   visible: boolean
