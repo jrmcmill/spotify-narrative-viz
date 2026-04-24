@@ -1,14 +1,15 @@
 import { useEffect, useRef } from 'react'
 import * as d3 from 'd3'
-import type { MoodProfiles } from './types'
+import type { MoodProfiles, SummaryHistograms, TooltipHandlers } from './types'
 
 type Props = {
   moodProfiles: MoodProfiles
+  summaryHistograms: SummaryHistograms
   isInView: boolean
   hasAnimated: boolean
-}
+} & TooltipHandlers
 
-export function SummaryStatsViz({ moodProfiles, isInView, hasAnimated }: Props) {
+export function SummaryStatsViz({ moodProfiles, summaryHistograms, isInView, hasAnimated, onTooltipEnter, onTooltipMove, onTooltipLeave }: Props) {
   const rootRef = useRef<HTMLDivElement>(null)
   const hasBarsAnimatedRef = useRef(false)
 
@@ -40,11 +41,11 @@ export function SummaryStatsViz({ moodProfiles, isInView, hasAnimated }: Props) 
   const maxTrackCount = topTracks[0]?.count ?? 1
 
   useEffect(() => {
-    if (!rootRef.current) {
+    if (!rootRef.current || hasBarsAnimatedRef.current) {
       return
     }
 
-    if (!isInView || hasBarsAnimatedRef.current) {
+    if (!isInView) {
       return
     }
 
@@ -61,7 +62,7 @@ export function SummaryStatsViz({ moodProfiles, isInView, hasAnimated }: Props) 
         return (this as HTMLElement).dataset.targetWidth ?? '0%'
       })
     hasBarsAnimatedRef.current = true
-  }, [isInView, topArtists, topTracks])
+  }, [isInView])
 
   return (
     <div className="summary-viz-root" ref={rootRef}>
@@ -95,7 +96,7 @@ export function SummaryStatsViz({ moodProfiles, isInView, hasAnimated }: Props) 
                     <span>{row.count.toLocaleString()}</span>
                   </div>
                   <div className="summary-bar-track">
-                    <div className="summary-bar-fill summary-bar-fill-count" data-target-width={`${width}%`} style={{ width: hasAnimated ? `${width}%` : '0%' }} />
+                    <div className="summary-bar-fill summary-bar-fill-count" data-target-width={`${width}%`} style={{ width: '0%' }} />
                   </div>
                 </li>
               )
@@ -115,7 +116,7 @@ export function SummaryStatsViz({ moodProfiles, isInView, hasAnimated }: Props) 
                     <span>{row.count.toLocaleString()}</span>
                   </div>
                   <div className="summary-bar-track">
-                    <div className="summary-bar-fill summary-bar-fill-share" data-target-width={`${width}%`} style={{ width: hasAnimated ? `${width}%` : '0%' }} />
+                    <div className="summary-bar-fill summary-bar-fill-share" data-target-width={`${width}%`} style={{ width: '0%' }} />
                   </div>
                 </li>
               )
@@ -123,6 +124,75 @@ export function SummaryStatsViz({ moodProfiles, isInView, hasAnimated }: Props) 
           </ul>
         </section>
       </div>
+
+      <div className="summary-histograms-grid">
+        <section className={`summary-histogram-panel ${hasAnimated ? 'visible' : ''}`} style={{ transitionDelay: hasAnimated ? '740ms' : '0ms' }}>
+          <h4>{summaryHistograms.artistCountHistogram.label}</h4>
+          {(() => {
+            const maxCount = Math.max(...summaryHistograms.artistCountHistogram.buckets.map((b) => b.count))
+            return (
+              <div className="histogram-wrapper">
+                <div className="histogram-container">
+                  {summaryHistograms.artistCountHistogram.buckets.map((bucket) => {
+                    const barHeight = (bucket.count / maxCount) * 100
+                    const tooltipText = `${bucket.bucketLabel}: ${bucket.count.toLocaleString()} playlists`
+                    return (
+                      <div key={`artist-${bucket.bucketLabel}`} className="histogram-bar-wrapper">
+                        <div
+                          className="histogram-bar-fill"
+                          style={{ height: `${barHeight}%` }}
+                          onMouseEnter={onTooltipEnter(tooltipText)}
+                          onMouseMove={onTooltipMove}
+                          onMouseLeave={onTooltipLeave}
+                        />
+                        <span className="histogram-bar-label">{bucket.bucketLabel}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          })()}
+          <div className="histogram-stats">
+            <span>Median: {summaryHistograms.artistCountHistogram.stats.median}</span>
+            <span>Mean: {summaryHistograms.artistCountHistogram.stats.mean.toFixed(1)}</span>
+          </div>
+        </section>
+
+        <section className={`summary-histogram-panel ${hasAnimated ? 'visible' : ''}`} style={{ transitionDelay: hasAnimated ? '860ms' : '0ms' }}>
+          <h4>{summaryHistograms.trackCountHistogram.label}</h4>
+          {(() => {
+            const maxCount = Math.max(...summaryHistograms.trackCountHistogram.buckets.map((b) => b.count))
+            return (
+              <div className="histogram-wrapper">
+                <div className="histogram-container">
+                  {summaryHistograms.trackCountHistogram.buckets.map((bucket) => {
+                    const barHeight = (bucket.count / maxCount) * 100
+                    const tooltipText = `${bucket.bucketLabel}: ${bucket.count.toLocaleString()} playlists`
+                    return (
+                      <div key={`track-${bucket.bucketLabel}`} className="histogram-bar-wrapper">
+                        <div
+                          className="histogram-bar-fill"
+                          style={{ height: `${barHeight}%` }}
+                          onMouseEnter={onTooltipEnter(tooltipText)}
+                          onMouseMove={onTooltipMove}
+                          onMouseLeave={onTooltipLeave}
+                        />
+                        <span className="histogram-bar-label">{bucket.bucketLabel}</span>
+                      </div>
+                    )
+                  })}
+                </div>
+              </div>
+            )
+          })()}
+          <div className="histogram-stats">
+            <span>Median: {summaryHistograms.trackCountHistogram.stats.median}</span>
+            <span>Mean: {summaryHistograms.trackCountHistogram.stats.mean.toFixed(1)}</span>
+          </div>
+        </section>
+      </div>
+
     </div>
   )
 }

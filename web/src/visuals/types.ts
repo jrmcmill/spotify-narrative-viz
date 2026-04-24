@@ -57,6 +57,30 @@ export type FlowSamplePlaylist = {
 
 export type FlowSamplesData = Record<string, FlowSamplePlaylist[]>
 
+export type HistogramBucket = {
+  bucketMin: number
+  bucketMax: number
+  bucketLabel: string
+  count: number
+}
+
+export type HistogramData = {
+  label: string
+  buckets: HistogramBucket[]
+  stats: {
+    min: number
+    max: number
+    median: number
+    mean: number
+  }
+}
+
+export type SummaryHistograms = {
+  totalPlaylists: number
+  artistCountHistogram: HistogramData
+  trackCountHistogram: HistogramData
+}
+
 export type TooltipState = {
   visible: boolean
   text: string

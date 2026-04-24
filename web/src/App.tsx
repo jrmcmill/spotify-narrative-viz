@@ -4,10 +4,11 @@ import { useInView } from './hooks/useInView'
 import { useCountUp } from './hooks/useCountUp'
 import { ALL_MOOD_OPTION, MOOD_HINT_KEYWORDS } from './visuals/constants'
 import { ConsensusViz, FlowViz, MoodProfileViz, SummaryStatsViz, TitleClustersViz, WordBarsViz } from './visuals'
-import type { ConsensusRow, FlowSamplePlaylist, FlowSamplesData, MoodProfiles, Summary, TitleClusters, TooltipState } from './visuals/types'
+import type { ConsensusRow, FlowSamplePlaylist, FlowSamplesData, MoodProfiles, Summary, SummaryHistograms, TitleClusters, TooltipState } from './visuals/types'
 
 function App() {
   const [summary, setSummary] = useState<Summary | null>(null)
+  const [summaryHistograms, setSummaryHistograms] = useState<SummaryHistograms | null>(null)
   const [titleClusters, setTitleClusters] = useState<TitleClusters | null>(null)
   const [moodProfiles, setMoodProfiles] = useState<MoodProfiles | null>(null)
   const [consensus, setConsensus] = useState<ConsensusRow[] | null>(null)
@@ -31,8 +32,9 @@ function App() {
 
   useEffect(() => {
     const load = async () => {
-      const [summaryRes, clustersRes, moodsRes, consensusRes, flowRes] = await Promise.all([
+      const [summaryRes, histogramsRes, clustersRes, moodsRes, consensusRes, flowRes] = await Promise.all([
         fetch('data/summary.json'),
+        fetch('data/summary_histograms.json'),
         fetch('data/title_clusters.json'),
         fetch('data/mood_profiles.json'),
         fetch('data/consensus.json'),
@@ -43,6 +45,7 @@ function App() {
       const loadedMoods = (await moodsRes.json()) as MoodProfiles
 
       setSummary(loadedSummary)
+      setSummaryHistograms(await histogramsRes.json())
       setTitleClusters(await clustersRes.json())
       setMoodProfiles(loadedMoods)
       setConsensus(await consensusRes.json())
@@ -161,7 +164,7 @@ function App() {
   const tracksCount = useCountUp(summary?.totalTracksSeen ?? 0, !!summary, 1.2)
   const artistsCount = useCountUp(summary?.totalArtistsSeen ?? derivedArtistsTouched, !!summary, 1.2)
 
-  if (!summary || !titleClusters || !moodProfiles || !consensus || !flowSamples) {
+  if (!summary || !titleClusters || !moodProfiles || !consensus || !flowSamples || !summaryHistograms) {
     return <main className="loading">Preparing the story view...</main>
   }
 
@@ -248,7 +251,15 @@ function App() {
             A quick snapshot of title-language frequency before diving into cluster structure and mood-level behavior.
           </p>
           <div className={`card ${summaryVisible ? 'visible' : ''}`}>
-            <SummaryStatsViz moodProfiles={moodProfiles} isInView={summaryRef.isInView} hasAnimated={hasSummaryAnimated} />
+            <SummaryStatsViz
+              moodProfiles={moodProfiles}
+              summaryHistograms={summaryHistograms}
+              isInView={summaryRef.isInView}
+              hasAnimated={hasSummaryAnimated}
+              onTooltipEnter={onTooltipEnter}
+              onTooltipMove={onTooltipMove}
+              onTooltipLeave={onTooltipLeave}
+            />
           </div>
         </section>
 
@@ -356,6 +367,181 @@ function App() {
             collectively annotating songs with context: who we are, what we feel, and what moment we are trying to
             build.
           </p>
+        </section>
+
+        <section className="story-block appendix-section">
+          <h2>Appendix: Methods and Data Processing</h2>
+          <p>
+            This appendix documents how each visualization was built from the Spotify Million Playlist Dataset (MPD)
+            and track-level audio features. The goal is transparency: an educated reader should be able to understand
+            what was computed, why, and where approximations were used.
+          </p>
+
+          <h3>Data Sources and Scope</h3>
+          <ul className="appendix-list">
+            <li>
+              Playlist data: Spotify MPD slices at <code>data/spotify_million_playlist_dataset/data/mpd.slice.*.json</code>.
+            </li>
+            <li>
+              Audio features: <code>data/track_features.csv</code> keyed by Spotify track ID.
+            </li>
+            <li>
+              Category mapping: keyword dictionary in <code>pipeline/keywords.py</code> with seven narrative moods:
+              sad, hype, study, workout, sleep, road_trip, romance.
+            </li>
+            <li>
+              A playlist can belong to multiple moods if multiple keyword rules match its normalized title.
+            </li>
+          </ul>
+
+          <h3>Processing Pipeline (High Level)</h3>
+          <pre className="appendix-diagram">{`MPD slices + track_features.csv
+        |
+        v
+pipeline/process_data.py
+  |- summary.json (counts + top title words)
+  |- mood_profiles.json (per-mood top artists/tracks + avg features)
+  |- consensus.json (per-mood concentration metrics)
+  |- flow.json (aggregate per-mood trajectories; not the final journey view)
+  |- playlist_embedding_corpus.txt + playlist_embedding_meta.jsonl
+        |
+        v
+streaming Doc2Vec training (pipeline/streaming_embeddings.py)
+  |- title_clusters.json (2D playlist points + cluster labels)
+  |- embedding_similarity.json (mood centroid cosine matrix)
+  |- embedding_config.json / playlist_embeddings.npy
+
+Additional specialized builders:
+  |- pipeline/build_flow_samples.py -> flow_samples.json (real playlist trajectories)
+  |- pipeline/build_summary_histograms.py -> summary_histograms.json`}</pre>
+
+          <h3>Method Details by Visual</h3>
+
+          <h4>1) Playlist Summaries</h4>
+          <ul className="appendix-list">
+            <li>
+              Inputs: <code>summary.json</code>, <code>mood_profiles.json</code>, and <code>summary_histograms.json</code>.
+            </li>
+            <li>
+              Top words come from normalized playlist titles (regex tokenization, stop-word filtering, numeric token
+              filtering) in <code>pipeline/process_data.py</code>.
+            </li>
+            <li>
+              Top artists and songs panel aggregates per-mood frequency tables already computed in
+              <code> mood_profiles.json</code>.
+            </li>
+            <li>
+              Histogram distributions are computed over all playlists in
+              <code> pipeline/build_summary_histograms.py</code>:
+              unique artist count per playlist and track count per playlist.
+            </li>
+            <li>
+              Histogram buckets are dynamically sized to target up to 15 bins: bucket size is approximately
+              <code> ceil((max-min)/15)</code>, then counts are accumulated by bucket range.
+            </li>
+          </ul>
+
+          <h4>2) The Language of Playlists</h4>
+          <ul className="appendix-list">
+            <li>
+              Word bars use the same title-token counter from <code>summary.json</code> (global frequency).
+            </li>
+            <li>
+              Cluster scatter uses embedding artifacts from <code>title_clusters.json</code>, generated by
+              <code> pipeline/streaming_embeddings.py</code>.
+            </li>
+            <li>
+              Document construction for each playlist includes weighted title tokens, matched mood context tokens,
+              and truncated track/artist tokens (to keep long playlists from dominating token mass).
+            </li>
+            <li>
+              Embeddings: streaming Doc2Vec (PV-DBOW with word training), default vector size 128, 12 epochs,
+              trained from disk-backed corpus files.
+            </li>
+            <li>
+              Visualization projection: sample up to 14,000 playlists, cluster with MiniBatchKMeans, then project to
+              2D with UMAP (cosine metric).
+            </li>
+          </ul>
+
+          <h4>3) What Defines a Mood?</h4>
+          <ul className="appendix-list">
+            <li>
+              Uses <code>mood_profiles.json</code> built in <code>pipeline/process_data.py</code>.
+            </li>
+            <li>
+              For every mood-matched playlist, track and artist frequencies are accumulated.
+            </li>
+            <li>
+              Mean audio-feature profiles are computed by summing matched tracks with available feature rows and
+              dividing by the number of matched featured tracks.
+            </li>
+            <li>
+              Reported features include danceability, energy, valence, tempo, acousticness, and instrumentalness.
+            </li>
+          </ul>
+
+          <h4>4) Consensus vs Chaos</h4>
+          <ul className="appendix-list">
+            <li>
+              Uses <code>consensus.json</code> from <code>pipeline/process_data.py</code>.
+            </li>
+            <li>
+              Track concentration is measured on per-mood track presence across playlists (whether a track appears,
+              not repeated occurrences in a single playlist).
+            </li>
+            <li>
+              Two key metrics are produced per mood:
+              <code>top50AvgShare</code> (mean playlist share of the 50 most prevalent tracks) and
+              <code>simpson</code> (sum of squared track shares).
+            </li>
+            <li>
+              Higher values indicate stronger shared canon; lower values indicate more diffuse, individualized track
+              selection.
+            </li>
+          </ul>
+
+          <h4>5) The Journey Inside Playlists</h4>
+          <ul className="appendix-list">
+            <li>
+              Uses <code>flow_samples.json</code> from <code>pipeline/build_flow_samples.py</code>, not mood-average
+              curves.
+            </li>
+            <li>
+              For each eligible playlist, track order is normalized to 20 relative-position bins (0 to 19), and bin
+              means are computed for energy, valence, and tempo.
+            </li>
+            <li>
+              Eligibility requires at least 8 tracks with feature rows (default); this avoids extremely sparse flow
+              lines.
+            </li>
+            <li>
+              To avoid memory blow-up while staying representative at scale, each mood keeps a fixed-size random sample
+              (default 10 playlists) via reservoir sampling with a fixed seed.
+            </li>
+            <li>
+              Hover song examples are selected by evenly spaced index sampling across each playlist (up to 5 songs).
+            </li>
+          </ul>
+
+          <h3>Important Caveats</h3>
+          <ul className="appendix-list">
+            <li>
+              Mood labels are keyword-rule based, not human-annotated classes; ambiguous titles can map to multiple
+              moods.
+            </li>
+            <li>
+              Any track missing in <code>track_features.csv</code> is excluded from feature-based aggregates and flow
+              statistics.
+            </li>
+            <li>
+              Title embeddings and 2D projections are stochastic methods with fixed random seeds for reproducibility,
+              but local neighborhood geometry is still approximate.
+            </li>
+            <li>
+              The visuals emphasize interpretable summary structure rather than strict causal inference.
+            </li>
+          </ul>
         </section>
       </div>
 

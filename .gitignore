@@ -17,6 +17,7 @@ web/dist/
 web/public/data/*
 !web/public/data/.gitkeep
 !web/public/data/summary.json
+!web/public/data/summary_histograms.json
 !web/public/data/title_clusters.json
 !web/public/data/mood_profiles.json
 !web/public/data/consensus.json

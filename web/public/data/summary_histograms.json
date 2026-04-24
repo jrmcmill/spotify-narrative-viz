@@ -1,0 +1,187 @@
+{
+  "totalPlaylists": 1000000,
+  "artistCountHistogram": {
+    "label": "Artists per Playlist",
+    "buckets": [
+      {
+        "bucketMin": 0,
+        "bucketMax": 15,
+        "bucketLabel": "0-15",
+        "count": 241324
+      },
+      {
+        "bucketMin": 16,
+        "bucketMax": 31,
+        "bucketLabel": "16-31",
+        "count": 290528
+      },
+      {
+        "bucketMin": 32,
+        "bucketMax": 47,
+        "bucketLabel": "32-47",
+        "count": 183535
+      },
+      {
+        "bucketMin": 48,
+        "bucketMax": 63,
+        "bucketLabel": "48-63",
+        "count": 112756
+      },
+      {
+        "bucketMin": 64,
+        "bucketMax": 79,
+        "bucketLabel": "64-79",
+        "count": 69659
+      },
+      {
+        "bucketMin": 80,
+        "bucketMax": 95,
+        "bucketLabel": "80-95",
+        "count": 42815
+      },
+      {
+        "bucketMin": 96,
+        "bucketMax": 111,
+        "bucketLabel": "96-111",
+        "count": 26196
+      },
+      {
+        "bucketMin": 112,
+        "bucketMax": 127,
+        "bucketLabel": "112-127",
+        "count": 15683
+      },
+      {
+        "bucketMin": 128,
+        "bucketMax": 143,
+        "bucketLabel": "128-143",
+        "count": 8936
+      },
+      {
+        "bucketMin": 144,
+        "bucketMax": 159,
+        "bucketLabel": "144-159",
+        "count": 4904
+      },
+      {
+        "bucketMin": 160,
+        "bucketMax": 175,
+        "bucketLabel": "160-175",
+        "count": 2307
+      },
+      {
+        "bucketMin": 176,
+        "bucketMax": 191,
+        "bucketLabel": "176-191",
+        "count": 938
+      },
+      {
+        "bucketMin": 192,
+        "bucketMax": 207,
+        "bucketLabel": "192-207",
+        "count": 300
+      },
+      {
+        "bucketMin": 208,
+        "bucketMax": 223,
+        "bucketLabel": "208-223",
+        "count": 96
+      },
+      {
+        "bucketMin": 224,
+        "bucketMax": 239,
+        "bucketLabel": "224-239",
+        "count": 23
+      }
+    ],
+    "stats": {
+      "min": 3,
+      "max": 238,
+      "median": 29,
+      "mean": 38.088211
+    }
+  },
+  "trackCountHistogram": {
+    "label": "Songs per Playlist",
+    "buckets": [
+      {
+        "bucketMin": 0,
+        "bucketMax": 24,
+        "bucketLabel": "0-24",
+        "count": 232621
+      },
+      {
+        "bucketMin": 25,
+        "bucketMax": 49,
+        "bucketLabel": "25-49",
+        "count": 270928
+      },
+      {
+        "bucketMin": 50,
+        "bucketMax": 74,
+        "bucketLabel": "50-74",
+        "count": 169174
+      },
+      {
+        "bucketMin": 75,
+        "bucketMax": 99,
+        "bucketLabel": "75-99",
+        "count": 106328
+      },
+      {
+        "bucketMin": 100,
+        "bucketMax": 124,
+        "bucketLabel": "100-124",
+        "count": 73737
+      },
+      {
+        "bucketMin": 125,
+        "bucketMax": 149,
+        "bucketLabel": "125-149",
+        "count": 49955
+      },
+      {
+        "bucketMin": 150,
+        "bucketMax": 174,
+        "bucketLabel": "150-174",
+        "count": 36130
+      },
+      {
+        "bucketMin": 175,
+        "bucketMax": 199,
+        "bucketLabel": "175-199",
+        "count": 26232
+      },
+      {
+        "bucketMin": 200,
+        "bucketMax": 224,
+        "bucketLabel": "200-224",
+        "count": 20254
+      },
+      {
+        "bucketMin": 225,
+        "bucketMax": 249,
+        "bucketLabel": "225-249",
+        "count": 14267
+      },
+      {
+        "bucketMin": 250,
+        "bucketMax": 274,
+        "bucketLabel": "250-274",
+        "count": 373
+      },
+      {
+        "bucketMin": 375,
+        "bucketMax": 399,
+        "bucketLabel": "375-399",
+        "count": 1
+      }
+    ],
+    "stats": {
+      "min": 5,
+      "max": 376,
+      "median": 49,
+      "mean": 66.346428
+    }
+  }
+}
