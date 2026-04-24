@@ -65,6 +65,7 @@ function alignFeatureSeries(flow: FlowPoint[], feature: FlowFeatureKey, targetBi
 
 export function FlowViz({ activeFlowSamples, moodLabel, isInView, onTooltipEnter, onTooltipMove, onTooltipLeave }: FlowVizProps) {
   const svgRef = useRef<SVGSVGElement>(null)
+  const hasLinesAnimatedRef = useRef(false)
   const [selectedFeature, setSelectedFeature] = useState<FlowFeatureKey>('energy')
   const [hoveredPathId, setHoveredPathId] = useState<string | null>(null)
   const features: FlowFeatureKey[] = ['energy', 'valence', 'tempo']
@@ -146,18 +147,33 @@ export function FlowViz({ activeFlowSamples, moodLabel, isInView, onTooltipEnter
     }
 
     const lines = d3.select(svgRef.current).selectAll<SVGPathElement, unknown>('.flow-line')
-    if (!isInView) {
-      lines.interrupt().style('opacity', 0)
+    if (!isInView || lines.empty()) {
+      return
+    }
+
+    if (hasLinesAnimatedRef.current) {
+      lines
+        .interrupt()
+        .style('stroke-dasharray', null)
+        .style('stroke-dashoffset', null)
       return
     }
 
     lines
       .interrupt()
-      .style('opacity', 0)
+      .each(function () {
+        const length = (this as SVGPathElement).getTotalLength()
+        d3.select(this)
+          .style('stroke-dasharray', `${length}`)
+          .style('stroke-dashoffset', `${length}`)
+      })
       .transition()
       .duration(2000)
+      .delay((_, idx) => idx * 60)
       .ease(d3.easeCubicOut)
-      .style('opacity', 0.7)
+      .style('stroke-dashoffset', '0')
+
+    hasLinesAnimatedRef.current = true
   }, [isInView, paths])
 
   const yTitle = selectedFeature === 'tempo' ? 'Tempo (BPM)' : `${FEATURE_LABELS[selectedFeature]} (0-100)`

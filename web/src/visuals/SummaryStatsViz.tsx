@@ -61,6 +61,19 @@ export function SummaryStatsViz({ moodProfiles, summaryHistograms, isInView, has
       .style('width', function () {
         return (this as HTMLElement).dataset.targetWidth ?? '0%'
       })
+
+    const histogramBars = d3.select(rootRef.current).selectAll<HTMLElement, unknown>('.histogram-bar-fill')
+
+    histogramBars
+      .interrupt()
+      .style('transform-origin', 'bottom center')
+      .style('transform', 'scaleY(0)')
+      .transition()
+      .duration(1500)
+      .delay((_, idx) => 220 + idx * 30)
+      .ease(d3.easeCubicOut)
+      .style('transform', 'scaleY(1)')
+
     hasBarsAnimatedRef.current = true
   }, [isInView])
 
