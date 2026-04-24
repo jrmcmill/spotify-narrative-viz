@@ -22,12 +22,16 @@ pip install -r pipeline/requirements.txt
 
 ```bash
 python pipeline/process_data.py --max-slices 100
+python pipeline/build_flow_samples.py --max-slices 100
+python pipeline/build_summary_histograms.py --max-slices 100
 ```
 
 3. Generate the full assets from all 1,000 slices:
 
 ```bash
 python pipeline/process_data.py
+python pipeline/build_flow_samples.py
+python pipeline/build_summary_histograms.py
 ```
 
 4. Optional: run the standalone artist counter if you only want the Artists Touched KPI artifact:
@@ -69,11 +73,12 @@ A GitHub Actions workflow is included at `.github/workflows/deploy.yml` to publi
 
 ## Narrative Sections
 
-1. Hook: language of playlists (top words)
-2. Playlist title clusters (embedding-based themes)
-3. Sound of a mood (artists + audio features)
-4. Consensus vs chaos (category agreement)
-5. Playlist journey (feature flow over track position)
+1. Playlist Summaries (KPIs, top artists/songs, artist/track count histograms)
+2. The Language of Playlists (top words + embedding-based title clusters)
+3. What Defines a Mood? (artists + audio features)
+4. Consensus vs Chaos (category agreement/concentration)
+5. The Journey Inside Playlists (sampled real-playlist trajectories)
+6. Appendix (methodology and processing details)
 
 ## Web Architecture
 
@@ -131,7 +136,7 @@ This project is structured so each teammate can own one visual with minimal over
 
 5. Section 5, The Journey Inside Playlists
 - Primary file: `web/src/visuals/FlowViz.tsx`
-- Data inputs: `activeFlow`, `moodLabel`
+- Data inputs: `activeFlowSamples`, `moodLabel`
 - Shared dependencies to watch: axis styles, flow legend styles, line animation behavior
 
 ### Data files per visual
@@ -140,14 +145,19 @@ This project is structured so each teammate can own one visual with minimal over
 - Section 2 reads from `web/public/data/title_clusters.json`
 - Section 3 reads from `web/public/data/mood_profiles.json`
 - Section 4 reads from `web/public/data/consensus.json`
-- Section 5 reads from `web/public/data/flow.json`
+- Section 5 reads from `web/public/data/flow_samples.json`
+- Section 1 histogram distributions read from `web/public/data/summary_histograms.json`
 - KPI cards at top read from `web/public/data/summary.json` (including `totalArtistsSeen`)
 
 ### Pipeline files to change when data requirements change
 
 - `pipeline/process_data.py`
 	- Main streaming generator for all web JSON assets.
-	- Update here if a visual needs a new field in `summary.json`, `mood_profiles.json`, `consensus.json`, `flow.json`, or cluster metadata.
+	- Update here if a visual needs a new field in `summary.json`, `mood_profiles.json`, `consensus.json`, or cluster metadata.
+- `pipeline/build_flow_samples.py`
+	- Builds sampled real-playlist trajectory data for Section 5 into `flow_samples.json`.
+- `pipeline/build_summary_histograms.py`
+	- Builds artist/track count distribution histograms for Section 1 into `summary_histograms.json`.
 - `pipeline/count_unique_artists.py`
 	- Standalone utility for computing `totalArtistsSeen`.
 
@@ -195,7 +205,8 @@ Key files include:
 - `title_clusters.json`: embedding-based cluster points and labels
 - `mood_profiles.json`: category-specific artist and feature summaries
 - `consensus.json`: consensus and diversity metrics by category
-- `flow.json`: track-position feature trajectories by category
+- `flow_samples.json`: sampled real-playlist track-position trajectories by category
+- `summary_histograms.json`: histogram buckets and stats for artists/song counts per playlist
 
 ## Streaming Embedding Method
 

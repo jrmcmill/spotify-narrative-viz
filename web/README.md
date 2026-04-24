@@ -34,6 +34,7 @@ The production bundle is written to `web/dist/`.
 
 Each major visualization lives in its own file under `web/src/visuals/`:
 
+- `SummaryStatsViz.tsx`
 - `WordBarsViz.tsx`
 - `TitleClustersViz.tsx`
 - `MoodProfileViz.tsx`
@@ -47,8 +48,16 @@ Shared state such as the selected mood, tooltip behavior, and scroll-triggered v
 The app expects the following generated files in `web/public/data/`:
 
 - `summary.json`
+- `summary_histograms.json`
 - `title_clusters.json`
 - `mood_profiles.json`
 - `consensus.json`
-- `flow.json`
-- `artist_count.json` if you want the standalone artist count artifact
+- `flow_samples.json`
+
+Optional/auxiliary artifacts that are not required for the app's core rendering:
+
+- `artist_count.json` (standalone utility output)
+- `embedding_similarity.json`
+- `embedding_config.json`
+- `playlist_embeddings.npy`
+- `playlist_doc2vec.model`
