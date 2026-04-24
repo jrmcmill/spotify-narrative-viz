@@ -21,6 +21,7 @@ web/public/data/*
 !web/public/data/mood_profiles.json
 !web/public/data/consensus.json
 !web/public/data/flow.json
+!web/public/data/flow_samples.json
 
 # Raw source datasets (large)
 data/track_features.csv
