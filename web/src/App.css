@@ -323,6 +323,14 @@
   min-width: 0;
 }
 
+.language-read-guide {
+  grid-column: 1 / -1;
+  margin: 0 0 0.35rem;
+  color: #829ab1;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
 .word-bars,
 .rank-list,
 .feature-list,
@@ -760,11 +768,25 @@
   flex-wrap: wrap;
 }
 
+.flow-read-guide {
+  margin: 0 0 0.5rem;
+  color: #829ab1;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
 .flow-feature-toggle {
   margin-top: 0.65rem;
   display: flex;
   gap: 0.5rem;
   flex-wrap: wrap;
+}
+
+.flow-feature-description {
+  margin: 0.5rem 0 0;
+  color: #829ab1;
+  font-size: 0.9rem;
+  line-height: 1.6;
 }
 
 .flow-toggle-btn {

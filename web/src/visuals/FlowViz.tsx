@@ -16,6 +16,12 @@ const FEATURE_LABELS: Record<FlowFeatureKey, string> = {
   tempo: 'Tempo',
 }
 
+const FEATURE_DESCRIPTIONS: Record<FlowFeatureKey, string> = {
+  energy: 'Energy reflects perceived intensity and activity. Higher values feel more forceful and driving, while lower values feel calmer and softer.',
+  valence: 'Valence reflects musical positivity. Higher values tend to feel brighter or happier, while lower values tend to feel moodier or emotionally heavy.',
+  tempo: 'Tempo is the track speed in beats per minute (BPM). Higher values are faster-paced, while lower values are slower and more relaxed.',
+}
+
 function describeSongExamples(sample: FlowSamplePlaylist): string {
   const songs = sample.exampleSongs.slice(0, 3)
   if (songs.length === 0) {
@@ -273,14 +279,19 @@ export function FlowViz({ activeFlowSamples, moodLabel, isInView, onTooltipEnter
           </button>
         ))}
       </div>
+      <p className="flow-feature-description">
+        <strong>{FEATURE_LABELS[selectedFeature]}:</strong> {FEATURE_DESCRIPTIONS[selectedFeature]}
+      </p>
       <div className="flow-legend">
         <span
           className="flow-chip neutral"
-          onMouseEnter={onTooltipEnter(`Showing up to 10 playlist trajectories for ${moodLabel}. Hover a line to inspect playlist and songs.`)}
+          onMouseEnter={onTooltipEnter(
+            `Showing up to 10 playlist trajectories for ${moodLabel}. Hover a line to inspect its trajectory and view song examples from that playlist.`,
+          )}
           onMouseMove={onTooltipMove}
           onMouseLeave={onTooltipLeave}
         >
-          10 playlist trajectories shown in #212121. Hover a line for playlist details.
+          10 playlist trajectories shown in #212121. Hover a line to inspect its path and see song examples.
         </span>
       </div>
     </>

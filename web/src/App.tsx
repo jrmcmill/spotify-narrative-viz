@@ -286,10 +286,24 @@ function App() {
         <section className="story-block" ref={wordBarsRef.ref}>
           <h2 className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>The Language of Playlists</h2>
           <p className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>
-            Playlist titles reveal intent in two ways: the words themselves cluster into recurring themes, and the
-            most common words show which ideas dominate playlist naming. Mood focus: <strong>{moodLabel}</strong>.
+            Across this million-playlist collection, titles act like tiny notes people leave for themselves and one
+            another: what this music is for, what feeling it should hold, and what moment it belongs to. Seen at
+            scale, those notes become a shared vocabulary of everyday listening.
+          </p>
+          <p className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>
+            This section reveals that vocabulary in two complementary ways. On the left, title clusters show recurring
+            naming neighborhoods. On the right, top words show which terms dominate how people label playlists. Mood
+            focus: <strong>{moodLabel}</strong>.
+          </p>
+          <p className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>
+            For example, we can see a top red cluster made up primarily of religious playlists, while the far-left
+            blue cluster is made up primarily of Latin playlists.
           </p>
           <div className={`card language-layout ${wordBarsRef.isInView ? 'visible' : ''}`}>
+            <p className="language-read-guide">
+              How to read this view: clusters help you see broader themes; word bars show the strongest naming signals.
+              Use the mood filter to compare how the language shifts from one context to another.
+            </p>
             <div className="language-panel language-panel-clusters">
               <TitleClustersViz
                 titleClusters={titleClusters}
@@ -365,10 +379,24 @@ function App() {
         <section className="story-block" ref={flowRef.ref}>
           <h2 className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>The Journey Inside Playlists</h2>
           <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
-            Track order can tell a story. Each line is one real playlist trajectory for a single feature. Explore
-            examples from <strong>{moodLabel}</strong> and hover for song snapshots.
+            Playlists are not just collections of songs; they are often arranged as sequences. A quiet opening, a
+            lift in the middle, a landing at the end. Looking at order helps us see how listeners shape attention,
+            energy, and emotion over time.
+          </p>
+          <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
+            Each line below traces one real playlist from start to finish for a selected audio feature. Compare
+            examples from <strong>{moodLabel}</strong> to see whether journeys feel gradual, dramatic, or deliberately
+            steady.
+          </p>
+          <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
+            For example, when you select <strong>Energy</strong>, playlists in moods like <strong>hype</strong> and{' '}
+            <strong>workout</strong> tend to sit higher overall than many <strong>sad</strong> playlists.
           </p>
           <div className={`card ${flowRef.isInView ? 'visible' : ''}`}>
+            <p className="flow-read-guide">
+              How to read this view: left-to-right is playlist order, and up-and-down shows the chosen feature level.
+              Switch features to compare different kinds of movement, and hover points for track-level snapshots.
+            </p>
             <FlowViz
               activeFlowSamples={activeFlowSamples}
               moodLabel={moodLabel}
