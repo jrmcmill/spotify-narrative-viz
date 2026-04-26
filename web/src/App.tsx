@@ -24,6 +24,7 @@ function App() {
   const wordBarsRef = useInView()
   const moodRef = useInView()
   const consensusRef = useInView()
+  const journeyRef = useInView()
   const flowRef = useInView()
   const spotifyRef = useInView()
 
@@ -436,28 +437,28 @@ function App() {
           </div>
         </section>
 
-        <section className="story-block" ref={flowRef.ref}>
-          <h2 className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>The Journey Inside Playlists</h2>
-          <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
+        <section className="story-block" ref={journeyRef.ref}>
+          <h2 className={`fade-in-text ${journeyRef.isInView ? 'visible' : ''}`}>The Journey Inside Playlists</h2>
+          <p className={`fade-in-text ${journeyRef.isInView ? 'visible' : ''}`}>
             Playlists are not just collections of songs; they are often arranged as sequences. A quiet opening, a
             lift in the middle, a landing at the end. The order of tracks is itself a form of expression: it controls how a mood builds,
             peaks, and resolves.
           </p>
-          <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
+          <p className={`fade-in-text ${journeyRef.isInView ? 'visible' : ''}`}>
             This section allows you to trace that arc. Each line below follows one real playlist from start to finish,
             plotting how energy, emotional valence, or tempo shifts across the listening experience.
             Some playlists build steadily toward a peak. Others start hard and taper off. Many hold steady, with a
             deliberate flatline that sustains a feeling rather than transforming it.
             Compare examples from <strong>{moodLabel}</strong> to see whether journies feel gradual, dramatic, or deliberately steady.
           </p>
-          <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
+          <p className={`fade-in-text ${journeyRef.isInView ? 'visible' : ''}`}>
             Workout and hype playlists tend to open strong and stay there. Sad playlists
             often dip lower as they progress. Study playlists are remarkably consistent —
             which makes sense for music designed to disappear into the background. These
             trajectories aren't random. They reflect choices listeners make, consciously or
             not, about how to shape an experience over time.
           </p>
-          <div className={`card ${flowRef.isInView ? 'visible' : ''}`}>
+          <div className={`card ${journeyRef.isInView ? 'visible' : ''}`}>
             <p className="flow-read-guide">
               How to read this view: Left-to-right is playlist order, and up-and-down shows the chosen feature level.
               Switch features to compare different kinds of movement, and hover points for track-level snapshots.
@@ -465,7 +466,7 @@ function App() {
             <FlowViz
               activeFlowSamples={activeFlowSamples}
               moodLabel={moodLabel}
-              isInView={flowRef.isInView}
+              isInView={journeyRef.isInView}
               onTooltipEnter={onTooltipEnter}
               onTooltipMove={onTooltipMove}
               onTooltipLeave={onTooltipLeave}
