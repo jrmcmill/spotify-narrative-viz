@@ -31,6 +31,8 @@ jobs:
       - name: Install
         run: npm ci
         working-directory: web
+        env:
+          VITE_SPOTIFY_CLIENT_ID: ${{ secrets.VITE_SPOTIFY_CLIENT_ID }}
 
       - name: Build
         run: npm run build
