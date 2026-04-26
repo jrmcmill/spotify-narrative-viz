@@ -206,6 +206,7 @@ function App() {
       <aside className="mood-sidebar">
         <div className="mood-sidebar-content">
           <h3 className="mood-sidebar-title">Explore Mood</h3>
+          <p className="mood-sidebar-note">Applies starting in The Language of Playlists section below.</p>
           <div className="sidebar-mood-buttons">
             {moodOptions.map((mood) => (
               <button
@@ -224,15 +225,19 @@ function App() {
       <div className="page">
         <section className="hero" ref={heroRef.ref}>
           <p className="eyebrow">SI649 Narrative Visualization Project</p>
+          <p className="hero-credits">
+            Haley Belardo (hmrichar) | Jillian Terrell (terrellj) | Jonathan McMillan (jrmcmill) | Paris Heard
+            (pmheard)
+          </p>
           <h1>How We Use Music: The Hidden Language of Spotify Playlists</h1>
           <p className="lede">
-            People do not just listen to songs, they use music to shape moments in everyday life. On Spotify,
-            playlists become containers for social rituals and emotional states: focus, heartbreak, long drives,
-            workouts, parties, sleepless nights, and everything in between. The titles people choose, the songs they
-            group together, and the order they place them in all reflect how music is used not only for entertainment,
-            but for mood-setting, self-expression, and routine. This project explores those patterns through user-made
-            Spotify playlists, tracing how listeners collectively organize songs into recognizable categories of feeling
-            and experience.
+            What is in a playlist? People often use music to shape moments in life, from the everyday to the
+            exceptional. On Spotify, playlists become containers for social rituals and emotional states: focus,
+            heartbreak, long drives, workouts, parties, sleepless nights, and everything in between. The titles people
+            choose, the songs they group together, and the order they place them in all reflect how music is used not
+            only for entertainment, but for mood-setting, self-expression, and routine. This project explores those
+            patterns through user-made Spotify playlists, tracing how listeners collectively organize songs into
+            recognizable categories of feeling and experience.
           </p>
           <div className="stat-grid">
             <article className={`stat-card ${heroRef.isInView ? 'visible' : ''}`}>
@@ -251,9 +256,15 @@ function App() {
         </section>
 
         <section className="story-block" ref={summaryRef.ref}>
-          <h2 className={`fade-in-text ${summaryVisible ? 'visible' : ''}`}>1. Playlist Summaries</h2>
+          <h2 className={`fade-in-text ${summaryVisible ? 'visible' : ''}`}>Playlist Summaries</h2>
           <p className={`fade-in-text ${summaryVisible ? 'visible' : ''}`}>
-            A quick snapshot of title-language frequency before diving into cluster structure and mood-level behavior.
+            Before we get into the details, this section offers a broader view of the dataset as a whole. By looking at
+            large-scale summary patterns first, we can start to see the overall shape of Spotify playlist culture
+            before diving into specific title themes, mood structures, and listening behaviors.
+          </p>
+          <p className={`section-note ${summaryVisible ? 'visible' : ''}`}>
+            The mood filter in the sidebar does not change these overview summaries. It begins affecting the visuals in
+            the next section, <strong>The Language of Playlists</strong>.
           </p>
           <div className={`card ${summaryVisible ? 'visible' : ''}`}>
             <SummaryStatsViz
@@ -266,10 +277,14 @@ function App() {
               onTooltipLeave={onTooltipLeave}
             />
           </div>
+          <p className={`hero-guide summary-guide ${summaryVisible ? 'visible' : ''}`}>
+            As you move through this page, follow how playlist titles, audio features, recurring songs, and track order
+            together reveal the shared ways people build moods and meaning through music.
+          </p>
         </section>
 
         <section className="story-block" ref={wordBarsRef.ref}>
-          <h2 className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>2. The Language of Playlists</h2>
+          <h2 className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>The Language of Playlists</h2>
           <p className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>
             Playlist titles reveal intent in two ways: the words themselves cluster into recurring themes, and the
             most common words show which ideas dominate playlist naming. Mood focus: <strong>{moodLabel}</strong>.
@@ -300,7 +315,7 @@ function App() {
         </section>
 
         <section className="story-block" ref={moodRef.ref}>
-          <h2 className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>3. What Defines a Mood?</h2>
+          <h2 className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>What Defines a Mood?</h2>
           <p className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>
             Current mood: <strong>{moodLabel}</strong>. What makes it sonically distinct?
           </p>
@@ -318,7 +333,7 @@ function App() {
         </section>
 
         <section className="story-block" ref={consensusRef.ref}>
-          <h2 className={`fade-in-text ${consensusRef.isInView ? 'visible' : ''}`}>4. Consensus vs Chaos</h2>
+          <h2 className={`fade-in-text ${consensusRef.isInView ? 'visible' : ''}`}>Consensus vs Chaos</h2>
           <div className={`fade-in-text ${consensusRef.isInView ? 'visible' : ''}`}>
             <p>
               This visualization explores how consistently different Spotify moods are defined by comparing how much
@@ -348,7 +363,7 @@ function App() {
         </section>
 
         <section className="story-block" ref={flowRef.ref}>
-          <h2 className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>5. The Journey Inside Playlists</h2>
+          <h2 className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>The Journey Inside Playlists</h2>
           <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
             Track order can tell a story. Each line is one real playlist trajectory for a single feature. Explore
             examples from <strong>{moodLabel}</strong> and hover for song snapshots.
