@@ -5,6 +5,8 @@ import { useCountUp } from './hooks/useCountUp'
 import { ALL_MOOD_OPTION, MOOD_HINT_KEYWORDS } from './visuals/constants'
 import { ConsensusViz, FlowViz, MoodProfileViz, SummaryStatsViz, TitleClustersViz, WordBarsViz } from './visuals'
 import type { ConsensusRow, FlowSamplePlaylist, FlowSamplesData, MoodProfiles, Summary, SummaryHistograms, TitleClusters, TooltipState } from './visuals/types'
+import { SpotifyUserViz } from './visuals'
+
 
 function App() {
   const [summary, setSummary] = useState<Summary | null>(null)
@@ -23,6 +25,8 @@ function App() {
   const moodRef = useInView()
   const consensusRef = useInView()
   const flowRef = useInView()
+  const spotifyRef = useInView()
+
 
   useEffect(() => {
     if (summaryRef.isInView && !hasSummaryAnimated) {
@@ -421,6 +425,26 @@ function App() {
               activeFlowSamples={activeFlowSamples}
               moodLabel={moodLabel}
               isInView={flowRef.isInView}
+              onTooltipEnter={onTooltipEnter}
+              onTooltipMove={onTooltipMove}
+              onTooltipLeave={onTooltipLeave}
+            />
+          </div>
+        </section>
+
+        <section className="story-block" ref={spotifyRef.ref}>
+          <h2 className={`fade-in-text ${spotifyRef.isInView ? 'visible' : ''}`}>Where Do You Fit?</h2>
+          <div className={`fade-in-text ${spotifyRef.isInView ? 'visible' : ''}`}>
+            <p>
+              The patterns above emerge from a million playlists — but every listener's
+              library tells its own version of this story. Connect your Spotify account
+              to see how your top tracks map onto the mood categories we found across
+              the dataset, and where your taste sits relative to the mainstream.
+            </p>
+          </div>
+          <div className="card visible">
+            <SpotifyUserViz
+              moodProfiles={moodProfiles}
               onTooltipEnter={onTooltipEnter}
               onTooltipMove={onTooltipMove}
               onTooltipLeave={onTooltipLeave}

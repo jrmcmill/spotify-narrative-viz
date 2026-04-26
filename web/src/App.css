@@ -1448,3 +1448,488 @@
     grid-template-columns: 1fr;
   }
 }
+
+/* ── SpotifyUserViz — dark theme to match Spotify ────────────────────────── */
+
+.spotify-user-root {
+  margin-top: 0.8rem;
+}
+
+/* ── Connect panel ────────────────────────────────────────────────────────── */
+.spotify-connect-panel {
+  display: flex;
+  justify-content: center;
+  padding: 2.5rem 1rem;
+}
+
+.spotify-connect-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  max-width: 420px;
+  gap: 0.75rem;
+}
+
+.spotify-connect-icon {
+  font-size: 3rem;
+  line-height: 1;
+}
+
+.spotify-connect-title {
+  margin: 0;
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: -0.01em;
+}
+
+.spotify-connect-desc {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--sp-light-gray);
+  line-height: 1.6;
+}
+
+.spotify-connect-btn {
+  margin-top: 0.5rem;
+  padding: 0.65rem 1.8rem;
+  border-radius: 999px;
+  border: none;
+  background: var(--sp-green);
+  color: #000;
+  font-size: 0.9rem;
+  font-weight: 700;
+  font-family: 'Avenir Next', 'Avenir', 'Segoe UI', sans-serif;
+  cursor: pointer;
+  transition: background 0.15s, transform 0.1s;
+  letter-spacing: 0.02em;
+}
+
+.spotify-connect-btn:hover {
+  background: #17a349;
+  transform: translateY(-1px);
+}
+
+.spotify-connect-note {
+  margin: 0;
+  font-size: 0.72rem;
+  color: var(--sp-gray);
+  font-style: italic;
+}
+
+/* ── Loading ──────────────────────────────────────────────────────────────── */
+.spotify-loading {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 3rem;
+  color: var(--sp-light-gray);
+  font-size: 0.9rem;
+}
+
+.spotify-loading-spinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--sp-border);
+  border-top-color: var(--sp-green);
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+
+/* ── Playlist picker ──────────────────────────────────────────────────────── */
+.spotify-pick-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.spotify-pick-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.spotify-pick-prompt {
+  margin: 0;
+  font-size: 0.88rem;
+  color: var(--sp-light-gray);
+  font-weight: 500;
+}
+
+.spotify-disconnect-btn {
+  padding: 0.25rem 0.75rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--sp-border);
+  background: transparent;
+  color: var(--sp-light-gray);
+  font-size: 0.75rem;
+  cursor: pointer;
+  font-family: 'Avenir Next', 'Avenir', 'Segoe UI', sans-serif;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.spotify-disconnect-btn:hover {
+  border-color: var(--sp-light-gray);
+  color: #fff;
+}
+
+.spotify-playlist-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+  gap: 0.75rem;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.spotify-playlist-card {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.4rem;
+  padding: 0.6rem;
+  background: var(--sp-surface);
+  border: 1.5px solid var(--sp-border);
+  border-radius: 12px;
+  cursor: pointer;
+  text-align: left;
+  font-family: 'Avenir Next', 'Avenir', 'Segoe UI', sans-serif;
+  transition: border-color 0.15s, box-shadow 0.15s, transform 0.1s;
+}
+
+.spotify-playlist-card:hover {
+  border-color: var(--sp-green);
+  box-shadow: 0 4px 12px rgba(29, 185, 84, 0.2);
+  transform: translateY(-2px);
+}
+
+.spotify-playlist-img {
+  width: 100%;
+  aspect-ratio: 1;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.spotify-playlist-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fff;
+  line-height: 1.3;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.spotify-playlist-count {
+  font-size: 0.72rem;
+  color: var(--sp-light-gray);
+}
+
+/* ── Error ────────────────────────────────────────────────────────────────── */
+.spotify-error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  padding: 2rem;
+  text-align: center;
+  color: var(--sp-light-gray);
+  font-size: 0.9rem;
+}
+
+/* ── Results ──────────────────────────────────────────────────────────────── */
+.spotify-results {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.spotify-match-banner {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.9rem 1.2rem;
+  border-radius: 12px;
+  border: 1.5px solid;
+  flex-wrap: wrap;
+  background: var(--sp-surface);
+}
+
+.spotify-match-emoji {
+  font-size: 2.2rem;
+  line-height: 1;
+  flex-shrink: 0;
+}
+
+.spotify-match-label {
+  margin: 0 0 0.1rem;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--sp-light-gray);
+}
+
+.spotify-match-mood {
+  margin: 0 0 0.1rem;
+  font-size: 1.15rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+}
+
+.spotify-match-desc {
+  margin: 0;
+  font-size: 0.76rem;
+  color: var(--sp-light-gray);
+}
+
+.spotify-match-playlist {
+  margin-left: auto;
+  text-align: right;
+}
+
+.spotify-match-playlist-name {
+  margin: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: #fff;
+}
+
+.spotify-switch-btn {
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  border: 1.5px solid var(--sp-border);
+  background: transparent;
+  color: var(--sp-light-gray);
+  font-size: 0.78rem;
+  font-weight: 600;
+  font-family: 'Avenir Next', 'Avenir', 'Segoe UI', sans-serif;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: border-color 0.15s, color 0.15s;
+  flex-shrink: 0;
+}
+
+.spotify-switch-btn:hover {
+  border-color: var(--sp-light-gray);
+  color: #fff;
+}
+
+/* ── User radar ───────────────────────────────────────────────────────────── */
+.user-radar-polygon {
+  fill: rgba(29, 185, 84, 0.2);
+  stroke: var(--sp-green);
+  stroke-width: 2.5;
+}
+
+.user-radar-dot {
+  fill: var(--sp-green);
+  stroke: var(--sp-black);
+  stroke-width: 1.5;
+  cursor: default;
+}
+
+.user-radar-legend-swatch {
+  fill: rgba(29, 185, 84, 0.2);
+  stroke: var(--sp-green);
+  stroke-width: 1.5;
+}
+
+/* ── SpotifyUserViz additions — append to App.css ────────────────────────── */
+
+/* User header */
+.spotify-user-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  background: var(--sp-surface);
+  border-radius: 12px;
+  border: 1px solid var(--sp-border);
+}
+
+.spotify-user-header > div {
+  flex: 1;
+}
+
+.spotify-user-text {
+  flex: 1;
+  min-width: 0;
+}
+
+.spotify-user-greeting {
+  margin: 0 0 0.2rem;
+  font-size: 0.78rem;
+  color: var(--sp-light-gray);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-weight: 700;
+}
+
+.spotify-user-summary {
+  margin: 0;
+  font-size: 1rem;
+  color: #fff;
+  line-height: 1.5;
+}
+
+/* Mood breakdown bars */
+.spotify-mood-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  margin-top: 0.25rem;
+}
+
+.spotify-mood-bar-row {
+  display: grid;
+  grid-template-columns: 110px 1fr 28px;
+  align-items: center;
+  gap: 0.6rem;
+  cursor: default;
+}
+
+.spotify-mood-bar-label {
+  font-size: 0.82rem;
+  color: var(--sp-light-gray);
+  white-space: nowrap;
+  font-family: 'Avenir Next', 'Avenir', 'Segoe UI', sans-serif;
+}
+
+.spotify-mood-bar-track {
+  height: 8px;
+  border-radius: 999px;
+  background: var(--sp-surface-muted);
+  overflow: hidden;
+}
+
+.spotify-mood-bar-fill {
+  height: 100%;
+  border-radius: 999px;
+  transition: width 0.6s ease;
+}
+
+.spotify-mood-bar-count {
+  font-size: 0.75rem;
+  color: var(--sp-gray);
+  text-align: right;
+  font-family: 'Avenir Next', 'Avenir', 'Segoe UI', sans-serif;
+}
+
+/* Track list */
+.spotify-track-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  max-height: 420px;
+  overflow-y: auto;
+  padding-right: 0.25rem;
+}
+
+.spotify-track-row {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  padding: 0.3rem 0;
+  border-bottom: 1px solid var(--sp-border);
+}
+
+.spotify-track-row:last-child {
+  border-bottom: none;
+}
+
+.spotify-track-num {
+  font-size: 0.75rem;
+  color: var(--sp-gray);
+  width: 16px;
+  text-align: right;
+  flex-shrink: 0;
+  font-family: 'Avenir Next', 'Avenir', 'Segoe UI', sans-serif;
+}
+
+.spotify-track-img {
+  width: 36px;
+  height: 36px;
+  border-radius: 4px;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.spotify-track-info {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.spotify-track-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'Avenir Next', 'Avenir', 'Segoe UI', sans-serif;
+}
+
+.spotify-track-artist {
+  font-size: 0.72rem;
+  color: var(--sp-light-gray);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-family: 'Avenir Next', 'Avenir', 'Segoe UI', sans-serif;
+}
+
+.spotify-track-moods {
+  display: flex;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.spotify-track-mood-tag {
+  font-size: 0.75rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 999px;
+  border: 1px solid;
+  line-height: 1.4;
+}
+
+.spotify-track-uncharted {
+  font-size: 0.75rem;
+  color: var(--sp-gray);
+}
+
+.spotify-api-note {
+  margin: 1rem 0 0;
+  font-size: 0.72rem;
+  color: var(--sp-gray);
+  font-style: italic;
+  text-align: center;
+}
+
+.spotify-preview-btn {
+  background: transparent;
+  border: 1.5px solid var(--sp-border);
+  color: var(--sp-light-gray);
+  padding: 0.5rem 1.4rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-family: 'Avenir Next', 'Avenir', 'Segoe UI', sans-serif;
+  cursor: pointer;
+  transition: border-color 0.15s, color 0.15s;
+}
+
+.spotify-preview-btn:hover {
+  border-color: var(--sp-light-gray);
+  color: #fff;
+}
