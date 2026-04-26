@@ -24,6 +24,7 @@ function App() {
   const wordBarsRef = useInView()
   const moodRef = useInView()
   const consensusRef = useInView()
+  const journeyRef = useInView()
   const flowRef = useInView()
   const spotifyRef = useInView()
 
@@ -233,7 +234,7 @@ function App() {
             Haley Belardo (hmrichar) | Jillian Terrell (terrellj) | Jonathan McMillan (jrmcmill) | Paris Heard
             (pmheard)
           </p>
-          <h1>How We Use Music: The Hidden Language of Spotify Playlists</h1>
+          <h1>How We Use Music: The Hidden Elements of Spotify Playlists</h1>
           <p className="lede">
             What is in a playlist? People often use music to shape moments in life, from the everyday to the
             exceptional. On Spotify, playlists become containers for social rituals and emotional states: focus,
@@ -400,23 +401,23 @@ function App() {
           </div>
         </section>
 
-        <section className="story-block" ref={flowRef.ref}>
-          <h2 className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>The Journey Inside Playlists</h2>
-          <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
+        <section className="story-block" ref={journeyRef.ref}>
+          <h2 className={`fade-in-text ${journeyRef.isInView ? 'visible' : ''}`}>The Journey Inside Playlists</h2>
+          <p className={`fade-in-text ${journeyRef.isInView ? 'visible' : ''}`}>
             Playlists are not just collections of songs; they are often arranged as sequences. A quiet opening, a
             lift in the middle, a landing at the end. Looking at order helps us see how listeners shape attention,
             energy, and emotion over time.
           </p>
-          <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
+          <p className={`fade-in-text ${journeyRef.isInView ? 'visible' : ''}`}>
             Each line below traces one real playlist from start to finish for a selected audio feature. Compare
             examples from <strong>{moodLabel}</strong> to see whether journeys feel gradual, dramatic, or deliberately
             steady.
           </p>
-          <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
+          <p className={`fade-in-text ${journeyRef.isInView ? 'visible' : ''}`}>
             For example, when you select <strong>Energy</strong>, playlists in moods like <strong>hype</strong> and{' '}
             <strong>workout</strong> tend to sit higher overall than many <strong>sad</strong> playlists.
           </p>
-          <div className={`card ${flowRef.isInView ? 'visible' : ''}`}>
+          <div className={`card ${journeyRef.isInView ? 'visible' : ''}`}>
             <p className="flow-read-guide">
               How to read this view: left-to-right is playlist order, and up-and-down shows the chosen feature level.
               Switch features to compare different kinds of movement, and hover points for track-level snapshots.
@@ -424,7 +425,7 @@ function App() {
             <FlowViz
               activeFlowSamples={activeFlowSamples}
               moodLabel={moodLabel}
-              isInView={flowRef.isInView}
+              isInView={journeyRef.isInView}
               onTooltipEnter={onTooltipEnter}
               onTooltipMove={onTooltipMove}
               onTooltipLeave={onTooltipLeave}
@@ -455,9 +456,21 @@ function App() {
         <section className="closing" ref={flowRef.ref}>
           <h2 className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>Conclusion</h2>
           <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
-            Playlist titles and ordering patterns expose a hidden folk taxonomy of music use. Spotify users are
-            collectively annotating songs with context: who we are, what we feel, and what moment we are trying to
-            build.
+            Across a million playlists, a pattern emerges: listeners are not simply collecting songs, but building
+            vessels for specific moments and emotional states. Through their choices of titles, they establish a
+            collective language — naming neighborhoods of music that reflect shared understanding. Through the songs
+            they select, they define sonic signatures: study playlists that are distinctly slow and instrumental,
+            workout and hype playlists that push toward energy and pace, sad playlists that embrace acoustic depth and
+            low valence. Through the way they sequence tracks, they shape journeys — opening quietly, building, landing
+            — treating each playlist as a narrative arc rather than a shuffle.
+          </p>
+          <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
+            What emerges is a hidden folk taxonomy. Spotify users are collectively annotating songs with context,
+            answering the same question millions of times over: what does this moment sound like? In doing so, they
+            inscribe meaning into music — meaning that is not fixed by record labels or algorithms, but continuously
+            negotiated by listeners. Every title, every feature-based choice, every thoughtfully placed track is a vote
+            in an ongoing conversation about how we use music to shape who we are, what we feel, and what we are trying
+            to build.
           </p>
         </section>
 
