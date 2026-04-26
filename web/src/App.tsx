@@ -329,21 +329,41 @@ function App() {
         </section>
 
         <section className="story-block" ref={moodRef.ref}>
-          <h2 className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>What Defines a Mood?</h2>
-          <p className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>
-            Current mood: <strong>{moodLabel}</strong>. What makes it sonically distinct?
+        <h2 className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>What Defines a Mood?</h2>
+        <div className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>
+          <p>
+            Music is rarely just background noise. Listeners reach for specific sounds to match or shift
+            how they feel: to push through a tough workout, process a painful breakup, stay focused during finals, or set the
+            mood for a late night drive. Spotify playlists make this behavior visible at a large scale: when
+            a million people independently title their playlists "sad," "hype," or "study," they are
+            collectively and socially defining what those moods sound like, and formulating their sonic trademark.
           </p>
-          <div className={`card ${moodRef.isInView ? 'visible' : ''}`}>
-            <MoodProfileViz
-              activeMood={activeMood}
-              moodProfiles={moodProfiles}
-              selectedMood={selectedMood}
-              isInView={moodRef.isInView}
-              onTooltipEnter={onTooltipEnter}
-              onTooltipMove={onTooltipMove}
-              onTooltipLeave={onTooltipLeave}
-            />
-          </div>
+          <p>
+            Every mood has a sonic signature; a characteristic blend of energy, tempo, acousticness,
+            and emotional tone that separates it from the rest. This section breaks down what audio
+            features and artists define each mood, surfacing what makes it statistically distinct from
+            the average playlist. Current focus: <strong>{moodLabel}</strong>.
+          </p>
+          <p>
+            Not every mood is equally distinctive. <strong>Study</strong> stands apart most sharply;
+            it is the most instrumental and slowest-tempo mood by a wide margin, built for distraction-free
+            focus. <strong>Workout</strong> and <strong>hype</strong> cluster toward high energy and fast
+            tempo, while <strong>sad</strong> pulls hard toward acousticness and low valence.{' '}
+            <strong>Romance</strong>, surprisingly, sits close to average across nearly every feature,
+            defined more by its artists than its sound alone.
+          </p>
+        </div>
+        <div className={`card ${moodRef.isInView ? 'visible' : ''}`}>
+          <MoodProfileViz
+            activeMood={activeMood}
+            moodProfiles={moodProfiles}
+            selectedMood={selectedMood}
+            isInView={moodRef.isInView}
+            onTooltipEnter={onTooltipEnter}
+            onTooltipMove={onTooltipMove}
+            onTooltipLeave={onTooltipLeave}
+          />
+        </div>
         </section>
 
         <section className="story-block" ref={consensusRef.ref}>
