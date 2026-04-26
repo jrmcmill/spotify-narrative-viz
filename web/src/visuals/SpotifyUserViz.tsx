@@ -56,7 +56,7 @@ type TrackWithMoods = SpotifyTopTrack & { moods: string[] }
 // ── Component ─────────────────────────────────────────────────────────────────
 export function SpotifyUserViz({ moodProfiles, onTooltipEnter, onTooltipMove, onTooltipLeave }: SpotifyUserVizProps) {
   const [stage, setStage] = useState<Stage>('idle')
-  const [token, setToken] = useState<string | null>(null)
+  const [, setToken] = useState<string | null>(null)
   const [user, setUser] = useState<SpotifyUser | null>(null)
   const [tracks, setTracks] = useState<TrackWithMoods[]>([])
   const [error, setError] = useState<string | null>(null)
