@@ -235,13 +235,22 @@ function App() {
           </p>
           <h1>How We Use Music: The Hidden Language of Spotify Playlists</h1>
           <p className="lede">
-            What is in a playlist? People often use music to shape moments in life, from the everyday to the
-            exceptional. On Spotify, playlists become containers for social rituals and emotional states: focus,
-            heartbreak, long drives, workouts, parties, sleepless nights, and everything in between. The titles people
+            <p>
+            What is in a playlist? On the surface, a playlist is just a list of songs. But if you look closely at
+            their chosen names, you'll find a new meaning emerges: "late night drives," "crying in the club,"
+            "beast mode," "sunday morning coffee," a living anthology of how music is used and experienced.
+            Music is more than just what sounds people like, it reflects what they need, what they feel,
+            and how the world is perceived through their lens. People use it to shape moments in their lives, from the everyday to the
+            exceptional.
+            </p>
+            <p>
+            On Spotify, playlists become containers for social rituals and emotional states: focus,
+            heartbreak, roadtrips, workouts, parties, sleepless nights, protests, and everything in between. The titles they
             choose, the songs they group together, and the order they place them in all reflect how music is used not
-            only for entertainment, but for mood-setting, self-expression, and routine. This project explores those
-            patterns through user-made Spotify playlists, tracing how listeners collectively organize songs into
-            recognizable categories of feeling and experience.
+            only for entertainment, but for mood-setting, self-expression, routine, and cultural experience. This project explores this
+            behavior at scale, drawing on one million user-created Spotify playlists, tracing how listeners collectively organize music into
+            recognizable categories, and what they say about the hidden grammar of everyday listening.
+            </p>
           </p>
           <div className="stat-grid">
             <article className={`stat-card ${heroRef.isInView ? 'visible' : ''}`}>
@@ -262,9 +271,16 @@ function App() {
         <section className="story-block" ref={summaryRef.ref}>
           <h2 className={`fade-in-text ${summaryVisible ? 'visible' : ''}`}>Playlist Summaries</h2>
           <p className={`fade-in-text ${summaryVisible ? 'visible' : ''}`}>
-            Before we get into the details, this section offers a broader view of the dataset as a whole. By looking at
-            large-scale summary patterns first, we can start to see the overall shape of Spotify playlist culture
-            before diving into specific title themes, mood structures, and listening behaviors.
+            <p>
+            Before we get into the details, this section offers a broader view of the dataset as a whole. One million
+            playlists, over nine million tracks, nearly three hundred thousand distinct artists; the scale alone is a story.
+            A few patterns stand out immediately: Drake appears in more playlists than any other artist by a wide margin, and the
+            median playlist holds 49 songs, which is long enough to carry a mood through an entire afternoon.
+            </p>
+            <p>
+            These summary numbers set the stage. The real patterns emerge when we look deeper into how playlists are labeled,
+            structured, and shaped by the people who make them.
+            </p>
           </p>
           <p className={`section-note ${summaryVisible ? 'visible' : ''}`}>
             The mood filter in the sidebar does not change these overview summaries. It begins affecting the visuals in
@@ -289,23 +305,28 @@ function App() {
 
         <section className="story-block" ref={wordBarsRef.ref}>
           <h2 className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>The Language of Playlists</h2>
-          <p className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>
-            Across this million-playlist collection, titles act like tiny notes people leave for themselves and one
-            another: what this music is for, what feeling it should hold, and what moment it belongs to. Seen at
-            scale, those notes become a shared vocabulary of everyday listening.
-          </p>
-          <p className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>
-            This section reveals that vocabulary in two complementary ways. On the left, title clusters show recurring
-            naming neighborhoods. On the right, top words show which terms dominate how people label playlists. Mood
-            focus: <strong>{moodLabel}</strong>.
-          </p>
-          <p className={`fade-in-text ${wordBarsRef.isInView ? 'visible' : ''}`}>
-            For example, we can see a top red cluster made up primarily of religious playlists, while the far-left
-            blue cluster is made up primarily of Latin playlists.
-          </p>
+            <p>
+              Across this million-playlist collection, titles act like tiny notes people leave for themselves and one
+              another: what this music is for, what feeling it should hold, and what moment it belongs to. Seen at
+              scale, those notes become a shared vocabulary of everyday listening.
+            </p>
+            <p>
+              This section reveals that vocabulary in two complementary ways. The cluster visualization on the left groups playlists
+              by naming similarity, surfacing recurring neighborhoods of meaning, from Latin music and religious worship
+              to holiday playlists and throwbacks. The word bars on the right show which terms dominate overall.
+              "Country," "summer," and "chill" lead the list, suggesting that genre, season, and mood are
+              the three primary axes along which people label their listening.
+            </p>
+            <p>
+              What is particularly striking is how consistent this language is across millions of independent
+              creators. There was no large-scale coordination on labeling a playlist "vibes". Nobody agreed to
+              use the word "jams" for songs. Yet, these words appear tens of thousands of times, revealing evidence
+              that playlist titles are more than just a personal label, but a folk taxnomy that describes a
+              shared cultural vocabulary for describing what music does and how it feels.
+            </p>
           <div className={`card language-layout ${wordBarsRef.isInView ? 'visible' : ''}`}>
             <p className="language-read-guide">
-              How to read this view: clusters help you see broader themes; word bars show the strongest naming signals.
+              How to read this view: Clusters help you see broader themes; word bars show the strongest naming signals.
               Use the mood filter to compare how the language shifts from one context to another.
             </p>
             <div className="language-panel language-panel-clusters">
@@ -337,9 +358,9 @@ function App() {
         <div className={`fade-in-text ${moodRef.isInView ? 'visible' : ''}`}>
           <p>
             Music is rarely just background noise. Listeners reach for specific sounds to match or shift
-            how they feel: to push through a tough workout, process a painful breakup, stay focused during finals, or set the
-            mood for a late night drive. Spotify playlists make this behavior visible at a large scale: when
-            a million people independently title their playlists "sad," "hype," or "study," they are
+            how they feel: to push through a tough workout, process a painful breakup, stay focused during a 
+            late-night study session, or set the mood for a long drive. Spotify playlists make this behavior visible at a large scale. 
+            When a million people independently title their playlists "sad," "hype," or "study," they are
             collectively and socially defining what those moods sound like, and formulating their sonic trademark.
           </p>
           <p>
@@ -374,6 +395,14 @@ function App() {
           <h2 className={`fade-in-text ${consensusRef.isInView ? 'visible' : ''}`}>Consensus vs Chaos</h2>
           <div className={`fade-in-text ${consensusRef.isInView ? 'visible' : ''}`}>
             <p>
+              If moods have sonic fingerprints, do they also have canoncial songs? This
+              section explores how consistently differrent moods are defined by comparing how much
+              playlists rely on a shared set of tracks versus a more diverse, individualized selection. 
+              Are there certain songs that are so strongly associated with a mood that they appear in many different 
+              playlists labeled with that mood? Or do people take a more personal, idiosyncratic approach to building 
+              their mood playlists, with less agreement on which songs belong? Current focus: <strong>{moodLabel}</strong>.
+            </p>
+            <p>
               This visualization explores how consistently different Spotify moods are defined by comparing how much
               playlists rely on a shared set of songs versus a more diverse, individualized selection.
               Categories with higher top-track concentration show stronger shared definitions.
@@ -385,6 +414,13 @@ function App() {
               As you move down, moods like <strong>romance</strong>, <strong>workout</strong>, and{' '}
               <strong>road trip</strong> begin to loosen. By the time you reach <strong>sleep</strong> and{' '}
               <strong>study</strong>, the bars are noticeably shorter, revealing more personal variation.
+            </p>
+            <p>
+              This distinction maps onto something intuitive. Hype and sad are social moods
+              — playlists made to share, to party to, or to commiserate over. Study and sleep
+              are private moods — playlists made for yourself, tuned to your own rhythms. The
+              data reflects that difference. Collective moods converge. Personal moods
+              diverge.
             </p>
           </div>
           <div className={`card ${consensusRef.isInView ? 'visible' : ''}`}>
@@ -404,21 +440,26 @@ function App() {
           <h2 className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>The Journey Inside Playlists</h2>
           <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
             Playlists are not just collections of songs; they are often arranged as sequences. A quiet opening, a
-            lift in the middle, a landing at the end. Looking at order helps us see how listeners shape attention,
-            energy, and emotion over time.
+            lift in the middle, a landing at the end. The order of tracks is itself a form of expression: it controls how a mood builds,
+            peaks, and resolves.
           </p>
           <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
-            Each line below traces one real playlist from start to finish for a selected audio feature. Compare
-            examples from <strong>{moodLabel}</strong> to see whether journeys feel gradual, dramatic, or deliberately
-            steady.
+            This section allows you to trace that arc. Each line below follows one real playlist from start to finish,
+            plotting how energy, emotional valence, or tempo shifts across the listening experience.
+            Some playlists build steadily toward a peak. Others start hard and taper off. Many hold steady, with a
+            deliberate flatline that sustains a feeling rather than transforming it.
+            Compare examples from <strong>{moodLabel}</strong> to see whether journies feel gradual, dramatic, or deliberately steady.
           </p>
           <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
-            For example, when you select <strong>Energy</strong>, playlists in moods like <strong>hype</strong> and{' '}
-            <strong>workout</strong> tend to sit higher overall than many <strong>sad</strong> playlists.
+            Workout and hype playlists tend to open strong and stay there. Sad playlists
+            often dip lower as they progress. Study playlists are remarkably consistent —
+            which makes sense for music designed to disappear into the background. These
+            trajectories aren't random. They reflect choices listeners make, consciously or
+            not, about how to shape an experience over time.
           </p>
           <div className={`card ${flowRef.isInView ? 'visible' : ''}`}>
             <p className="flow-read-guide">
-              How to read this view: left-to-right is playlist order, and up-and-down shows the chosen feature level.
+              How to read this view: Left-to-right is playlist order, and up-and-down shows the chosen feature level.
               Switch features to compare different kinds of movement, and hover points for track-level snapshots.
             </p>
             <FlowViz
@@ -441,6 +482,12 @@ function App() {
               to see how your top tracks map onto the mood categories we found across
               the dataset, and where your taste sits relative to the mainstream.
             </p>
+            <p>
+            Note: if your top artists don't appear in our dataset, that's not a bug — it's
+            a finding. The Million Playlist Dataset was collected in 2017, and listeners
+            whose taste skews toward newer or more niche artists will fall outside the
+            cultural snapshot this data represents. That gap is itself part of the story.
+            </p>
           </div>
           <div className="card visible">
             <SpotifyUserViz
@@ -454,11 +501,34 @@ function App() {
 
         <section className="closing" ref={flowRef.ref}>
           <h2 className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>Conclusion</h2>
-          <p className={`fade-in-text ${flowRef.isInView ? 'visible' : ''}`}>
-            Playlist titles and ordering patterns expose a hidden folk taxonomy of music use. Spotify users are
-            collectively annotating songs with context: who we are, what we feel, and what moment we are trying to
-            build.
-          </p>
+            <p>
+            Playlist titles and track ordering patterns expose what might be called a folk
+            taxonomy of music use: a bottom-up classification system built not by music
+            critics or algorithms, but by millions of listeners independently deciding what
+            a song is for.
+            </p>
+            <p>
+            Across a million playlists, clear structures emerge. Moods cluster around
+            recognizable sonic profiles. Some categories converge on shared anthems; others
+            stay stubbornly personal. Playlists are arranged in arcs that reflect how
+            people want to feel over time, not just in a single moment. And the language
+            people use to name these collections, "chill," "vibes," "banger," "feels,"
+            reveals a shared emotional vocabulary that nobody designed, but everyone
+            continually understands.
+            </p>
+            <p>
+            What this dataset cannot fully capture is change. Collected in 2017, it is a
+            snapshot of Spotify culture at a particular moment; before whole genres and
+            artist communities reshaped what mainstream listening looked like. The listeners
+            whose top tracks today fall entirely outside this dataset aren't outliers; they
+            are evidence that the taxonomy is always evolving, always being rewritten by
+            whoever picks up a phone and hits play.
+            </p>
+            <p>
+            Music has always been used to organize emotional life. What Spotify makes
+            visible — and what a million playlists make legible — is just how collectively,
+            and how consistently, we do it.
+            </p>
         </section>
 
         <section className="story-block appendix-section">

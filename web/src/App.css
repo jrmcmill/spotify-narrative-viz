@@ -1933,3 +1933,11 @@
   border-color: var(--sp-light-gray);
   color: #fff;
 }
+
+.story-block p + p {
+  margin-top: 1rem;
+}
+
+.closing p + p {
+  margin-top: 1rem;
+}
