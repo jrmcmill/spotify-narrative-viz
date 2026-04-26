@@ -226,8 +226,13 @@ function App() {
           <p className="eyebrow">SI649 Narrative Visualization Project</p>
           <h1>How We Use Music: The Hidden Language of Spotify Playlists</h1>
           <p className="lede">
-            People do not just listen to songs. They sort music into social rituals: focus, heartbreak, long drives,
-            parties, and late-night spirals. This page maps those rituals from user-made Spotify playlists.
+            People do not just listen to songs, they use music to shape moments in everyday life. On Spotify,
+            playlists become containers for social rituals and emotional states: focus, heartbreak, long drives,
+            workouts, parties, sleepless nights, and everything in between. The titles people choose, the songs they
+            group together, and the order they place them in all reflect how music is used not only for entertainment,
+            but for mood-setting, self-expression, and routine. This project explores those patterns through user-made
+            Spotify playlists, tracing how listeners collectively organize songs into recognizable categories of feeling
+            and experience.
           </p>
           <div className="stat-grid">
             <article className={`stat-card ${heroRef.isInView ? 'visible' : ''}`}>
