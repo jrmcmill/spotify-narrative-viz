@@ -234,7 +234,7 @@ function App() {
             Haley Belardo (hmrichar) | Jillian Terrell (terrellj) | Jonathan McMillan (jrmcmill) | Paris Heard
             (pmheard)
           </p>
-          <h1>How We Use Music: The Hidden Language of Spotify Playlists</h1>
+          <h1>How We Use Music: The Hidden Elements of Spotify Playlists</h1>
           <p className="lede">
             <p>
             What is in a playlist? On the surface, a playlist is just a list of songs. But if you look closely at
